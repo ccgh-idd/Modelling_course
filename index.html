@@ -381,6 +381,14 @@
       background: var(--panel-solid);
     }
 
+    .tile .lecturer-placeholder {
+      display: block;
+      margin-top: 0.28rem;
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-style: italic;
+    }
+
     .tile:hover,
     .tile:focus-visible {
       transform: translateY(-1px);
@@ -550,7 +558,7 @@
 
   <script>
     const sessions = [
-      { title: "Welcome and introductions", content: "This opening session introduces participants, faculty, and the overall structure of the short course. We also provide a practical orientation to Excel and R workflows that will be used throughout the hands-on components." },
+      { title: "Welcome and introductions", speaker: "Stefan Flasche", content: "This opening session introduces participants, faculty, and the overall structure of the short course. We also provide a practical orientation to Excel and R workflows that will be used throughout the hands-on components." },
       { title: "Outbreak response I", content: "We cover key delay distributions used in outbreak analytics, including reporting delays, incubation periods, and serial intervals. The session focuses on how these quantities shape interpretation of surveillance data in real time." },
       { title: "Outbreak response II", content: "We introduce nowcasting, time-varying reproduction numbers, and short-term forecasting for operational decision support. Participants will learn how these methods connect to actionable outbreak response planning." },
       { title: "Practical", content: "Participants implement renewal-equation-based outbreak models and work with tools such as EpiEstim. The practical emphasizes translating incidence data into interpretable transmission metrics." },
@@ -574,22 +582,22 @@
       { title: "Practical", content: "Participants simulate a flu vaccination model to quantify indirect protection effects. The practical links vaccine assumptions to changes in incidence and policy conclusions." },
       { title: "Health Economics", content: "We introduce core health economic metrics including QALY, DALY, and ICER. The session connects epidemiological model outputs to economic decision-making." },
       { title: "Practical", content: "Participants calculate DALYs and run a probabilistic sensitivity analysis. The exercise demonstrates uncertainty-aware evaluation of intervention value." },
-      { title: "Identifying a good model", content: "We use the WHO IVIR framework to assess model quality, transparency, and policy relevance. The session provides a structured approach to judging whether a model is fit for decision support." },
-      { title: "Group work I", content: "Participants form groups, define topics, and start scoping their modeling question. The session sets expectations for outputs and group workflow." },
+      { title: "Identifying a good model", speaker: "Stefan Flasche", content: "We use the WHO IVIR framework to assess model quality, transparency, and policy relevance. The session provides a structured approach to judging whether a model is fit for decision support." },
+      { title: "Group work I", speaker: "Stefan Flasche", content: "Participants form groups, define topics, and start scoping their modeling question. The session sets expectations for outputs and group workflow." },
       { title: "Heterogeneity III: vectors", content: "This session focuses on vector-borne disease modeling with examples from malaria, dengue, and tick-borne infections. We discuss how vector ecology and host exposure shape transmission dynamics." },
       { title: "Practical", content: "tbd" },
       { title: "Climate sensitive models", content: "tbd" },
       { title: "Practical", content: "tbd" },
       { title: "Accesibility of models", content: "We review the Lancet Commission perspective and reporting guidelines for transparent and reproducible modeling. The session emphasizes communication standards that improve trust and uptake." },
-      { title: "Group work II", content: "Groups discuss key insights from assigned readings and refine their project direction. The session supports peer feedback and stronger framing of policy questions." },
+      { title: "Group work II", speaker: "Stefan Flasche", content: "Groups discuss key insights from assigned readings and refine their project direction. The session supports peer feedback and stronger framing of policy questions." },
       { title: "Phylogenetic inference", content: "We introduce the principles of phylogenetic inference and how sequence data can inform transmission modeling. The session highlights where phylogenetics adds value and where limits remain." },
       { title: "Practical", content: "Participants work through a simple phylogenetic modeling example. The exercise focuses on interpretation of outputs for epidemiological use." },
       { title: "AI and the future of models", content: "tbd" },
-      { title: "Group work III", content: "Groups prepare policy-facing presentations for the following day. The session focuses on clear argumentation, assumptions, and uncertainty communication." },
+      { title: "Group work III", speaker: "Stefan Flasche", content: "Groups prepare policy-facing presentations for the following day. The session focuses on clear argumentation, assumptions, and uncertainty communication." },
       { title: "Group presentations I", content: "Groups present their work in a NITAG-style discussion format. Feedback centers on technical quality, relevance, and clarity for decision-makers." },
       { title: "Group presentations II", content: "Additional groups present and discuss findings in a NITAG-style format. The session emphasizes constructive critique and synthesis across projects." },
       { title: "Use and abuse of models", content: "This closing lecture reflects on responsible and irresponsible uses of models in public health. We discuss common pitfalls, misuse in communication, and practical safeguards." },
-      { title: "End of course", content: "The final session closes the course, awards certificates, and summarizes key take-home messages. Participants reflect on next steps for applying methods in their own work." }
+      { title: "End of course", speaker: "Stefan Flasche", content: "The final session closes the course, awards certificates, and summarizes key take-home messages. Participants reflect on next steps for applying methods in their own work." }
     ];
 
     const dates = [
@@ -647,7 +655,8 @@
     function scheduleCell(sessionIndex, slotIndex, weekOffset) {
       const session = sessions[sessionIndex];
       const classes = sessionClass(session, sessionIndex);
-      const sessionCell = `<td><a class="${classes}" href="#session-${sessionIndex + 1}">${session.title}</a></td>`;
+      const speaker = session.speaker || "tbc";
+      const sessionCell = `<td><a class="${classes}" href="#session-${sessionIndex + 1}">${session.title}<span class="lecturer-placeholder">${speaker}</span></a></td>`;
 
       if (slotIndex === 0) return `${sessionCell}${breakCell(breakLetters[weekOffset])}`;
       if (slotIndex === 1) return `${sessionCell}${breakCell(lunchLetters[weekOffset])}`;
