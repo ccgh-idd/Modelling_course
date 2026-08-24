@@ -553,8 +553,9 @@
         <div class="nav-title">Content</div>
         <div class="nav-links">
           <a href="#timetable">Timetable</a>
+          <a href="#faculty">Faculty</a>
         </div>
-        <div class="nav-group">Session links</div>
+        <div class="nav-group">Learning objectives</div>
         <div class="nav-links" id="session-nav"></div>
       </aside>
 
@@ -565,9 +566,15 @@
           <div id="timetable-root"></div>
         </section>
 
+        <!-- Course faculty introduction section. -->
+        <section class="card section-anchor" id="faculty">
+          <h2>Faculty</h2>
+          <div class="session-list" id="faculty-root"></div>
+        </section>
+
         <!-- Detailed session content section. -->
         <section class="card section-anchor" id="sessions">
-          <h2>Content</h2>
+          <h2>Learning objectives</h2>
           <div class="session-list" id="sessions-root"></div>
         </section>
       </main>
@@ -575,13 +582,26 @@
   </div>
 
   <script src="course-data.js"></script>
+  <script src="faculty-data.js"></script>
   <script>
     const { sessions, dates, weekSections, breakLetters, lunchLetters, schedule } = window.courseData;
+    const { faculty } = window.facultyData;
 
-    // DOM references for the three rendered course views.
+    // DOM references for the rendered course views.
     const timetableRoot = document.getElementById("timetable-root");
+    const facultyRoot = document.getElementById("faculty-root");
     const sessionsRoot = document.getElementById("sessions-root");
     const sessionNav = document.getElementById("session-nav");
+
+    // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
+    facultyRoot.innerHTML = faculty.map((member) => {
+      return `
+        <article class="session-card" data-kind="milestone">
+          <h3>${member.name}</h3>
+          <p>${member.bio} <a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">Profile</a></p>
+        </article>
+      `;
+    }).join("");
 
     // Derive the visible session order from the timetable matrix so the left sidebar and
     // content cards follow the same ordering as the rendered timetable.
@@ -702,7 +722,7 @@
 
     // Sidebar active-state logic for the course navigation links.
     const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-    const targets = ["course-description", "timetable", "sessions", ...sessions.map((_, index) => `session-${index + 1}`)];
+    const targets = ["course-description", "timetable", "faculty", "sessions", ...sessions.map((_, index) => `session-${index + 1}`)];
 
     function setActive(targetId) {
       navLinks.forEach((link) => {
