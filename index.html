@@ -464,6 +464,29 @@
       max-width: 82ch;
     }
 
+    /* Faculty cards place the bio text alongside a portrait photo. */
+    .faculty-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .faculty-card .faculty-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .faculty-card .faculty-photo {
+      flex: none;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(20, 32, 51, 0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
     /* Anchor offset so in-page links land cleanly with the sticky header in mind. */
     .section-anchor {
       scroll-margin-top: 18px;
@@ -595,10 +618,14 @@
 
     // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
     facultyRoot.innerHTML = faculty.map((member) => {
+      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" loading="lazy">` : "";
       return `
-        <article class="session-card" data-kind="milestone">
-          <h3>${member.name}</h3>
-          <p>${member.bio} <a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">Profile</a></p>
+        <article class="session-card faculty-card" data-kind="milestone">
+          <div class="faculty-text">
+            <h3>${member.name}</h3>
+            <p>${member.bio} <a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">Profile</a></p>
+          </div>
+          ${photo}
         </article>
       `;
     }).join("");
