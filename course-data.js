@@ -40,7 +40,7 @@ window.courseData = {
     { title: "Group work III", speaker: "Stefan Flasche", content: "Groups prepare policy-facing presentations for the following day. The session focuses on clear argumentation, assumptions, and uncertainty communication." },
     { title: "Group presentations I", speaker: "Stefan Flasche", content: "Groups present their work in a NITAG-style discussion format. Feedback centers on technical quality, relevance, and clarity for decision-makers." },
     { title: "Group presentations II", speaker: "Stefan Flasche", content: "Additional groups present and discuss findings in a NITAG-style format. The session emphasizes constructive critique and synthesis across projects." },
-    { title: "Use and abuse of models", speaker: "Frank S?", content: "This closing lecture reflects on responsible and irresponsible uses of models in public health. We discuss common pitfalls, misuse in communication, and practical safeguards." },
+    { title: "Use and abuse of models", speaker: "Frank Sandmann", content: "This closing lecture reflects on responsible and irresponsible uses of models in public health. We discuss common pitfalls, misuse in communication, and practical safeguards." },
     { title: "End of course & MC exam", speaker: "Stefan Flasche", content: "The final session closes the course, awards certificates, and summarizes key take-home messages. Participants reflect on next steps for applying methods in their own work." }
   ],
 
