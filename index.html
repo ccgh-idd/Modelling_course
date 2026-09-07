@@ -334,6 +334,10 @@
       background: var(--panel-solid);
     }
 
+    .schedule .tile {
+      height: var(--schedule-tile-height, auto);
+    }
+
     .tile .lecturer-placeholder {
       display: block;
       margin-top: 0.28rem;
@@ -461,12 +465,14 @@
       padding: 1rem;
       position: relative;
       min-height: 150px;
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
     }
 
     .faculty-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(238, 249, 247, 0.98), rgba(241, 247, 255, 0.96));
+      border-color: rgba(20, 122, 112, 0.2);
     }
 
     .faculty-card::before {
@@ -1102,7 +1108,8 @@
       const session = sessions[sessionIndex];
       const classes = sessionClass(session, sessionIndex);
       const speaker = session.speaker || "tbc";
-      const sessionCell = `<td><a class="${classes}" href="#session-${sessionIndex + 1}">${session.title}<span class="lecturer-placeholder">${speaker}</span></a></td>`;
+      const timetableSpeaker = speaker.replace(/\s*&\s*/g, " &<br>");
+      const sessionCell = `<td><a class="${classes}" href="#session-${sessionIndex + 1}">${session.title}<span class="lecturer-placeholder">${timetableSpeaker}</span></a></td>`;
 
       if (slotIndex === 0) return `${sessionCell}${breakCell(breakLetters[weekOffset])}`;
       if (slotIndex === 1) return `${sessionCell}${breakCell(lunchLetters[weekOffset])}`;
@@ -1155,10 +1162,20 @@
       `;
     }
 
+    function equalizeScheduleTiles() {
+      const tiles = [...timetableRoot.querySelectorAll(".schedule .tile")];
+      timetableRoot.style.removeProperty("--schedule-tile-height");
+      tiles.forEach((tile) => tile.style.removeProperty("height"));
+      const tallestTile = Math.max(...tiles.map((tile) => tile.getBoundingClientRect().height), 0);
+      if (tallestTile) timetableRoot.style.setProperty("--schedule-tile-height", `${tallestTile}px`);
+    }
+
     // Insert the generated weekly timetable blocks into the page.
     timetableRoot.innerHTML = weekSections.map((week) => {
       return buildTable(week.title, week.rows, week.theme);
     }).join("");
+    equalizeScheduleTiles();
+    window.addEventListener("resize", equalizeScheduleTiles);
 
     // Use the same schedule-derived order for the left-hand navigation and the detailed
     // session list so all views remain consistent.
