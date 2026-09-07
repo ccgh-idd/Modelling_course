@@ -356,7 +356,7 @@
     /* Detailed content list styling for the narrative session descriptions. */
     .session-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       align-items: start;
       gap: 1rem;
       margin-top: 0.5rem;
@@ -459,12 +459,17 @@
       gap: 1rem;
       margin: 0;
       padding: 1rem;
+      min-height: 150px;
       transition: transform 0.16s ease, box-shadow 0.16s ease;
     }
 
     .faculty-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+    }
+
+    .faculty-card::before {
+      display: none;
     }
 
     .faculty-card .faculty-text {
@@ -474,9 +479,10 @@
     .faculty-trigger {
       display: grid;
       width: 100%;
-      grid-template-columns: 96px minmax(0, 1fr);
+      grid-template-columns: 128px minmax(0, 1fr);
       gap: 1.15rem;
       align-items: center;
+      min-height: 150px;
       padding: 0;
       border: 0;
       color: inherit;
@@ -494,17 +500,19 @@
 
     .faculty-trigger .faculty-text {
       grid-column: 2;
+      align-self: center;
       text-align: center;
     }
 
     .faculty-trigger .faculty-photo {
       grid-column: 1;
       grid-row: 1;
+      justify-self: center;
     }
 
     .faculty-photo {
-      width: 96px;
-      height: 96px;
+      width: 128px;
+      height: 128px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid rgba(20, 32, 51, 0.08);
@@ -848,8 +856,22 @@
         padding: 0.65rem;
       }
 
+      .session-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .session-card {
         padding: 0.92rem 0.88rem 0.92rem 0.96rem;
+      }
+
+      .faculty-trigger {
+        grid-template-columns: 96px minmax(0, 1fr);
+        min-height: 112px;
+      }
+
+      .faculty-photo {
+        width: 96px;
+        height: 96px;
       }
 
       .faculty-dialog-content {
