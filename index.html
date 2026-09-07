@@ -177,68 +177,9 @@
     /* Split layout with a sticky sidebar and the main content stream. */
     .layout {
       display: grid;
-      grid-template-columns: var(--nav-width) minmax(0, 1fr);
-      gap: 1.75rem;
+      grid-template-columns: minmax(0, 1fr);
       margin-top: 1.75rem;
       align-items: start;
-    }
-
-    /* Sidebar styling for the course navigation and section links. */
-    .nav-panel {
-      position: sticky;
-      top: 18px;
-      max-height: calc(100vh - 36px);
-      overflow: auto;
-      padding: 0.8rem 0.75rem;
-      border-radius: var(--radius-xl);
-      background: var(--panel);
-      border: 1px solid rgba(20, 32, 51, 0.08);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(14px);
-    }
-
-    .nav-title {
-      font-family: "Iowan Old Style", Georgia, serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin: 0 0 0.55rem;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-group {
-      margin: 0.7rem 0 0.3rem;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .nav-links {
-      display: grid;
-      gap: 0.12rem;
-    }
-
-    .nav-links a {
-      display: block;
-      padding: 0.34rem 0.5rem;
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid transparent;
-      font-size: 0.86rem;
-      line-height: 1.15;
-      transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus-visible,
-    .nav-links a.active {
-      background: rgba(29, 78, 137, 0.09);
-      border-color: rgba(29, 78, 137, 0.14);
-      box-shadow: 0 8px 16px rgba(16, 31, 58, 0.06);
-      transform: translateX(2px);
-      outline: none;
     }
 
     /* Main content area and generic card styling for each major section. */
@@ -303,7 +244,7 @@
       table-layout: fixed;
       border-collapse: separate;
       border-spacing: 0.28rem;
-      font-size: 0.97rem;
+      font-size: 1.04rem;
     }
 
     .schedule th,
@@ -316,7 +257,7 @@
       border-radius: 11px;
       background: rgba(255, 255, 255, 0.82);
       color: #101827;
-      font-size: 0.94rem;
+      font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -380,7 +321,7 @@
     .tile {
       display: block;
       min-height: 4.35rem;
-      padding: 0.7rem 0.75rem;
+      padding: 0.78rem 0.82rem;
       border-radius: 12px;
       text-decoration: none;
       color: var(--ink);
@@ -388,7 +329,7 @@
       box-shadow: 0 6px 14px rgba(18, 43, 77, 0.05);
       transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
       line-height: 1.16;
-      font-size: 0.94rem;
+      font-size: 1rem;
       word-break: break-word;
       background: var(--panel-solid);
     }
@@ -397,7 +338,7 @@
       display: block;
       margin-top: 0.28rem;
       color: var(--ink);
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-style: italic;
     }
 
@@ -530,30 +471,38 @@
       min-width: 0;
     }
 
-    .faculty-card summary {
+    .faculty-trigger {
       display: grid;
+      width: 100%;
       grid-template-columns: 96px minmax(0, 1fr);
       gap: 1.15rem;
-      align-items: start;
+      align-items: center;
+      padding: 0;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      font: inherit;
+      text-align: left;
       cursor: pointer;
-      list-style: none;
     }
 
-    .faculty-card summary::-webkit-details-marker { display: none; }
-
-    .faculty-card summary h3 {
-      margin-bottom: 0.25rem;
+    .faculty-trigger:focus-visible {
+      outline: 3px solid rgba(29, 78, 137, 0.25);
+      outline-offset: 5px;
+      border-radius: 12px;
     }
 
-    .faculty-card .faculty-text {
+    .faculty-trigger .faculty-text {
       grid-column: 2;
-      align-self: center;
       text-align: center;
     }
 
-    .faculty-card .faculty-photo {
+    .faculty-trigger .faculty-photo {
       grid-column: 1;
       grid-row: 1;
+    }
+
+    .faculty-photo {
       width: 96px;
       height: 96px;
       border-radius: 50%;
@@ -562,10 +511,92 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .faculty-card .faculty-bio {
-      margin: 0.7rem 0 0;
+    .faculty-dialog {
+      width: min(680px, calc(100% - 2rem));
+      max-height: min(720px, calc(100dvh - 2rem));
+      padding: 0;
+      border: 1px solid rgba(20, 32, 51, 0.1);
+      border-radius: 24px;
+      color: var(--ink);
+      background: var(--panel-solid);
+      box-shadow: 0 28px 80px rgba(16, 31, 58, 0.24);
+      opacity: 0;
+      transform: scale(0.5) translateY(20px);
+      transform-origin: var(--faculty-origin-x, center) var(--faculty-origin-y, center);
+      transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .faculty-dialog.is-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .faculty-dialog::backdrop {
+      background: rgba(20, 32, 51, 0.42);
+      backdrop-filter: blur(4px);
+      transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
+    }
+
+    .faculty-dialog:not(.is-visible)::backdrop {
+      background: rgba(20, 32, 51, 0);
+      backdrop-filter: blur(0);
+    }
+
+    .faculty-dialog-content {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 1.4rem;
+      padding: 2rem;
+    }
+
+    .faculty-dialog .faculty-photo {
+      width: 140px;
+      height: 140px;
+    }
+
+    .faculty-dialog h2 {
+      margin: 0 2rem 0.35rem 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .faculty-dialog .faculty-bio {
+      grid-column: 1 / -1;
+      margin: 0;
       color: var(--muted);
-      font-size: 0.9rem;
+    }
+
+    .faculty-dialog .topic-list {
+      grid-column: 1 / -1;
+      margin-top: 0;
+    }
+
+    .faculty-dialog .objective-meta {
+      grid-column: 1 / -1;
+      margin: 0;
+    }
+
+    .faculty-dialog-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      border-radius: 50%;
+      color: var(--muted);
+      background: rgba(20, 32, 51, 0.07);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .faculty-dialog-close:hover,
+    .faculty-dialog-close:focus-visible {
+      color: var(--ink);
+      background: rgba(20, 32, 51, 0.14);
+      outline: none;
     }
 
     .faculty-affiliation {
@@ -651,6 +682,109 @@
 
     .objective-card { align-self: start; }
 
+    .objective-trigger {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+      gap: 0.7rem;
+      align-items: start;
+      padding: 0;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .objective-trigger:focus-visible {
+      outline: 3px solid rgba(29, 78, 137, 0.25);
+      outline-offset: 5px;
+      border-radius: 12px;
+    }
+
+    .objective-trigger::after {
+      content: "+";
+      color: var(--blue);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .objective-dialog {
+      width: min(680px, calc(100% - 2rem));
+      max-height: min(720px, calc(100dvh - 2rem));
+      padding: 0;
+      border: 1px solid rgba(20, 32, 51, 0.1);
+      border-radius: 24px;
+      color: var(--ink);
+      background: var(--panel-solid);
+      box-shadow: 0 28px 80px rgba(16, 31, 58, 0.24);
+      opacity: 0;
+      transform: scale(0.5) translateY(20px);
+      transform-origin: var(--objective-origin-x, center) var(--objective-origin-y, center);
+      transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .objective-dialog.is-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .objective-dialog::backdrop {
+      background: rgba(20, 32, 51, 0.42);
+      backdrop-filter: blur(4px);
+      transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
+    }
+
+    .objective-dialog:not(.is-visible)::backdrop {
+      background: rgba(20, 32, 51, 0);
+      backdrop-filter: blur(0);
+    }
+
+    .objective-dialog-content {
+      padding: 2rem;
+    }
+
+    .objective-dialog h2 {
+      margin: 0 2rem 0.45rem 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .objective-dialog .objective-meta {
+      margin: 0 0 1.2rem;
+    }
+
+    .objective-dialog .objective-content {
+      margin: 0;
+      padding: 0;
+      color: var(--muted);
+      max-width: 82ch;
+    }
+
+    .objective-dialog-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      border-radius: 50%;
+      color: var(--muted);
+      background: rgba(20, 32, 51, 0.07);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .objective-dialog-close:hover,
+    .objective-dialog-close:focus-visible {
+      color: var(--ink);
+      background: rgba(20, 32, 51, 0.14);
+      outline: none;
+    }
+
     .objective-meta {
       display: flex;
       flex-wrap: wrap;
@@ -689,15 +823,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-panel {
-        position: relative;
-        top: auto;
-        max-height: none;
-      }
     }
 
     @media (max-width: 720px) {
@@ -719,16 +844,36 @@
         border-radius: 22px;
       }
 
-      .nav-panel {
-        border-radius: 22px;
-      }
-
       .week {
         padding: 0.65rem;
       }
 
       .session-card {
         padding: 0.92rem 0.88rem 0.92rem 0.96rem;
+      }
+
+      .faculty-dialog-content {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 1.5rem;
+      }
+
+      .faculty-dialog .faculty-photo {
+        width: 112px;
+        height: 112px;
+      }
+
+      .faculty-dialog h2,
+      .faculty-dialog .faculty-affiliation {
+        text-align: center;
+      }
+
+      .faculty-dialog .faculty-photo {
+        justify-self: center;
+      }
+
+      .objective-dialog-content {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -751,17 +896,6 @@
     </header>
 
     <div class="layout">
-      <!-- Left sidebar navigation to jump between timeline and session content. -->
-      <aside class="nav-panel" aria-label="Course navigation">
-        <div class="nav-title">Content</div>
-        <div class="nav-links">
-          <a href="#timetable">Timetable</a>
-          <a href="#faculty">Faculty</a>
-        </div>
-        <div class="nav-group">Learning objectives</div>
-        <div class="nav-links" id="session-nav"></div>
-      </aside>
-
       <main class="main-column">
         <!-- Main course timetable section. -->
         <section class="card section-anchor" id="timetable">
@@ -784,6 +918,16 @@
         </section>
       </main>
     </div>
+
+    <dialog class="faculty-dialog" id="faculty-dialog" aria-labelledby="faculty-dialog-name">
+      <button class="faculty-dialog-close" type="button" aria-label="Close faculty profile">&times;</button>
+      <div class="faculty-dialog-content" id="faculty-dialog-content"></div>
+    </dialog>
+
+    <dialog class="objective-dialog" id="objective-dialog" aria-labelledby="objective-dialog-name">
+      <button class="objective-dialog-close" type="button" aria-label="Close learning objective">&times;</button>
+      <div class="objective-dialog-content" id="objective-dialog-content"></div>
+    </dialog>
   </div>
 
   <script src="course-data.js"></script>
@@ -796,28 +940,67 @@
     const timetableRoot = document.getElementById("timetable-root");
     const facultyRoot = document.getElementById("faculty-root");
     const facultyFilters = document.getElementById("faculty-filters");
+    const facultyDialog = document.getElementById("faculty-dialog");
+    const facultyDialogContent = document.getElementById("faculty-dialog-content");
+    const facultyDialogClose = facultyDialog.querySelector(".faculty-dialog-close");
     const sessionsRoot = document.getElementById("sessions-root");
     const sessionFilters = document.getElementById("session-filters");
-    const sessionNav = document.getElementById("session-nav");
+    const objectiveDialog = document.getElementById("objective-dialog");
+    const objectiveDialogContent = document.getElementById("objective-dialog-content");
+    const objectiveDialogClose = objectiveDialog.querySelector(".objective-dialog-close");
 
     // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
-    facultyRoot.innerHTML = faculty.map((member) => {
+    facultyRoot.innerHTML = faculty.map((member, index) => {
       const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" loading="lazy">` : "";
       return `
-        <details class="session-card faculty-card" data-kind="milestone">
-          <summary>
+        <article class="session-card faculty-card" data-kind="milestone">
+          <button class="faculty-trigger" type="button" data-faculty-index="${index}" aria-label="Open profile for ${member.name}">
             <div class="faculty-text">
               <h3>${member.name}</h3>
             </div>
             ${photo}
-          </summary>
-          <div class="faculty-affiliation">${member.affiliation}</div>
-          <p class="faculty-bio">${member.bio}</p>
-          <div class="topic-list">${member.topics.map((topic) => `<span class="topic-tag">${topic}</span>`).join("")}</div>
-          <p class="objective-meta"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile</a></p>
-        </details>
+          </button>
+        </article>
       `;
     }).join("");
+
+    function openFacultyProfile(index, trigger) {
+      const member = faculty[index];
+      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}">` : "";
+      facultyDialogContent.innerHTML = `
+        ${photo}
+        <div>
+          <h2 id="faculty-dialog-name">${member.name}</h2>
+          <div class="faculty-affiliation">${member.affiliation}</div>
+        </div>
+        <p class="faculty-bio">${member.bio}</p>
+        <div class="topic-list">${member.topics.map((topic) => `<span class="topic-tag">${topic}</span>`).join("")}</div>
+        <p class="objective-meta"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile</a></p>
+      `;
+      facultyDialog.classList.remove("is-visible");
+      facultyDialog.showModal();
+      const dialogRect = facultyDialog.getBoundingClientRect();
+      const triggerRect = trigger.getBoundingClientRect();
+      facultyDialog.style.setProperty("--faculty-origin-x", `${triggerRect.left + triggerRect.width / 2 - dialogRect.left}px`);
+      facultyDialog.style.setProperty("--faculty-origin-y", `${triggerRect.top + triggerRect.height / 2 - dialogRect.top}px`);
+      requestAnimationFrame(() => facultyDialog.classList.add("is-visible"));
+    }
+
+    facultyRoot.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-faculty-index]");
+      if (trigger) openFacultyProfile(Number(trigger.dataset.facultyIndex), trigger);
+    });
+
+    facultyDialogClose.addEventListener("click", () => {
+      facultyDialog.classList.remove("is-visible");
+      facultyDialog.close();
+    });
+    facultyDialog.addEventListener("click", (event) => {
+      if (event.target === facultyDialog) {
+        facultyDialog.classList.remove("is-visible");
+        facultyDialog.close();
+      }
+    });
 
     const facultyTopics = ["All topics", ...new Set(faculty.flatMap((member) => member.topics))];
     facultyFilters.innerHTML = `<select class="filter-select" aria-label="Filter faculty by topic">${facultyTopics.map((topic) => `<option value="${topic}">${topic}</option>`).join("")}</select>`;
@@ -928,28 +1111,55 @@
     // session list so all views remain consistent.
     const orderedSessionIndexes = sessionOrderFromSchedule();
 
-    sessionNav.innerHTML = orderedSessionIndexes
-      .map((index) => ({ session: sessions[index], index, kind: sessionKind(sessions[index], index) }))
-      .filter(({ kind }) => kind === "normal")
-      .map(({ session, index }) => `<a href="#session-${index + 1}" data-target="#session-${index + 1}">• ${session.title}</a>`)
-      .join("");
-
     // Render the detailed session cards in the same order as the timetable layout.
     sessionsRoot.innerHTML = orderedSessionIndexes.map((index, position) => {
       const session = sessions[index];
       const kind = sessionKind(session, index);
       const typeLabel = kind === "practical" ? "Practical" : kind === "groupwork" ? "Group work" : "Lecture";
       return `
-        <details class="session-card objective-card" id="session-${index + 1}" data-kind="${kind}" data-filter-kind="${typeLabel}">
-          <summary>
+        <article class="session-card objective-card" id="session-${index + 1}" data-kind="${kind}" data-filter-kind="${typeLabel}">
+          <button class="objective-trigger" type="button" data-objective-index="${index}" aria-label="Open learning objective: ${session.title}">
             <span class="objective-number">${String(position + 1).padStart(2, "0")}</span>
             <span class="objective-heading"><h3>${session.title}</h3><span class="objective-kicker">${typeLabel} · ${session.speaker || "Faculty TBC"}</span></span>
-          </summary>
-          <div class="objective-meta"><span class="session-type">${typeLabel}</span><span class="session-type">${session.speaker || "Faculty TBC"}</span></div>
-          <p>${session.content}</p>
-        </details>
+          </button>
+        </article>
       `;
     }).join("");
+
+    function openObjective(index, trigger) {
+      const session = sessions[index];
+      const kind = sessionKind(session, index);
+      const typeLabel = kind === "practical" ? "Practical" : kind === "groupwork" ? "Group work" : "Lecture";
+      objectiveDialogContent.innerHTML = `
+        <h2 id="objective-dialog-name">${session.title}</h2>
+        <div class="objective-meta"><span class="session-type">${typeLabel}</span><span class="session-type">${session.speaker || "Faculty TBC"}</span></div>
+        <p class="objective-content">${session.content}</p>
+      `;
+      objectiveDialog.classList.remove("is-visible");
+      objectiveDialog.showModal();
+      const dialogRect = objectiveDialog.getBoundingClientRect();
+      const triggerRect = trigger.getBoundingClientRect();
+      objectiveDialog.style.setProperty("--objective-origin-x", `${triggerRect.left + triggerRect.width / 2 - dialogRect.left}px`);
+      objectiveDialog.style.setProperty("--objective-origin-y", `${triggerRect.top + triggerRect.height / 2 - dialogRect.top}px`);
+      requestAnimationFrame(() => objectiveDialog.classList.add("is-visible"));
+    }
+
+    sessionsRoot.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-objective-index]");
+      if (trigger) openObjective(Number(trigger.dataset.objectiveIndex), trigger);
+    });
+
+    objectiveDialogClose.addEventListener("click", () => {
+      objectiveDialog.classList.remove("is-visible");
+      objectiveDialog.close();
+    });
+
+    objectiveDialog.addEventListener("click", (event) => {
+      if (event.target === objectiveDialog) {
+        objectiveDialog.classList.remove("is-visible");
+        objectiveDialog.close();
+      }
+    });
 
     const sessionTypes = ["All sessions", "Lecture", "Practical", "Group work"];
     sessionFilters.innerHTML = sessionTypes.map((type, index) => `<button class="filter-button${index === 0 ? " active" : ""}" type="button" data-session-filter="${type}">${type}</button>`).join("");
@@ -964,33 +1174,6 @@
       });
     });
 
-    // Sidebar active-state logic for the course navigation links.
-    const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-    const targets = ["course-description", "timetable", "faculty", "sessions", ...sessions.map((_, index) => `session-${index + 1}`)];
-
-    function setActive(targetId) {
-      navLinks.forEach((link) => {
-        link.classList.toggle("active", link.getAttribute("href") === `#${targetId}`);
-      });
-    }
-
-    // Keep the sidebar aligned with the section currently most visible.
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting);
-      if (!visible.length) return;
-      visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      setActive(visible[0].target.id);
-    }, {
-      rootMargin: "-30% 0px -58% 0px",
-      threshold: [0.12, 0.2, 0.3, 0.45, 0.6]
-    });
-
-    targets.forEach((targetId) => {
-      const element = document.getElementById(targetId);
-      if (element) observer.observe(element);
-    });
-
-    setActive("course-description");
   </script>
 </body>
 </html>
