@@ -965,7 +965,6 @@
         <!-- Course faculty introduction section. -->
         <section class="card section-anchor" id="faculty">
           <h2>Faculty</h2>
-          <div class="section-tools" id="faculty-filters" aria-label="Filter faculty by topic"></div>
           <div class="faculty-grid" id="faculty-root"></div>
         </section>
 
@@ -998,7 +997,6 @@
     // DOM references for the rendered course views.
     const timetableRoot = document.getElementById("timetable-root");
     const facultyRoot = document.getElementById("faculty-root");
-    const facultyFilters = document.getElementById("faculty-filters");
     const facultyDialog = document.getElementById("faculty-dialog");
     const facultyDialogContent = document.getElementById("faculty-dialog-content");
     const facultyDialogClose = facultyDialog.querySelector(".faculty-dialog-close");
@@ -1059,16 +1057,6 @@
         facultyDialog.classList.remove("is-visible");
         facultyDialog.close();
       }
-    });
-
-    const facultyTopics = ["All topics", ...new Set(faculty.flatMap((member) => member.topics))];
-    facultyFilters.innerHTML = `<select class="filter-select" aria-label="Filter faculty by topic">${facultyTopics.map((topic) => `<option value="${topic}">${topic}</option>`).join("")}</select>`;
-
-    facultyFilters.addEventListener("change", (event) => {
-      const topic = event.target.value;
-      facultyRoot.querySelectorAll(".faculty-card").forEach((card, index) => {
-        card.classList.toggle("hidden-by-filter", topic !== "All topics" && !faculty[index].topics.includes(topic));
-      });
     });
 
     // Derive the visible session order from the timetable matrix so the left sidebar and
@@ -1232,7 +1220,7 @@
     });
 
     const sessionTypes = ["All sessions", "Lecture", "Practical", "Group work"];
-    sessionFilters.innerHTML = sessionTypes.map((type, index) => `<button class="filter-button${index === 0 ? " active" : ""}" type="button" data-session-filter="${type}">${type}</button>`).join("");
+    sessionFilters.innerHTML = `<span class="filter-label">Session type: </span>${sessionTypes.map((type, index) => `<button class="filter-button${index === 0 ? " active" : ""}" type="button" data-session-filter="${type}">${type}</button>`).join("")}`;
 
     sessionFilters.addEventListener("click", (event) => {
       const button = event.target.closest("[data-session-filter]");
