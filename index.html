@@ -422,7 +422,7 @@
       content: "";
       position: absolute;
       inset: 1rem auto 1rem 0.55rem;
-      width: 4px;
+      width: 8px;
       border-radius: 999px;
       background: linear-gradient(180deg, rgba(29, 78, 137, 0.95), rgba(29, 78, 137, 0.2));
     }
@@ -459,6 +459,7 @@
       gap: 1rem;
       margin: 0;
       padding: 1rem;
+      position: relative;
       min-height: 150px;
       transition: transform 0.16s ease, box-shadow 0.16s ease;
     }
@@ -657,12 +658,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2rem;
-      height: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
       border-radius: 10px;
       color: var(--blue);
       background: var(--blue-soft);
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       font-weight: 800;
       letter-spacing: 0.04em;
     }
@@ -688,13 +689,40 @@
       background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(255, 255, 255, 0.98));
     }
 
-    .objective-card { align-self: start; }
+    .objective-card {
+      align-self: start;
+      padding-left: 1.9rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .objective-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .objective-card[data-kind="practical"]:hover {
+      border-color: rgba(20, 122, 72, 0.62);
+      background: rgba(232, 247, 237, 0.9);
+      box-shadow: 0 16px 34px rgba(20, 122, 72, 0.24);
+    }
+
+    .objective-card[data-kind="groupwork"]:hover {
+      border-color: rgba(138, 90, 0, 0.62);
+      background: rgba(255, 242, 217, 0.9);
+      box-shadow: 0 16px 34px rgba(138, 90, 0, 0.24);
+    }
+
+    .objective-card[data-kind="normal"]:hover,
+    .objective-card[data-kind="milestone"]:hover {
+      border-color: rgba(29, 78, 137, 0.56);
+      background: rgba(231, 240, 255, 0.9);
+      box-shadow: 0 16px 34px rgba(29, 78, 137, 0.24);
+    }
 
     .objective-trigger {
       display: grid;
       width: 100%;
-      grid-template-columns: 2.2rem minmax(0, 1fr) auto;
-      gap: 0.7rem;
+      grid-template-columns: 1fr;
+      gap: 0;
       align-items: start;
       padding: 0;
       border: 0;
@@ -711,11 +739,10 @@
       border-radius: 12px;
     }
 
-    .objective-trigger::after {
-      content: "+";
-      color: var(--blue);
-      font-size: 1.25rem;
-      line-height: 1;
+    .objective-trigger .objective-number {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
     }
 
     .objective-dialog {
@@ -862,6 +889,10 @@
 
       .session-card {
         padding: 0.92rem 0.88rem 0.92rem 0.96rem;
+      }
+
+      .objective-card {
+        padding-left: 1.7rem;
       }
 
       .faculty-trigger {
@@ -1142,7 +1173,7 @@
         <article class="session-card objective-card" id="session-${index + 1}" data-kind="${kind}" data-filter-kind="${typeLabel}">
           <button class="objective-trigger" type="button" data-objective-index="${index}" aria-label="Open learning objective: ${session.title}">
             <span class="objective-number">${String(position + 1).padStart(2, "0")}</span>
-            <span class="objective-heading"><h3>${session.title}</h3><span class="objective-kicker">${typeLabel} · ${session.speaker || "Faculty TBC"}</span></span>
+            <span class="objective-heading"><h3>${session.title}</h3><span class="objective-kicker">Session type: ${typeLabel}<br>Instructor: ${session.speaker || "Faculty TBC"}<br>Room: tbc</span></span>
           </button>
         </article>
       `;
