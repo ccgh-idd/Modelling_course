@@ -415,8 +415,56 @@
     /* Detailed content list styling for the narrative session descriptions. */
     .session-list {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      align-items: start;
       gap: 1rem;
       margin-top: 0.5rem;
+    }
+
+    .section-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin: 0 0 1rem;
+    }
+
+    .filter-button {
+      border: 1px solid rgba(29, 78, 137, 0.16);
+      border-radius: 999px;
+      padding: 0.42rem 0.72rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+      font: inherit;
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+    }
+
+    .filter-button:hover,
+    .filter-button:focus-visible,
+    .filter-button.active {
+      color: var(--blue);
+      background: var(--blue-soft);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .filter-select {
+      min-width: 13rem;
+      border: 1px solid rgba(29, 78, 137, 0.16);
+      border-radius: 999px;
+      padding: 0.48rem 2rem 0.48rem 0.78rem;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font: inherit;
+      font-size: 0.84rem;
+    }
+
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.85rem;
     }
 
     .session-card {
@@ -466,26 +514,158 @@
 
     /* Faculty cards place the bio text alongside a portrait photo. */
     .faculty-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: block;
       gap: 1rem;
+      margin: 0;
+      padding: 1rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .faculty-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
     }
 
     .faculty-card .faculty-text {
-      flex: 1;
       min-width: 0;
     }
 
+    .faculty-card summary {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 1.15rem;
+      align-items: start;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faculty-card summary::-webkit-details-marker { display: none; }
+
+    .faculty-card summary h3 {
+      margin-bottom: 0.25rem;
+    }
+
+    .faculty-card .faculty-text {
+      grid-column: 2;
+      align-self: center;
+      text-align: center;
+    }
+
     .faculty-card .faculty-photo {
-      flex: none;
-      width: 88px;
-      height: 88px;
+      grid-column: 1;
+      grid-row: 1;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid rgba(20, 32, 51, 0.08);
       box-shadow: var(--shadow-soft);
     }
+
+    .faculty-card .faculty-bio {
+      margin: 0.7rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .faculty-affiliation {
+      margin: -0.2rem 0 0.45rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.65rem;
+    }
+
+    .topic-tag,
+    .session-type {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 0.18rem 0.5rem;
+      color: var(--muted);
+      background: rgba(29, 78, 137, 0.07);
+      font-size: 0.72rem;
+      line-height: 1.2;
+    }
+
+    .objective-card summary {
+      display: grid;
+      grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+      gap: 0.7rem;
+      align-items: start;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .objective-card summary::-webkit-details-marker { display: none; }
+
+    .objective-card summary::after {
+      content: "+";
+      color: var(--blue);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .objective-card[open] summary::after { content: "-"; }
+
+    .objective-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 10px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .objective-heading {
+      min-width: 0;
+    }
+
+    .objective-heading h3 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .objective-kicker {
+      display: block;
+      margin-top: 0.22rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .objective-card[open] {
+      border-color: rgba(29, 78, 137, 0.2);
+      background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(255, 255, 255, 0.98));
+    }
+
+    .objective-card { align-self: start; }
+
+    .objective-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin: 0.65rem 0 0 0.7rem;
+    }
+
+    .objective-meta a {
+      color: var(--blue);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .hidden-by-filter { display: none; }
 
     /* Anchor offset so in-page links land cleanly with the sticky header in mind. */
     .section-anchor {
@@ -592,12 +772,14 @@
         <!-- Course faculty introduction section. -->
         <section class="card section-anchor" id="faculty">
           <h2>Faculty</h2>
-          <div class="session-list" id="faculty-root"></div>
+          <div class="section-tools" id="faculty-filters" aria-label="Filter faculty by topic"></div>
+          <div class="faculty-grid" id="faculty-root"></div>
         </section>
 
         <!-- Detailed session content section. -->
         <section class="card section-anchor" id="sessions">
           <h2>Learning objectives</h2>
+          <div class="section-tools" id="session-filters" aria-label="Filter learning objectives by session type"></div>
           <div class="session-list" id="sessions-root"></div>
         </section>
       </main>
@@ -613,22 +795,39 @@
     // DOM references for the rendered course views.
     const timetableRoot = document.getElementById("timetable-root");
     const facultyRoot = document.getElementById("faculty-root");
+    const facultyFilters = document.getElementById("faculty-filters");
     const sessionsRoot = document.getElementById("sessions-root");
+    const sessionFilters = document.getElementById("session-filters");
     const sessionNav = document.getElementById("session-nav");
 
     // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
     facultyRoot.innerHTML = faculty.map((member) => {
       const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" loading="lazy">` : "";
       return `
-        <article class="session-card faculty-card" data-kind="milestone">
-          <div class="faculty-text">
-            <h3>${member.name}</h3>
-            <p>${member.bio} <a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">Profile</a></p>
-          </div>
-          ${photo}
-        </article>
+        <details class="session-card faculty-card" data-kind="milestone">
+          <summary>
+            <div class="faculty-text">
+              <h3>${member.name}</h3>
+            </div>
+            ${photo}
+          </summary>
+          <div class="faculty-affiliation">${member.affiliation}</div>
+          <p class="faculty-bio">${member.bio}</p>
+          <div class="topic-list">${member.topics.map((topic) => `<span class="topic-tag">${topic}</span>`).join("")}</div>
+          <p class="objective-meta"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile</a></p>
+        </details>
       `;
     }).join("");
+
+    const facultyTopics = ["All topics", ...new Set(faculty.flatMap((member) => member.topics))];
+    facultyFilters.innerHTML = `<select class="filter-select" aria-label="Filter faculty by topic">${facultyTopics.map((topic) => `<option value="${topic}">${topic}</option>`).join("")}</select>`;
+
+    facultyFilters.addEventListener("change", (event) => {
+      const topic = event.target.value;
+      facultyRoot.querySelectorAll(".faculty-card").forEach((card, index) => {
+        card.classList.toggle("hidden-by-filter", topic !== "All topics" && !faculty[index].topics.includes(topic));
+      });
+    });
 
     // Derive the visible session order from the timetable matrix so the left sidebar and
     // content cards follow the same ordering as the rendered timetable.
@@ -736,16 +935,34 @@
       .join("");
 
     // Render the detailed session cards in the same order as the timetable layout.
-    sessionsRoot.innerHTML = orderedSessionIndexes.map((index) => {
+    sessionsRoot.innerHTML = orderedSessionIndexes.map((index, position) => {
       const session = sessions[index];
       const kind = sessionKind(session, index);
+      const typeLabel = kind === "practical" ? "Practical" : kind === "groupwork" ? "Group work" : "Lecture";
       return `
-        <article class="session-card" id="session-${index + 1}" data-kind="${kind}">
-          <h3>${session.title}</h3>
+        <details class="session-card objective-card" id="session-${index + 1}" data-kind="${kind}" data-filter-kind="${typeLabel}">
+          <summary>
+            <span class="objective-number">${String(position + 1).padStart(2, "0")}</span>
+            <span class="objective-heading"><h3>${session.title}</h3><span class="objective-kicker">${typeLabel} · ${session.speaker || "Faculty TBC"}</span></span>
+          </summary>
+          <div class="objective-meta"><span class="session-type">${typeLabel}</span><span class="session-type">${session.speaker || "Faculty TBC"}</span></div>
           <p>${session.content}</p>
-        </article>
+        </details>
       `;
     }).join("");
+
+    const sessionTypes = ["All sessions", "Lecture", "Practical", "Group work"];
+    sessionFilters.innerHTML = sessionTypes.map((type, index) => `<button class="filter-button${index === 0 ? " active" : ""}" type="button" data-session-filter="${type}">${type}</button>`).join("");
+
+    sessionFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-session-filter]");
+      if (!button) return;
+      const type = button.dataset.sessionFilter;
+      sessionFilters.querySelectorAll(".filter-button").forEach((item) => item.classList.toggle("active", item === button));
+      sessionsRoot.querySelectorAll(".objective-card").forEach((card) => {
+        card.classList.toggle("hidden-by-filter", type !== "All sessions" && card.dataset.filterKind !== type);
+      });
+    });
 
     // Sidebar active-state logic for the course navigation links.
     const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
