@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vaccine Models Practical - Interactive Worksheet</title>
+  <style>
+    /* Core visual theme and design tokens used across the course page. */
+    :root {
+      --bg: #f3f6fb;
+      --bg-2: #eef4ff;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-solid: #ffffff;
+      --ink: #142033;
+      --muted: #5c6b82;
+      --blue: #1d4e89;
+      --blue-soft: #e7f0ff;
+      --gold: #8a5a00;
+      --gold-soft: #fff2d9;
+      --green-soft: #e8f7ed;
+      --tile-border: rgba(20, 32, 51, 0.08);
+      --shadow: 0 22px 60px rgba(16, 31, 58, 0.12);
+      --shadow-soft: 0 10px 24px rgba(16, 31, 58, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(29, 78, 137, 0.14), transparent 34%),
+        radial-gradient(circle at 86% 8%, rgba(138, 90, 0, 0.11), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #eef3f9 100%);
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0));
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 28px 22px 48px;
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin: 0 0 0.5rem 0;
+    }
+
+    h2 {
+      color: var(--blue);
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem 0;
+    }
+
+    h3 {
+      color: var(--blue);
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.75rem 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      margin: 0.5rem 0 2rem 0;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--tile-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+    }
+
+    .card-highlight {
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(245,248,255,0.82));
+      border: 1px solid rgba(29, 78, 137, 0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .info-box {
+      background: var(--blue-soft);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .warning-box {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .success-box {
+      background: var(--green-soft);
+      border-left: 4px solid #2d8659;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .code-block {
+      background: #f5f5f5;
+      border: 1px solid var(--tile-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block pre {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .copy-button:hover {
+      background: #15385f;
+    }
+
+    button {
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 10px 10px 10px 0;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #15385f;
+    }
+
+    button.secondary {
+      background: var(--gold);
+    }
+
+    button.secondary:hover {
+      background: #6b4600;
+    }
+
+    .question-box {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .question-box strong {
+      color: var(--gold);
+    }
+
+    textarea, input {
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      padding: 10px;
+      border: 1px solid var(--tile-border);
+      border-radius: var(--radius-md);
+      background: var(--panel-solid);
+      color: var(--ink);
+    }
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0;
+      background: var(--panel-solid);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    th, td {
+      border: 1px solid var(--tile-border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: var(--bg-2);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    ol, ul {
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    ol li, ul li {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Vaccine Models Practical Session</h1>
+    <div class="subtitle">Interactive Worksheet | Instructors: Stefan Flasche & Augustine Masinde</div>
+    
+    <div class="card card-highlight">
+      <label style="font-weight: 600; display: block; margin-bottom: 8px;">Your Name(s):</label>
+      <input type="text" placeholder="Enter your name(s)" />
+    </div>
+
+    <div class="info-box">
+      <strong>ℹ️ About this practical:</strong> We will use Google Colab (a free, cloud-based notebook environment) to run R code. No installation needed—just open Colab in a new tab and follow the instructions below.
+    </div>
+
+    <div class="card">
+      <h2>Learning Objectives</h2>
+      <p>By the end of this practical, you will be able to:</p>
+      <ul>
+        <li>Explore how vaccination can be integrated into a model</li>
+        <li>Estimate the effect of coverage and indirect protection on vaccine impact</li>
+        <li>Compare alternative vaccination strategies and explore their sensitivity to key model assumptions</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>1. Model Overview</h2>
+      <p>We will use a simple <strong>SVIR compartmental model</strong> with these states:</p>
+      <ul>
+        <li><strong>S (Susceptible):</strong> Unvaccinated individuals at risk of infection</li>
+        <li><strong>V (Vaccinated):</strong> Vaccinated individuals with reduced susceptibility</li>
+        <li><strong>I (Infected):</strong> Currently infected individuals</li>
+        <li><strong>R (Recovered):</strong> Individuals with immunity (either from vaccination or prior infection)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2. Running the Code in Google Colab</h2>
+      
+      <h3>Step-by-step instructions:</h3>
+      <ol>
+        <li><strong>Open Google Colab:</strong> <a href="https://colab.research.google.com/" target="_blank">Click here to open Google Colab</a></li>
+        <li><strong>Create a new notebook:</strong> Click "New notebook" in the left panel</li>
+        <li><strong>Set up R support:</strong> In the first cell, run this code:
+          <div class="code-block">
+            <pre>!apt-get update
+!apt-get install -y r-base</pre>
+          </div>
+          Then click the run button (▶)
+        </li>
+        <li><strong>Add a new cell:</strong> Click "+ Code" to add a new cell</li>
+        <li><strong>Paste the model code:</strong> Copy the code below and paste it into the new cell</li>
+        <li><strong>Run the model:</strong> Click the run button (▶) and see your results!</li>
+      </ol>
+
+      <h3>Simple SVIR Model</h3>
+      <div class="code-block">
+        <button class="copy-button" onclick="copyCode(event)">Copy Code</button>
+        <pre id="model-code"># ===== PARAMETERS (modify these to explore scenarios) =====
+N <- 10000          # Total population
+initial_infected <- 10
+beta <- 0.5         # Transmission rate
+gamma <- 1/5        # Recovery rate (1/infectious period in days)
+vax_coverage <- 0.5 # Vaccination coverage (0-1)
+vax_efficacy <- 0.8 # Vaccine efficacy against infection (0-1)
+
+# Time parameters
+days <- 365
+dt <- 0.1
+num_steps <- days / dt
+
+# ===== INITIALIZE POPULATIONS =====
+S <- N * (1 - vax_coverage)
+V <- N * vax_coverage
+I <- initial_infected
+R <- N - S - V - I
+
+# Storage for results
+time_series <- numeric(num_steps)
+s_history <- numeric(num_steps)
+v_history <- numeric(num_steps)
+i_history <- numeric(num_steps)
+r_history <- numeric(num_steps)
+
+# ===== RUN MODEL =====
+for (step in 1:num_steps) {
+  FOI <- beta * I / N
+  
+  S_to_I <- FOI * S * dt
+  V_to_I <- FOI * (1 - vax_efficacy) * V * dt
+  I_to_R <- gamma * I * dt
+  
+  S <- S - S_to_I
+  V <- V - V_to_I
+  I <- I + S_to_I + V_to_I - I_to_R
+  R <- R + I_to_R
+  
+  time_series[step] <- step * dt
+  s_history[step] <- S
+  v_history[step] <- V
+  i_history[step] <- I
+  r_history[step] <- R
+}
+
+# ===== PLOT RESULTS =====
+plot(time_series, s_history, type="l", lwd=2, col="blue", 
+     xlab="Time (days)", ylab="Number of individuals",
+     main="SVIR Model with Vaccination",
+     ylim=c(0, max(s_history, v_history, i_history, r_history)))
+lines(time_series, v_history, lwd=2, col="green")
+lines(time_series, i_history, lwd=2, col="red")
+lines(time_series, r_history, lwd=2, col="purple")
+legend("right", legend=c("Susceptible", "Vaccinated", "Infected", "Recovered"),
+       col=c("blue", "green", "red", "purple"), lwd=2)
+
+# ===== RESULTS =====
+total_infections <- R[num_steps] + I[num_steps]
+peak_infections <- max(i_history)
+attack_rate <- (total_infections / N) * 100
+
+cat("\n=== RESULTS ===\n")
+cat("Total infections:", round(total_infections, 0), "\n")
+cat("Peak infections:", round(peak_infections, 0), "\n")
+cat("Attack rate:", round(attack_rate, 2), "%\n")</pre>
+      </div>
+
+      <button onclick="window.open('https://colab.research.google.com/', '_blank')">Open Google Colab →</button>
+    </div>
+
+    <div class="card">
+      <h2>3. Questions & Analysis</h2>
+
+      <div class="question-box">
+        <strong>Question 1:</strong> What parameters do you need to define to specify vaccine protection in a model? (Think about coverage, efficacy, and waning.)
+      </div>
+      <textarea placeholder="Your answer..."></textarea>
+
+      <h3>Scenario 1: Vaccination Coverage Effects</h3>
+      <p>Modify <code>vax_coverage</code> and run the model for: 0%, 25%, 50%, 75%, 100%</p>
+      
+      <table>
+        <tr>
+          <th>Coverage (%)</th>
+          <th>Total Infections</th>
+          <th>Peak Infections</th>
+          <th>Attack Rate (%)</th>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>50</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>75</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+      </table>
+
+      <div class="question-box">
+        <strong>Question 2:</strong> How does increasing vaccination coverage affect total infections? At what coverage level do you observe substantial protection?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 100px;"></textarea>
+
+      <div class="question-box">
+        <strong>Question 3:</strong> Do you observe indirect protection effects (protection in unvaccinated individuals)? At what coverage level?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 100px;"></textarea>
+
+      <h3>Scenario 2: Vaccine Efficacy Sensitivity</h3>
+      <p>Keep <code>vax_coverage = 0.5</code>, modify <code>vax_efficacy</code>: 60%, 80%, 95%</p>
+
+      <table>
+        <tr>
+          <th>Efficacy (%)</th>
+          <th>Total Infections</th>
+          <th>% Reduction vs No Vaccine</th>
+        </tr>
+        <tr>
+          <td>60</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>80</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>95</td>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+      </table>
+
+      <div class="question-box">
+        <strong>Question 4:</strong> How sensitive are impact estimates to vaccine efficacy? Which scenarios differ most?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 100px;"></textarea>
+
+      <h3>Scenario 3: Strategy Comparison</h3>
+      <div class="question-box">
+        <strong>Question 5:</strong> Compare:
+        <ul>
+          <li><strong>Strategy A:</strong> Vaccinate all children at age 1 (coverage=80%, efficacy=85%)</li>
+          <li><strong>Strategy B:</strong> Vaccinate 60% at age 1 + 40% as teenagers (total 100%)</li>
+        </ul>
+        Which provides more protection? What are the trade-offs?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 120px;"></textarea>
+
+      <h3>Sensitivity Analysis</h3>
+      <div class="question-box">
+        <strong>Question 6:</strong> Vary transmission rate (beta). How does R0 (beta/gamma) affect vaccine impact?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 100px;"></textarea>
+
+      <div class="question-box">
+        <strong>Question 7:</strong> Which parameter has the greatest influence on vaccine impact? How would you communicate this uncertainty to policymakers?
+      </div>
+      <textarea placeholder="Your answer..." style="min-height: 100px;"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>4. Summary</h2>
+
+      <h3>Key Findings</h3>
+      <textarea placeholder="Summarize the most important results..." style="min-height: 100px;"></textarea>
+
+      <h3>Assumptions & Limitations</h3>
+      <textarea placeholder="List key assumptions and their limitations..." style="min-height: 100px;"></textarea>
+
+      <h3>Policy Recommendations</h3>
+      <textarea placeholder="Based on your analyses, what are your recommendations?" style="min-height: 100px;"></textarea>
+    </div>
+
+  </div>
+
+  <script>
+    function copyCode(event) {
+      const codeElement = document.getElementById('model-code');
+      const text = codeElement.textContent;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }).catch(() => {
+        alert('Failed to copy. Please copy manually.');
+      });
+    }
+  </script>
+
+</body>
+</html>

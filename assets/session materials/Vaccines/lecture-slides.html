@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaccine Models in Mathematical Epidemiology</title>
+  <style>
+    :root {
+      --blue: #1d4e89;
+      --gold: #8a5a00;
+      --blue-soft: #e7f0ff;
+      --gold-soft: #fff2d9;
+      --green-soft: #e8f7ed;
+      --ink: #142033;
+      --muted: #5c6b82;
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow: 0 22px 60px rgba(16,31,58,0.12);
+      --shadow-soft: 0 10px 24px rgba(16,31,58,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.55;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f8 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .slide-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      color: var(--blue);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .header p {
+      font-size: 1.1em;
+      color: var(--muted);
+    }
+
+    .slides-wrapper {
+      perspective: 1000px;
+    }
+
+    .slide {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 60px 50px;
+      margin-bottom: 30px;
+      display: none;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide h2 {
+      font-size: 2.2em;
+      color: var(--blue);
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .slide h3 {
+      font-size: 1.5em;
+      color: var(--gold);
+      margin-top: 20px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .slide p, .slide li {
+      font-size: 1.15em;
+      color: var(--ink);
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .slide ul {
+      margin-left: 30px;
+      list-style: none;
+    }
+
+    .slide li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .slide li:before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    .slide.title-slide {
+      background: linear-gradient(135deg, var(--blue) 0%, #0d2d5c 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .slide.title-slide h2 {
+      color: white;
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    .slide.title-slide p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.3em;
+    }
+
+    .example-box {
+      background: var(--blue-soft);
+      border-left: 5px solid var(--blue);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: var(--radius-md);
+    }
+
+    .example-box strong {
+      color: var(--blue);
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.05em;
+    }
+
+    .highlight-box {
+      background: var(--gold-soft);
+      border-left: 5px solid var(--gold);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: var(--radius-md);
+    }
+
+    .highlight-box strong {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.05em;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .concept-box {
+      background: var(--blue-soft);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--blue);
+    }
+
+    .concept-box h4 {
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: var(--radius-md);
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    button:hover {
+      background: #15385f;
+    }
+
+    button:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .slide-counter {
+      font-size: 1.1em;
+      color: var(--muted);
+      font-weight: 600;
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #ddd;
+      margin-bottom: 30px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 40px 30px;
+        min-height: 500px;
+      }
+
+      .slide h2 {
+        font-size: 1.8em;
+      }
+
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="header">
+      <h1>Vaccine Models in Mathematical Epidemiology</h1>
+      <p>Understanding vaccine protection, waning, and population effects</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="slides-wrapper">
+      <!-- Slide 1: Title -->
+      <div class="slide active title-slide">
+        <h2>Vaccine Models in Mathematical Epidemiology</h2>
+        <p>Conceptualizing vaccine protection and its population-level impacts</p>
+        <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
+      </div>
+
+      <!-- Slide 2: Learning Objectives -->
+      <div class="slide">
+        <h2>Learning Objectives</h2>
+        <p>By the end of this lecture, you will understand:</p>
+        <ul>
+          <li>The differences between all-or-nothing and leaky vaccine protection</li>
+          <li>How to distinguish vaccine protection against infection vs. disease</li>
+          <li>Mechanisms and modeling of waning vaccine protection</li>
+          <li>The drivers of indirect protection from vaccination</li>
+          <li>Other important indirect effects of vaccination programs</li>
+        </ul>
+      </div>
+
+      <!-- Slide 3: Why Model Vaccination? -->
+      <div class="slide">
+        <h2>Why Model Vaccination?</h2>
+        <p>Vaccination decisions require understanding:</p>
+        <ul>
+          <li><strong>Direct effects:</strong> How does vaccination protect vaccinated individuals?</li>
+          <li><strong>Indirect effects:</strong> How does vaccination of some protect others?</li>
+          <li><strong>Long-term dynamics:</strong> How does waning immunity affect control?</li>
+          <li><strong>Program design:</strong> Which age groups and coverage levels achieve control goals?</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Key insight:</strong> The population impact of vaccination depends critically on <em>how</em> we model vaccine protection, not just <em>that</em> there is protection.
+        </div>
+      </div>
+
+      <!-- Slide 4: All-or-Nothing vs. Leaky Protection -->
+      <div class="slide">
+        <h2>All-or-Nothing vs. Leaky Vaccine Protection</h2>
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h4>All-or-Nothing</h4>
+            <p>A fraction of vaccinated individuals are fully protected (immune), others get no benefit.</p>
+            <p><em>Example:</em> Measles vaccine: ~95% fully immune, ~5% not immune.</p>
+          </div>
+          <div class="concept-box">
+            <h4>Leaky Protection</h4>
+            <p>All vaccinated individuals have reduced susceptibility, but are not fully immune.</p>
+            <p><em>Example:</em> Influenza vaccine: all vaccinated individuals have reduced infection risk.</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <strong>Mathematical implication:</strong> These model differently in transmission equations and produce different predictions for herd immunity thresholds.
+        </div>
+      </div>
+
+      <!-- Slide 5: Modeling All-or-Nothing -->
+      <div class="slide">
+        <h2>Modeling All-or-Nothing Protection</h2>
+        <p>In an all-or-nothing model:</p>
+        <ul>
+          <li>Vaccinated population splits into <strong>Protected (P)</strong> and <strong>Susceptible (S)</strong> compartments</li>
+          <li>Only susceptible vaccinated individuals contribute to transmission and infection</li>
+        </ul>
+        <div class="example-box">
+          <strong>Example compartments:</strong>
+          <p style="margin-bottom: 10px;">S → V_p (protected) + V_s (susceptible, unprotected)</p>
+          <p>Herd immunity threshold: lower coverage needed due to complete protection in responders</p>
+        </div>
+        <p><strong>Interpretation:</strong> This model is appropriate when vaccine efficacy is high and uniform within responders.</p>
+      </div>
+
+      <!-- Slide 6: Modeling Leaky Protection -->
+      <div class="slide">
+        <h2>Modeling Leaky Protection</h2>
+        <p>In a leaky model:</p>
+        <ul>
+          <li>All vaccinated individuals remain in the <strong>Susceptible</strong> compartment</li>
+          <li>But their susceptibility is reduced by a factor <strong>ε</strong> (efficacy, 0-1)</li>
+          <li>Force of infection on vaccinated: FOI × (1 - ε)</li>
+        </ul>
+        <div class="example-box">
+          <strong>Force of Infection calculation:</strong>
+          <p>For unvaccinated: λ = β × I / N</p>
+          <p>For vaccinated: λ_v = β × (1 - ε) × I / N</p>
+        </div>
+        <p><strong>Interpretation:</strong> This model is appropriate when vaccine protection is partial and affects transmission risk equally across all vaccinated individuals.</p>
+      </div>
+
+      <!-- Slide 7: Comparing Population Impact -->
+      <div class="slide">
+        <h2>Population-Level Differences</h2>
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h4>All-or-Nothing at 60% coverage with 90% efficacy</h4>
+            <p>54% population protected + 40% susceptible = 94% immune</p>
+          </div>
+          <div class="concept-box">
+            <h4>Leaky at 60% coverage with 90% efficacy</h4>
+            <p>40% fully susceptible + 60% with 90% reduced risk</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <strong>Key difference:</strong> Leaky models show lower herd immunity thresholds and greater population-level protection from vaccination coverage.
+        </div>
+        <p style="margin-top: 20px;">The choice between these models depends on biological understanding of your vaccine.</p>
+      </div>
+
+      <!-- Slide 8: Protection Against Infection vs. Disease -->
+      <div class="slide">
+        <h2>Infection vs. Disease Protection</h2>
+        <p>Vaccines can protect at different steps in the infection pathway:</p>
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h4>Protection Against Infection</h4>
+            <p><strong>VE_i:</strong> Reduces susceptibility to acquiring infection</p>
+            <p>Example: Rotavirus vaccine</p>
+          </div>
+          <div class="concept-box">
+            <h4>Protection Against Disease</h4>
+            <p><strong>VE_d:</strong> Reduces probability of disease given infection occurs</p>
+            <p>Example: Varicella vaccine</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <strong>Modeling implication:</strong> With disease-only protection, vaccinated individuals can still be infected and transmit, creating different indirect effects.
+        </div>
+      </div>
+
+      <!-- Slide 9: Waning Vaccine Immunity -->
+      <div class="slide">
+        <h2>Waning Vaccine Immunity</h2>
+        <p>Vaccine protection often decreases over time:</p>
+        <ul>
+          <li><strong>Boosters required:</strong> Some vaccines need repeated doses to maintain protection</li>
+          <li><strong>Duration of immunity:</strong> Varies from months to decades depending on vaccine and disease</li>
+          <li><strong>Population structure:</strong> Creates cohorts with different immunity levels by vaccination date</li>
+        </ul>
+        <div class="example-box">
+          <strong>Example:</strong> Pertussis vaccine immunity wanes over 5-10 years, requiring boosters in adolescence and adulthood.
+        </div>
+        <p><strong>Modeling approach:</strong> Track vaccinated cohorts by time since vaccination, transition to waned compartments over time.</p>
+      </div>
+
+      <!-- Slide 10: Mathematical Representation of Waning -->
+      <div class="slide">
+        <h2>Modeling Waning Mathematically</h2>
+        <ul>
+          <li><strong>Approach 1 (simple):</strong> Vaccinated compartment with fixed duration, then return to susceptible</li>
+          <li><strong>Approach 2 (realistic):</strong> Graduated waning - efficacy decreases gradually over time</li>
+          <li><strong>Approach 3 (complex):</strong> Specify full immunity kinetics from immunological data</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Trade-off:</strong> More realism in waning requires more data and parameters to estimate. Choose appropriate complexity for your question.
+        </div>
+        <p style="margin-top: 20px;"><strong>Impact:</strong> Waning affects long-term disease control and optimal booster schedules.</p>
+      </div>
+
+      <!-- Slide 11: Indirect Effects and Herd Immunity -->
+      <div class="slide">
+        <h2>Indirect Effects: Herd Immunity</h2>
+        <p><strong>Indirect protection:</strong> Unvaccinated individuals are protected because others are vaccinated, reducing disease circulation.</p>
+        <ul>
+          <li>Unvaccinated people face lower force of infection when prevalence is low</li>
+          <li>Effect is strongest when vaccination coverage is high</li>
+          <li>Herd immunity threshold depends on R₀ and vaccine efficacy</li>
+        </ul>
+        <div class="example-box">
+          <strong>Example:</strong> Measles with R₀ ≈ 15 requires ~95% population immunity. With 90% vaccine efficacy, need ~97% vaccination coverage.
+        </div>
+        <p style="margin-top: 20px;"><strong>Key for public health:</strong> Even unvaccinated people benefit when coverage is sufficiently high.</p>
+      </div>
+
+      <!-- Slide 12: Other Indirect Effects -->
+      <div class="slide">
+        <h2>Other Important Indirect Effects</h2>
+        <ul>
+          <li><strong>Age-shifting:</strong> Vaccination can delay infection to older ages, potentially increasing severity</li>
+          <li><strong>Serotype replacement:</strong> Vaccination against one strain can allow others to emerge</li>
+          <li><strong>Immune interference:</strong> One infection can reduce susceptibility to another pathogen</li>
+          <li><strong>Vaccine-strain transmission:</strong> Live vaccines can transmit to unvaccinated contacts (beneficial in some settings)</li>
+          <li><strong>Behavioral changes:</strong> People may take more risk if they perceive protection</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Modeling note:</strong> These effects are often context-specific and require careful consideration for policy-relevant modeling.
+        </div>
+      </div>
+
+      <!-- Slide 13: Modeling Vaccination in Practice -->
+      <div class="slide">
+        <h2>Putting It Together: A Simple SVIR Model</h2>
+        <p><strong>Model structure:</strong></p>
+        <ul>
+          <li>S (Susceptible) → V (Vaccinated) at rate determined by coverage</li>
+          <li>V can transition to I at reduced rate (vaccine efficacy)</li>
+          <li>I → R (Recovered) at disease-specific rate</li>
+        </ul>
+        <div class="example-box">
+          <strong>Key equations:</strong>
+          <p style="margin-bottom: 10px;">dS/dt = -β × S × I / N</p>
+          <p style="margin-bottom: 10px;">dV/dt = vaccination_rate - β × (1 - VE) × V × I / N</p>
+          <p>dI/dt = β × (S + (1-VE) × V) × I / N - γ × I</p>
+        </div>
+      </div>
+
+      <!-- Slide 14: Interpreting Model Results -->
+      <div class="slide">
+        <h2>Interpreting Results from Vaccine Models</h2>
+        <p>When analyzing vaccine model outputs, consider:</p>
+        <ul>
+          <li><strong>Peak infections:</strong> Does vaccination reduce the height of epidemic peaks?</li>
+          <li><strong>Attack rates:</strong> What proportion of population gets infected, vaccinated vs. unvaccinated?</li>
+          <li><strong>Critical coverage:</strong> What vaccination coverage eliminates endemic transmission?</li>
+          <li><strong>Indirect protection:</strong> How much benefit accrues to the unvaccinated?</li>
+          <li><strong>Sensitivity:</strong> How robust are results to uncertainty in vaccine efficacy or coverage?</li>
+        </ul>
+      </div>
+
+      <!-- Slide 15: Summary & Key Takeaways -->
+      <div class="slide">
+        <h2>Summary: Key Takeaways</h2>
+        <ul>
+          <li><strong>Model structure matters:</strong> All-or-nothing vs. leaky protection produces different predictions</li>
+          <li><strong>Distinguish mechanisms:</strong> Know whether vaccine protects infection, disease, or transmission</li>
+          <li><strong>Account for dynamics:</strong> Waning immunity and age structure shape long-term impact</li>
+          <li><strong>Quantify indirect effects:</strong> Herd immunity thresholds and population-level benefits require population-level modeling</li>
+          <li><strong>Communicate assumptions:</strong> Policy-makers need to understand your modeling choices and their implications</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Next step:</strong> Apply these concepts to build your own vaccine models in the practical session.
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+      <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">15</span></span>
+      <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    document.getElementById('totalSlides').textContent = totalSlides;
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + totalSlides) % totalSlides;
+      slides[currentSlide].classList.add('active');
+      
+      document.getElementById('currentSlide').textContent = currentSlide + 1;
+      
+      // Update progress bar
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      document.querySelector('.progress-fill').style.width = progress + '%';
+      
+      // Update button states
+      document.getElementById('prevBtn').disabled = currentSlide === 0;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+
+    function changeSlide(n) {
+      showSlide(currentSlide + n);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+      if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
+    });
+
+    // Initialize
+    showSlide(0);
+  </script>
+</body>
+</html>

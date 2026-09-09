@@ -1191,7 +1191,7 @@
       objectiveDialogContent.innerHTML = `
         <h2 id="objective-dialog-name">${session.title}</h2>
         <div class="objective-meta"><span class="session-type">${typeLabel}</span><span class="session-type">${session.speaker || "Faculty TBC"}</span></div>
-        <p class="objective-content">${session.content}</p>
+        <div class="objective-content">${session.content}</div>
       `;
       objectiveDialog.classList.remove("is-visible");
       objectiveDialog.showModal();
