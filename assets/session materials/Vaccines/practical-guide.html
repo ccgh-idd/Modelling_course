@@ -270,6 +270,61 @@
     ol li, ul li {
       margin: 8px 0;
     }
+
+    .pdf-actions {
+      text-align: center;
+    }
+
+    .pdf-actions p {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .pdf-actions button {
+      margin: 0;
+    }
+
+    .pdf-status {
+      min-height: 1.55em;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 12mm;
+      }
+
+      body {
+        background: white;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      body::before, .pdf-actions, button {
+        display: none;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .card, .info-box, .question-box, table {
+        box-shadow: none;
+      }
+
+      .info-box, .question-box, table {
+        break-inside: avoid;
+      }
+
+      input, textarea {
+        background: white;
+        color: var(--ink);
+      }
+    }
   </style>
 </head>
 <body>
@@ -527,6 +582,13 @@ cat("Attack rate:", round(attack_rate, 2), "%\n")</pre>
       <textarea placeholder="Based on your analyses, what are your recommendations?" style="min-height: 100px;"></textarea>
     </div>
 
+    <div class="card pdf-actions">
+      <h2>Download Your Worksheet</h2>
+      <p>Open the print dialog to save your completed practical, including your answers and results, as a PDF.</p>
+      <button id="download-pdf" type="button" onclick="downloadWorksheetPdf()">Save as PDF</button>
+      <div id="pdf-status" class="pdf-status" aria-live="polite"></div>
+    </div>
+
   </div>
 
   <script>
@@ -544,6 +606,12 @@ cat("Attack rate:", round(attack_rate, 2), "%\n")</pre>
       }).catch(() => {
         alert('Failed to copy. Please copy manually.');
       });
+    }
+
+    function downloadWorksheetPdf() {
+      const status = document.getElementById('pdf-status');
+      status.textContent = 'Choose Save as PDF in the print dialog.';
+      window.print();
     }
   </script>
 
