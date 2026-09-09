@@ -31,7 +31,7 @@ window.courseData = {
     { title: "Health Economics II", speaker: "Gesine Meyer-Rath", content: "Principles of health financing" },
     { title: "Practical", speaker: "Gesine Meyer-Rath & Julia Mayer", content: "Budget impact analysis" },
     { title: "Climate sensitive models", speaker: "Matthieu Domenech de Cellès", content: "tbd" },
-    { title: "Practical", speaker: "Matthieu Domenech de Cellès & Adriana Lucia Tibaduiza Torres", content: "tbd" },
+    { title: "Practical", speaker: "Matthieu Domenech de Cellès & Cana Kussmaul", content: "tbd" },
     { title: "Accesible and collaborative modeling", speaker: "Julia F?", content: "We review the Lancet Commission perspective and reporting guidelines for transparent and reproducible modeling. The session emphasizes communication standards that improve trust and uptake." },
     { title: "Group work II", speaker: "Stefan Flasche & Gesine Meyer-Rath", content: "Groups discuss key insights from assigned readings and refine their project direction. The session supports peer feedback and stronger framing of policy questions." },
     { title: "Phylogenetic inference", speaker: "Matej Kriznar", content: "We introduce the principles of phylogenetic inference and how sequence data can inform transmission modeling. The session highlights where phylogenetics adds value and where limits remain." },

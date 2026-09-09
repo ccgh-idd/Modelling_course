@@ -16,9 +16,12 @@
       --muted: #5c6b82;
       --blue: #1d4e89;
       --blue-soft: #e7f0ff;
+      --lecture-soft: #e8f1fb;
       --gold: #8a5a00;
       --gold-soft: #fff2d9;
-      --green-soft: #e8f7ed;
+      --groupwork-soft: #fff3df;
+      --green-soft: #e8f5ec;
+      --practical-soft: #e8f5ec;
       --tile-border: rgba(20, 32, 51, 0.08);
       --shadow: 0 22px 60px rgba(16, 31, 58, 0.12);
       --shadow-soft: 0 10px 24px rgba(16, 31, 58, 0.08);
@@ -319,7 +322,11 @@
 
     /* Individual timetable tiles for each session and session category styling. */
     .tile {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      position: relative;
       min-height: 4.35rem;
       padding: 0.78rem 0.82rem;
       border-radius: 12px;
@@ -327,14 +334,18 @@
       color: var(--ink);
       border: 1px solid var(--tile-border);
       box-shadow: 0 6px 14px rgba(18, 43, 77, 0.05);
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
       line-height: 1.16;
       font-size: 1rem;
       word-break: break-word;
       background: var(--panel-solid);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
     }
 
     .schedule .tile {
+      width: 100%;
       height: var(--schedule-tile-height, auto);
     }
 
@@ -353,9 +364,38 @@
       outline: none;
     }
 
-    .tile-practical { background: var(--green-soft); }
-    .tile-groupwork { background: var(--gold-soft); }
-    .tile-firstlast { background: var(--blue-soft); }
+    .tile,
+    .tile-firstlast {
+      background: linear-gradient(180deg, var(--lecture-soft), var(--panel-solid));
+    }
+
+    .tile-practical {
+      background: linear-gradient(180deg, var(--practical-soft), var(--panel-solid));
+    }
+
+    .tile-groupwork {
+      background: linear-gradient(180deg, var(--groupwork-soft), var(--panel-solid));
+    }
+
+    .tile:hover,
+    .tile:focus-visible,
+    .tile-firstlast:hover,
+    .tile-firstlast:focus-visible {
+      border: 4px solid rgba(29, 78, 137, 0.5);
+      background: var(--lecture-soft);
+    }
+
+    .tile-practical:hover,
+    .tile-practical:focus-visible {
+      border: 4px solid rgba(20, 122, 72, 0.5);
+      background: var(--practical-soft);
+    }
+
+    .tile-groupwork:hover,
+    .tile-groupwork:focus-visible {
+      border: 4px solid rgba(138, 90, 0, 0.5);
+      background: var(--groupwork-soft);
+    }
 
     /* Detailed content list styling for the narrative session descriptions. */
     .session-list {
@@ -408,7 +448,7 @@
 
     .faculty-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
       gap: 0.85rem;
     }
 
@@ -462,9 +502,9 @@
       display: block;
       gap: 1rem;
       margin: 0;
-      padding: 1rem;
+      padding: 0.7rem;
       position: relative;
-      min-height: 150px;
+      min-height: 105px;
       transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
     }
 
@@ -481,15 +521,22 @@
 
     .faculty-card .faculty-text {
       min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    .faculty-card h3 {
+      font-size: 1.04rem;
+      overflow-wrap: anywhere;
     }
 
     .faculty-trigger {
       display: grid;
       width: 100%;
-      grid-template-columns: 128px minmax(0, 1fr);
-      gap: 1.15rem;
+      grid-template-columns: 90px minmax(0, 1fr);
+      gap: 0.8rem;
       align-items: center;
-      min-height: 150px;
+      min-height: 105px;
       padding: 0;
       border: 0;
       color: inherit;
@@ -518,8 +565,8 @@
     }
 
     .faculty-photo {
-      width: 128px;
-      height: 128px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid rgba(20, 32, 51, 0.08);
@@ -701,24 +748,54 @@
       transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
     }
 
+    .objective-card[data-kind="normal"],
+    .objective-card[data-kind="milestone"] {
+      border-color: rgba(29, 78, 137, 0.18);
+      background: linear-gradient(180deg, rgba(232, 241, 251, 0.96), rgba(247, 250, 255, 0.98));
+    }
+
+    .objective-card[data-kind="practical"] {
+      border-color: rgba(20, 122, 72, 0.18);
+      background: linear-gradient(180deg, rgba(232, 245, 236, 0.96), rgba(249, 253, 250, 0.98));
+    }
+
+    .objective-card[data-kind="groupwork"] {
+      border-color: rgba(138, 90, 0, 0.18);
+      background: linear-gradient(180deg, rgba(255, 243, 223, 0.96), rgba(255, 251, 244, 0.98));
+    }
+
+    .objective-card[data-kind="practical"] .objective-number {
+      color: #147a48;
+      background: var(--practical-soft);
+    }
+
+    .objective-card[data-kind="groupwork"] .objective-number {
+      color: var(--gold);
+      background: var(--groupwork-soft);
+    }
+
     .objective-card:hover {
       transform: translateY(-2px);
     }
 
-    .objective-card[data-kind="practical"]:hover {
+    .objective-card[data-kind="practical"]:hover,
+    .objective-card[data-kind="practical"].is-timetable-target {
       border-color: rgba(20, 122, 72, 0.62);
       background: rgba(232, 247, 237, 0.9);
       box-shadow: 0 16px 34px rgba(20, 122, 72, 0.24);
     }
 
-    .objective-card[data-kind="groupwork"]:hover {
+    .objective-card[data-kind="groupwork"]:hover,
+    .objective-card[data-kind="groupwork"].is-timetable-target {
       border-color: rgba(138, 90, 0, 0.62);
       background: rgba(255, 242, 217, 0.9);
       box-shadow: 0 16px 34px rgba(138, 90, 0, 0.24);
     }
 
     .objective-card[data-kind="normal"]:hover,
-    .objective-card[data-kind="milestone"]:hover {
+    .objective-card[data-kind="milestone"]:hover,
+    .objective-card[data-kind="normal"].is-timetable-target,
+    .objective-card[data-kind="milestone"].is-timetable-target {
       border-color: rgba(29, 78, 137, 0.56);
       background: rgba(231, 240, 255, 0.9);
       box-shadow: 0 16px 34px rgba(29, 78, 137, 0.24);
@@ -935,6 +1012,72 @@
         padding: 1.5rem;
       }
     }
+
+    @media (max-width: 560px) {
+      .table-wrap {
+        overflow-x: visible;
+        padding: 0.35rem;
+      }
+
+      table.schedule,
+      .schedule tbody {
+        display: block;
+        min-width: 0;
+      }
+
+      .schedule thead,
+      .schedule td.break-cell {
+        display: none;
+      }
+
+      .schedule tr {
+        display: grid;
+        grid-template-columns: 5.5rem minmax(0, 1fr);
+        gap: 0.38rem 0.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .schedule td {
+        display: block;
+        padding: 0;
+        background: transparent;
+      }
+
+      .schedule td.date-cell {
+        grid-row: 1 / span 4;
+        align-self: stretch;
+        padding: 0.8rem 0.3rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.54);
+        font-size: 0.9rem;
+      }
+
+      .schedule td[data-time]::before {
+        content: attr(data-time);
+        display: block;
+        margin: 0 0 0.16rem 0.35rem;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .schedule .tile {
+        min-height: 0;
+        height: var(--schedule-tile-height, auto);
+        padding: 0.58rem 2.45rem 0.58rem 0.68rem;
+        font-size: 0.92rem;
+      }
+
+      .tile .lecturer-placeholder {
+        margin-top: 0.18rem;
+        font-size: 0.82rem;
+      }
+
+      .session-list {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -968,12 +1111,6 @@
           <div class="faculty-grid" id="faculty-root"></div>
         </section>
 
-        <!-- Detailed session content section. -->
-        <section class="card section-anchor" id="sessions">
-          <h2>Learning objectives</h2>
-          <div class="section-tools" id="session-filters" aria-label="Filter learning objectives by session type"></div>
-          <div class="session-list" id="sessions-root"></div>
-        </section>
       </main>
     </div>
 
@@ -1000,8 +1137,6 @@
     const facultyDialog = document.getElementById("faculty-dialog");
     const facultyDialogContent = document.getElementById("faculty-dialog-content");
     const facultyDialogClose = facultyDialog.querySelector(".faculty-dialog-close");
-    const sessionsRoot = document.getElementById("sessions-root");
-    const sessionFilters = document.getElementById("session-filters");
     const objectiveDialog = document.getElementById("objective-dialog");
     const objectiveDialogContent = document.getElementById("objective-dialog-content");
     const objectiveDialogClose = objectiveDialog.querySelector(".objective-dialog-close");
@@ -1059,12 +1194,6 @@
       }
     });
 
-    // Derive the visible session order from the timetable matrix so the left sidebar and
-    // content cards follow the same ordering as the rendered timetable.
-    function sessionOrderFromSchedule() {
-      return [...new Set(schedule.flat())];
-    }
-
     // Classify each session so the visual styling can distinguish lectures, practicals,
     // group work, and the first/last milestone sessions.
     function sessionKind(session, index) {
@@ -1097,7 +1226,8 @@
       const classes = sessionClass(session, sessionIndex);
       const speaker = session.speaker || "tbc";
       const timetableSpeaker = speaker.replace(/\s*&\s*/g, " &<br>");
-      const sessionCell = `<td><a class="${classes}" href="#session-${sessionIndex + 1}">${session.title}<span class="lecturer-placeholder">${timetableSpeaker}</span></a></td>`;
+      const sessionTimes = ["09:00-10:00", "10:30-12:00", "13:00-14:00", "14:30-16:00"];
+      const sessionCell = `<td data-time="${sessionTimes[slotIndex]}"><button class="${classes}" type="button" data-objective-index="${sessionIndex}" aria-label="Open learning objective: ${session.title}">${session.title}<span class="lecturer-placeholder">${timetableSpeaker}</span></button></td>`;
 
       if (slotIndex === 0) return `${sessionCell}${breakCell(breakLetters[weekOffset])}`;
       if (slotIndex === 1) return `${sessionCell}${breakCell(lunchLetters[weekOffset])}`;
@@ -1122,14 +1252,14 @@
           <div class="table-wrap">
             <table class="schedule" aria-label="${weekTitle} timetable">
               <colgroup>
-                <col style="width: 14%">
-                <col style="width: 18.5%">
-                <col style="width: 4.8%">
-                <col style="width: 18.5%">
-                <col style="width: 4.8%">
-                <col style="width: 18.5%">
-                <col style="width: 4.8%">
-                <col style="width: 18.5%">
+                <col style="width: 10%">
+                <col style="width: 21%">
+                <col style="width: 2%">
+                <col style="width: 21%">
+                <col style="width: 2%">
+                <col style="width: 21%">
+                <col style="width: 2%">
+                <col style="width: 21%">
               </colgroup>
               <thead>
                 <tr>
@@ -1165,24 +1295,10 @@
     equalizeScheduleTiles();
     window.addEventListener("resize", equalizeScheduleTiles);
 
-    // Use the same schedule-derived order for the left-hand navigation and the detailed
-    // session list so all views remain consistent.
-    const orderedSessionIndexes = sessionOrderFromSchedule();
-
-    // Render the detailed session cards in the same order as the timetable layout.
-    sessionsRoot.innerHTML = orderedSessionIndexes.map((index, position) => {
-      const session = sessions[index];
-      const kind = sessionKind(session, index);
-      const typeLabel = kind === "practical" ? "Practical" : kind === "groupwork" ? "Group work" : "Lecture";
-      return `
-        <article class="session-card objective-card" id="session-${index + 1}" data-kind="${kind}" data-filter-kind="${typeLabel}">
-          <button class="objective-trigger" type="button" data-objective-index="${index}" aria-label="Open learning objective: ${session.title}">
-            <span class="objective-number">${String(position + 1).padStart(2, "0")}</span>
-            <span class="objective-heading"><h3>${session.title}</h3><span class="objective-kicker">Session type: ${typeLabel}<br>Instructor: ${session.speaker || "Faculty TBC"}<br>Room: tbc</span></span>
-          </button>
-        </article>
-      `;
-    }).join("");
+    timetableRoot.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-objective-index]");
+      if (trigger) openObjective(Number(trigger.dataset.objectiveIndex), trigger);
+    });
 
     function openObjective(index, trigger) {
       const session = sessions[index];
@@ -1202,11 +1318,6 @@
       requestAnimationFrame(() => objectiveDialog.classList.add("is-visible"));
     }
 
-    sessionsRoot.addEventListener("click", (event) => {
-      const trigger = event.target.closest("[data-objective-index]");
-      if (trigger) openObjective(Number(trigger.dataset.objectiveIndex), trigger);
-    });
-
     objectiveDialogClose.addEventListener("click", () => {
       objectiveDialog.classList.remove("is-visible");
       objectiveDialog.close();
@@ -1217,19 +1328,6 @@
         objectiveDialog.classList.remove("is-visible");
         objectiveDialog.close();
       }
-    });
-
-    const sessionTypes = ["All sessions", "Lecture", "Practical", "Group work"];
-    sessionFilters.innerHTML = `<span class="filter-label">Session type: </span>${sessionTypes.map((type, index) => `<button class="filter-button${index === 0 ? " active" : ""}" type="button" data-session-filter="${type}">${type}</button>`).join("")}`;
-
-    sessionFilters.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-session-filter]");
-      if (!button) return;
-      const type = button.dataset.sessionFilter;
-      sessionFilters.querySelectorAll(".filter-button").forEach((item) => item.classList.toggle("active", item === button));
-      sessionsRoot.querySelectorAll(".objective-card").forEach((card) => {
-        card.classList.toggle("hidden-by-filter", type !== "All sessions" && card.dataset.filterKind !== type);
-      });
     });
 
   </script>
