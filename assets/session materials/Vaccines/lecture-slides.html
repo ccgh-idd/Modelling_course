@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
   <style>
     :root {
-      --blue: #1d4e89;
-      --gold: #8a5a00;
-      --blue-soft: #e7f0ff;
-      --gold-soft: #fff2d9;
-      --ink: #142033;
+      --blue: #003c6e;
+      --gold: #a6192e;
+      --blue-soft: #e3edf3;
+      --gold-soft: #fbeaec;
+      --ink: #1b2a38;
     }
 
     * {
@@ -83,7 +83,7 @@
     }
 
     .reveal .title-slide {
-      background: linear-gradient(135deg, var(--blue) 0%, #0d2d5c 100%);
+      background: linear-gradient(135deg, var(--blue) 0%, #001d38 100%);
       color: white;
       text-align: center;
     }
@@ -151,6 +151,233 @@
       margin-bottom: 0.3em;
     }
 
+    .infographic {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 1.2em;
+      margin: 0.7em 0;
+    }
+
+    .infographic-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4em;
+      flex: 1;
+    }
+
+    .infographic-group h5 {
+      font-size: 0.75em;
+      color: var(--blue);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .person-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.16em;
+      max-width: 260px;
+    }
+
+    .person {
+      width: 0.65em;
+      height: 0.65em;
+      border-radius: 50%;
+      border: 2px solid var(--blue);
+      box-sizing: border-box;
+    }
+
+    .person.full {
+      background: var(--blue);
+    }
+
+    .person.empty {
+      background: transparent;
+    }
+
+    .person.half {
+      background: linear-gradient(90deg, var(--blue) 60%, transparent 60%);
+    }
+
+    .question-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      background: #fff4cc;
+      border: 1px solid #e8cf6a;
+      border-radius: 10px;
+      padding: 0.5em 0.8em;
+      margin: 0.7em 0;
+    }
+
+    .question-box .question-mark {
+      font-size: 1.8em;
+      font-weight: 800;
+      color: #a6822a;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .question-box p {
+      margin: 0;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    .infographic-caption {
+      font-size: 0.68em;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .flow-diagram {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.5em;
+      margin: 0.8em 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3em;
+    }
+
+    .flow-arrow-down {
+      font-size: 0.75em;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .flow-arrow-down small {
+      display: block;
+      font-size: 0.65em;
+      color: var(--muted, var(--ink));
+      white-space: nowrap;
+    }
+
+    .flow-branch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35em;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35em;
+    }
+
+    .flow-box {
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      padding: 0.32em 0.5em;
+      font-size: 0.72em;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-soft);
+      text-align: center;
+      line-height: 1.2;
+      white-space: nowrap;
+      min-width: 2.4em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    }
+
+    .flow-box.muted {
+      border-color: #a7b0bb;
+      color: #5b6673;
+      background: #f1f3f5;
+      box-shadow: none;
+    }
+
+    .flow-box.protected {
+      border-color: var(--gold);
+      border-style: dashed;
+      color: var(--gold);
+      background: var(--gold-soft);
+    }
+
+    .flow-box span {
+      display: block;
+      font-size: 0.85em;
+      font-weight: 400;
+    }
+
+    .flow-arrow {
+      font-size: 0.9em;
+      color: #5b6673;
+      text-align: center;
+      line-height: 1.1;
+      min-width: 0.4em;
+    }
+
+    .flow-arrow small {
+      display: block;
+      font-size: 0.6em;
+      color: var(--muted, var(--ink));
+      white-space: nowrap;
+    }
+
+    .flow-arrow-down {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      justify-self: start;
+      font-size: 0.85em;
+      color: var(--blue);
+      margin: 0.15em 0;
+    }
+
+    .flow-arrow-down small {
+      font-size: 0.7em;
+      color: var(--muted, var(--ink));
+      white-space: nowrap;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: auto auto auto auto auto;
+      align-items: center;
+      justify-items: center;
+      gap: 0.3em 0.3em;
+      margin: 0.5em auto;
+      width: fit-content;
+    }
+
+    .flow-panels-row {
+      display: flex;
+      gap: 0.8em;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    .flow-panel {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 0.5em 0.8em 0.7em;
+      margin-bottom: 0;
+      text-align: center;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .flow-panel h4 {
+      font-size: 0.85em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.2em;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
     @media (max-width: 768px) {
       .reveal {
         font-size: 22px;
@@ -167,8 +394,7 @@
     <div class="slides">
       <!-- Slide 1: Title -->
       <section class="title-slide">
-        <h2>Vaccine Models in Mathematical Epidemiology</h2>
-        <p>Conceptualizing vaccine protection and its population-level impacts</p>
+        <h2>Vaccine Modelling - <br> and the relevance of indirect effects of vaccination</h2>
         <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
       </section>
 
@@ -215,42 +441,64 @@
             <p><em>Example:</em> Influenza vaccine: all vaccinated individuals have reduced infection risk.</p>
           </div>
         </div>
+        <div class="infographic">
+          <div class="infographic-group">
+            <h5>All-or-Nothing (measles, 20 vaccinated)</h5>
+            <div class="person-row">
+              <span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person full"></span><span class="person empty"></span>
+            </div>
+            <p class="infographic-caption">~95% fully immune (●), ~5% fully susceptible (○)</p>
+          </div>
+          <div class="infographic-group">
+            <h5>Leaky (influenza, 20 vaccinated)</h5>
+            <div class="person-row">
+              <span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span><span class="person half"></span>
+            </div>
+            <p class="infographic-caption">Everyone at ~60% reduced infection risk (◐)</p>
+          </div>
+        </div>
         <div class="highlight-box">
           <strong>Mathematical implication:</strong> These model differently in transmission equations and produce different predictions for herd immunity thresholds.
         </div>
       </section>
 
-      <!-- Slide 5: Modeling All-or-Nothing -->
+      <!-- Slide 5: Modeling All-or-Nothing vs. Leaky Protection -->
       <section>
-        <h2>Modeling All-or-Nothing Protection</h2>
-        <p>In an all-or-nothing model:</p>
-        <ul>
-          <li>Vaccinated population splits into <strong>Protected (P)</strong> and <strong>Susceptible (S)</strong> compartments</li>
-          <li>Only susceptible vaccinated individuals contribute to transmission and infection</li>
-        </ul>
-        <div class="example-box">
-          <strong>Example compartments:</strong>
-          <p style="margin-bottom: 10px;">S → V_p (protected) + V_s (susceptible, unprotected)</p>
-          <p>Herd immunity threshold: lower coverage needed due to complete protection in responders</p>
+        <h2>Modeling All-or-Nothing vs. Leaky Protection</h2>
+        <div class="flow-panels-row">
+          <div class="flow-panel">
+            <h4>All-or-Nothing</h4>
+            <div class="flow-grid">
+              <div class="flow-box muted" style="grid-row:1;grid-column:1;">Susceptible<span>S</span></div>
+              <div class="flow-arrow" style="grid-row:1;grid-column:2;">→<small>β</small></div>
+              <div class="flow-box muted" style="grid-row:1;grid-column:3;">Infected<span>I</span></div>
+              <div class="flow-arrow" style="grid-row:1;grid-column:4;">→<small>γ</small></div>
+              <div class="flow-box muted" style="grid-row:1;grid-column:5;">Recovered<span>R</span></div>
+              <div class="flow-arrow-down" style="grid-row:2;grid-column:1 / 3;">↓<small>coverage × VE</small></div>
+              <div class="flow-box" style="grid-row:3;grid-column:1;">Vaccinated<span>V</span></div>
+            </div>
+          </div>
+          <div class="flow-panel">
+            <h4>Leaky</h4>
+            <div class="flow-grid">
+              <div class="flow-box muted" style="grid-row:1;grid-column:1;">Susceptible<span>S</span></div>
+              <div class="flow-arrow" style="grid-row:1;grid-column:2;">→<small>β</small></div>
+              <div class="flow-box muted" style="grid-row:1;grid-column:3;">Infected<span>I</span></div>
+              <div class="flow-arrow" style="grid-row:1;grid-column:4;">→<small>γ</small></div>
+              <div class="flow-box muted" style="grid-row:1;grid-column:5;">Recovered<span>R</span></div>
+              <div class="flow-arrow-down" style="grid-row:2;grid-column:1 / 3;">↓<small>coverage</small></div>
+              <div class="flow-box" style="grid-row:3;grid-column:1;">Vaccinated<span>S_v</span></div>
+              <div class="flow-arrow" style="grid-row:3;grid-column:2;">→<small>β×(1-VE)</small></div>
+              <div class="flow-box" style="grid-row:3;grid-column:3;">Infected<span>I_v</span></div>
+              <div class="flow-arrow" style="grid-row:3;grid-column:4;">→<small>γ</small></div>
+              <div class="flow-box" style="grid-row:3;grid-column:5;">Recovered<span>R_v</span></div>
+            </div>
+          </div>
         </div>
-        <p><strong>Interpretation:</strong> This model is appropriate when vaccine efficacy is high and uniform within responders.</p>
-      </section>
-
-      <!-- Slide 6: Modeling Leaky Protection -->
-      <section>
-        <h2>Modeling Leaky Protection</h2>
-        <p>In a leaky model:</p>
-        <ul>
-          <li>All vaccinated individuals remain in the <strong>Susceptible</strong> compartment</li>
-          <li>But their susceptibility is reduced by a factor <strong>ε</strong> (efficacy, 0-1)</li>
-          <li>Force of infection on vaccinated: FOI × (1 - ε)</li>
-        </ul>
-        <div class="example-box">
-          <strong>Force of Infection calculation:</strong>
-          <p>For unvaccinated: λ = β × I / N</p>
-          <p>For vaccinated: λ_v = β × (1 - ε) × I / N</p>
+        <div class="question-box">
+          <span class="question-mark">?</span>
+          <p>Which one offers better protection?</p>
         </div>
-        <p><strong>Interpretation:</strong> This model is appropriate when vaccine protection is partial and affects transmission risk equally across all vaccinated individuals.</p>
       </section>
 
       <!-- Slide 7: Comparing Population Impact -->
