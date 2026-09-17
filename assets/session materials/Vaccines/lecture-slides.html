@@ -8,11 +8,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
   <style>
     :root {
-      --blue: #1d4e89;
-      --gold: #8a5a00;
-      --blue-soft: #e7f0ff;
-      --gold-soft: #fff2d9;
-      --ink: #142033;
+      --navy: #00355f;
+      --navy-dark: #001f3d;
+      --green: #7ab51d;
+      --green-dark: #5c8c16;
+      --navy-soft: #e7edf3;
+      --green-soft: #eef6e2;
+      --amber: #e8a600;
+      --amber-soft: #fff5db;
+      --ink: #14212e;
+      --rule: #d8dfe6;
     }
 
     * {
@@ -20,7 +25,7 @@
     }
 
     body {
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Charité Sans", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       color: var(--ink);
     }
 
@@ -30,37 +35,67 @@
     }
 
     .reveal .progress {
-      height: 8px;
-      background: rgba(29, 78, 137, 0.18);
-      color: var(--gold);
+      height: 6px;
+      background: var(--navy-soft);
+      color: var(--green);
     }
 
     .reveal .progress span {
-      background: linear-gradient(90deg, var(--blue), var(--gold));
+      background: var(--green);
     }
 
     .reveal .slides section {
       text-align: left;
+      height: 100%;
+    }
+
+    /* Charité-style header rule + persistent footer */
+    .reveal .slides section:not(.title-slide) {
+      border-top: 6px solid var(--navy);
+      padding-top: 0.8em;
+      padding-bottom: 1.4em;
+    }
+
+    .reveal .slides section:not(.title-slide)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 4px;
+      background: var(--green);
+    }
+
+    .reveal .slides section:not(.title-slide)::before {
+      content: "Vaccine Models in Mathematical Epidemiology";
+      position: absolute;
+      bottom: 0.3em;
+      left: 0;
+      font-size: 0.32em;
+      letter-spacing: 0.03em;
+      color: #8a97a4;
+      font-weight: 500;
     }
 
     .reveal h2 {
-      font-size: 1.6em;
-      color: var(--blue);
-      margin-bottom: 0.7em;
-      font-weight: 600;
+      font-size: 1.55em;
+      color: var(--navy);
+      margin-bottom: 0.5em;
+      font-weight: 700;
       text-transform: none;
+      letter-spacing: -0.01em;
     }
 
     .reveal h3 {
       font-size: 1.2em;
-      color: var(--gold);
+      color: var(--green-dark);
       font-weight: 600;
     }
 
     .reveal p, .reveal li {
       font-size: 0.82em;
       color: var(--ink);
-      line-height: 1.6;
+      line-height: 1.45;
     }
 
     .reveal ul {
@@ -69,66 +104,176 @@
     }
 
     .reveal li {
-      margin-bottom: 0.4em;
+      margin-bottom: 0.32em;
       position: relative;
       padding-left: 0.8em;
     }
 
     .reveal li:before {
-      content: "▪";
+      content: "";
       position: absolute;
       left: 0;
-      color: var(--gold);
-      font-weight: bold;
+      top: 0.5em;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
     }
 
     .reveal .title-slide {
-      background: linear-gradient(135deg, var(--blue) 0%, #0d2d5c 100%);
+      background: var(--navy-dark);
       color: white;
-      text-align: center;
+      overflow: hidden;
+    }
+
+    .reveal .title-slide .title-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .reveal .title-slide::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: var(--green);
     }
 
     .reveal .title-slide h2 {
       color: white;
-      font-size: 2em;
-      margin-bottom: 0.7em;
+      font-size: 1.9em;
+      font-weight: 700;
+      margin-bottom: 0.6em;
+      letter-spacing: -0.01em;
     }
 
     .reveal .title-slide p {
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.85);
       font-size: 0.95em;
     }
 
     .example-box {
-      background: var(--blue-soft);
-      border-left: 5px solid var(--blue);
-      padding: 0.65em;
+      background: var(--navy-soft);
+      border-left: 5px solid var(--navy);
+      padding: 0.7em 0.8em;
       margin: 0.6em 0;
-      border-radius: 6px;
+      border-radius: 2px;
       text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
     }
 
     .example-box strong {
-      color: var(--blue);
+      color: var(--navy);
       display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.85em;
+      margin-bottom: 0.25em;
     }
 
     .highlight-box {
-      background: var(--gold-soft);
-      border-left: 5px solid var(--gold);
-      padding: 0.65em;
+      background: var(--green-soft);
+      border-left: 5px solid var(--green);
+      padding: 0.7em 0.8em;
       margin: 0.6em 0;
-      border-radius: 6px;
+      border-radius: 2px;
       text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
     }
 
     .highlight-box strong {
-      color: var(--gold);
+      color: var(--green-dark);
       display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.85em;
+      margin-bottom: 0.25em;
+    }
+
+    .reveal .example-box p,
+    .reveal .highlight-box p {
+      font-size: 1em;
+    }
+
+    .question-card {
+      display: flex;
+      align-items: center;
+      gap: 0.65em;
+      background: var(--amber-soft);
+      border-left: 5px solid var(--amber);
+      padding: 0.55em 0.8em;
+      margin: 0.5em 0 0;
+      border-radius: 2px;
+      font-size: 0.82em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .question-card .q-mark {
+      flex: 0 0 auto;
+      width: 1.6em;
+      height: 1.6em;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.6em;
+      text-align: center;
+    }
+
+    .reveal figure {
+      margin: 0.2em 0 0;
+    }
+
+    .reveal figure svg {
+      width: 100%;
+      max-width: 90%;
+      height: auto;
+      display: block;
+    }
+
+    .reveal figure.fig-compact svg {
+      max-width: 70%;
+    }
+
+    .reveal figure.fig-mid svg {
+      max-width: 84%;
+    }
+
+    .reveal figure text {
+      font-family: inherit;
+    }
+
+    .reveal figure .f-title { font-size: 21px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-sub { font-size: 15px; fill: #647382; }
+    .reveal figure .f-note { font-size: 15px; fill: #647382; }
+    .reveal figure .f-box { font-size: 18px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-arrow { font-size: 16px; fill: #44586b; }
+    .reveal figure .f-key { font-size: 16px; font-weight: 700; fill: var(--green-dark); }
+    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #a17400; }
+    .reveal figure .f-legend { font-size: 16px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-axis { font-size: 14px; fill: #7c8a97; }
+    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #44586b; }
+
+    .reveal .source {
+      font-size: 0.4em;
+      color: #8a97a4;
+      margin: 0.35em 0 0;
+      line-height: 1.4;
+    }
+
+    .reveal figcaption {
+      font-size: 0.48em;
+      color: #7c8a97;
+      line-height: 1.4;
+    }
+
+    .reveal .fig-label {
+      font-size: 0.56em;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0.3em 0 0;
     }
 
     .concept-grid {
@@ -139,15 +284,15 @@
     }
 
     .concept-box {
-      background: var(--blue-soft);
+      background: var(--navy-soft);
       padding: 0.65em;
-      border-radius: 6px;
-      border-left: 4px solid var(--blue);
+      border-radius: 2px;
+      border-left: 4px solid var(--navy);
     }
 
     .concept-box h4 {
-      color: var(--blue);
-      font-weight: 600;
+      color: var(--navy);
+      font-weight: 700;
       margin-bottom: 0.3em;
     }
 
@@ -167,9 +312,11 @@
     <div class="slides">
       <!-- Slide 1: Title -->
       <section class="title-slide">
-        <h2>Vaccine Models in Mathematical Epidemiology</h2>
-        <p>Conceptualizing vaccine protection and its population-level impacts</p>
-        <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
+        <div class="title-inner">
+          <h2>Vaccine Models in Mathematical Epidemiology</h2>
+          <p>Conceptualizing vaccine protection and its population-level impacts</p>
+          <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
+        </div>
       </section>
 
       <!-- Slide 2: Learning Objectives -->
@@ -200,126 +347,212 @@
         </div>
       </section>
 
-      <!-- Slide 4: All-or-Nothing vs. Leaky Protection -->
+      <!-- Slide 4: All-or-Nothing vs. Leaky — the concept -->
       <section>
-        <h2>All-or-Nothing vs. Leaky Vaccine Protection</h2>
-        <div class="concept-grid">
-          <div class="concept-box">
-            <h4>All-or-Nothing</h4>
-            <p>A fraction of vaccinated individuals are fully protected (immune), others get no benefit.</p>
-            <p><em>Example:</em> Measles vaccine: ~95% fully immune, ~5% not immune.</p>
-          </div>
-          <div class="concept-box">
-            <h4>Leaky Protection</h4>
-            <p>All vaccinated individuals have reduced susceptibility, but are not fully immune.</p>
-            <p><em>Example:</em> Influenza vaccine: all vaccinated individuals have reduced infection risk.</p>
-          </div>
-        </div>
+        <h2>All-or-Nothing vs. Leaky Protection</h2>
+        <p>Two vaccines with the same 80% efficacy can protect individuals in very different ways:</p>
+        <figure>
+          <svg viewBox="0 0 960 232" role="img" aria-label="Ten vaccinated people under each model: all-or-nothing gives eight complete protection and two none, while leaky gives all ten a partial reduction in risk.">
+            <!-- All-or-nothing panel -->
+            <text x="20" y="20" class="f-title">All-or-nothing</text>
+            <text x="20" y="44" class="f-sub">protection is complete, but only for some</text>
+            <rect x="20" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="90" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="160" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="230" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="300" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="20" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="90" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="160" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
+            <rect x="230" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="300" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <text x="20" y="212" class="f-note">8 fully immune · 2 with no protection at all</text>
+
+            <line x1="480" y1="8" x2="480" y2="216" stroke="#d8dfe6" stroke-width="2"/>
+
+            <!-- Leaky panel -->
+            <text x="520" y="20" class="f-title">Leaky</text>
+            <text x="520" y="44" class="f-sub">protection is partial, but for everyone</text>
+            <rect x="520" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="522" y="74" width="52" height="42" fill="#7ab51d"/>
+            <rect x="590" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="592" y="74" width="52" height="42" fill="#7ab51d"/>
+            <rect x="660" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="662" y="74" width="52" height="42" fill="#7ab51d"/>
+            <rect x="730" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="732" y="74" width="52" height="42" fill="#7ab51d"/>
+            <rect x="800" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="802" y="74" width="52" height="42" fill="#7ab51d"/>
+            <rect x="520" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="522" y="144" width="52" height="42" fill="#7ab51d"/>
+            <rect x="590" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="592" y="144" width="52" height="42" fill="#7ab51d"/>
+            <rect x="660" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="662" y="144" width="52" height="42" fill="#7ab51d"/>
+            <rect x="730" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="732" y="144" width="52" height="42" fill="#7ab51d"/>
+            <rect x="800" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="802" y="144" width="52" height="42" fill="#7ab51d"/>
+            <text x="520" y="212" class="f-note">all 10 have their risk per exposure cut by 80%</text>
+          </svg>
+          <figcaption>Each square is one vaccinated person; the green fill is their degree of protection. Both vaccines have 80% efficacy.</figcaption>
+        </figure>
         <div class="highlight-box">
-          <strong>Mathematical implication:</strong> These model differently in transmission equations and produce different predictions for herd immunity thresholds.
+          <strong>Why it matters:</strong> A short trial cannot tell them apart, yet they predict different herd immunity thresholds and different apparent waning of efficacy over time.
         </div>
       </section>
 
-      <!-- Slide 5: Modeling All-or-Nothing -->
+      <!-- Slide 5: All-or-Nothing vs. Leaky — the model structure -->
       <section>
-        <h2>Modeling All-or-Nothing Protection</h2>
-        <p>In an all-or-nothing model:</p>
-        <ul>
-          <li>Vaccinated population splits into <strong>Protected (P)</strong> and <strong>Susceptible (S)</strong> compartments</li>
-          <li>Only susceptible vaccinated individuals contribute to transmission and infection</li>
-        </ul>
-        <div class="example-box">
-          <strong>Example compartments:</strong>
-          <p style="margin-bottom: 10px;">S → V_p (protected) + V_s (susceptible, unprotected)</p>
-          <p>Herd immunity threshold: lower coverage needed due to complete protection in responders</p>
-        </div>
-        <p><strong>Interpretation:</strong> This model is appropriate when vaccine efficacy is high and uniform within responders.</p>
-      </section>
+        <h2>Modelling the Two Mechanisms</h2>
+        <p class="fig-label">All-or-nothing — the split happens at vaccination</p>
+        <figure class="fig-compact">
+          <svg viewBox="0 0 960 200" role="img" aria-label="All-or-nothing structure: vaccination splits susceptibles into a fully protected compartment and an unprotected one that is infected at the ordinary force of infection.">
+            <defs>
+              <marker id="ao-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="73" y="45" text-anchor="middle" class="f-box">S</text>
+            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="473" y="45" text-anchor="middle" class="f-box">I</text>
+            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="723" y="45" text-anchor="middle" class="f-box">R</text>
+            <path d="M116,39 H420" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <text x="268" y="30" text-anchor="middle" class="f-arrow">λ</text>
+            <path d="M516,39 H670" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <text x="593" y="30" text-anchor="middle" class="f-arrow">γ</text>
 
-      <!-- Slide 6: Modeling Leaky Protection -->
-      <section>
-        <h2>Modeling Leaky Protection</h2>
-        <p>In a leaky model:</p>
-        <ul>
-          <li>All vaccinated individuals remain in the <strong>Susceptible</strong> compartment</li>
-          <li>But their susceptibility is reduced by a factor <strong>ε</strong> (efficacy, 0-1)</li>
-          <li>Force of infection on vaccinated: FOI × (1 - ε)</li>
-        </ul>
-        <div class="example-box">
-          <strong>Force of Infection calculation:</strong>
-          <p>For unvaccinated: λ = β × I / N</p>
-          <p>For vaccinated: λ_v = β × (1 - ε) × I / N</p>
-        </div>
-        <p><strong>Interpretation:</strong> This model is appropriate when vaccine protection is partial and affects transmission risk equally across all vaccinated individuals.</p>
-      </section>
+            <path d="M73,62 V104 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M73,62 V166 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <text x="66" y="120" text-anchor="end" class="f-note">vaccinate</text>
+            <text x="82" y="86" class="f-key">ε</text>
+            <text x="82" y="152" class="f-key">1 − ε</text>
 
-      <!-- Slide 7: Comparing Population Impact -->
-      <section>
-        <h2>Population-Level Differences</h2>
-        <div class="concept-grid">
-          <div class="concept-box">
-            <h4>All-or-Nothing at 60% coverage with 90% efficacy</h4>
-            <p>54% population protected + 40% susceptible = 94% immune</p>
-          </div>
-          <div class="concept-box">
-            <h4>Leaky at 60% coverage with 90% efficacy</h4>
-            <p>40% fully susceptible + 60% with 90% reduced risk</p>
-          </div>
-        </div>
+            <rect x="150" y="84" width="200" height="40" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <text x="250" y="109" text-anchor="middle" class="f-box">Protected</text>
+            <text x="364" y="109" class="f-note">never infected</text>
+
+            <rect x="150" y="146" width="200" height="40" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <text x="250" y="171" text-anchor="middle" class="f-box">Unprotected</text>
+            <path d="M350,166 H500 V66" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <text x="360" y="188" class="f-arrow">λ — the same as an unvaccinated person</text>
+          </svg>
+        </figure>
+        <p class="fig-label">Leaky — the split happens at every exposure</p>
+        <figure class="fig-compact">
+          <svg viewBox="0 0 960 158" role="img" aria-label="Leaky structure: all vaccinees enter one compartment and are infected at a force of infection reduced by one minus epsilon.">
+            <defs>
+              <marker id="lk-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="73" y="45" text-anchor="middle" class="f-box">S</text>
+            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="473" y="45" text-anchor="middle" class="f-box">I</text>
+            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="723" y="45" text-anchor="middle" class="f-box">R</text>
+            <path d="M116,39 H420" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <text x="268" y="30" text-anchor="middle" class="f-arrow">λ</text>
+            <path d="M516,39 H670" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <text x="593" y="30" text-anchor="middle" class="f-arrow">γ</text>
+
+            <path d="M73,62 V116 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <text x="66" y="98" text-anchor="end" class="f-note">vaccinate</text>
+            <rect x="150" y="96" width="200" height="40" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <text x="250" y="121" text-anchor="middle" class="f-box">Vaccinated</text>
+            <path d="M350,116 H500 V66" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <text x="360" y="140" class="f-key">(1 − ε) λ</text>
+            <text x="445" y="140" class="f-note">— reduced, but never zero</text>
+          </svg>
+        </figure>
         <div class="highlight-box">
-          <strong>Key difference:</strong> Leaky models show lower herd immunity thresholds and greater population-level protection from vaccination coverage.
+          <strong>Consequence:</strong> Breakthrough infections come from a small fully susceptible group under all-or-nothing, but from any vaccinee under leaky.
         </div>
-        <p style="margin-top: 20px;">The choice between these models depends on biological understanding of your vaccine.</p>
+        <div class="question-card">
+          <span class="q-mark">?</span>
+          <span>What examples can you think of?</span>
+        </div>
       </section>
 
       <!-- Slide 8: Protection Against Infection vs. Disease -->
       <section>
         <h2>Infection vs. Disease Protection</h2>
-        <p>Vaccines can protect at different steps in the infection pathway:</p>
-        <div class="concept-grid">
-          <div class="concept-box">
-            <h4>Protection Against Infection</h4>
-            <p><strong>VE_i:</strong> Reduces susceptibility to acquiring infection</p>
-            <p>Example: Rotavirus vaccine</p>
-          </div>
-          <div class="concept-box">
-            <h4>Protection Against Disease</h4>
-            <p><strong>VE_d:</strong> Reduces probability of disease given infection occurs</p>
-            <p>Example: Varicella vaccine</p>
-          </div>
-        </div>
+        <p>A vaccine can block the acquisition of infection, or only the disease that follows it:</p>
+        <figure>
+          <svg viewBox="0 0 960 205" role="img" aria-label="Pathway from exposure to infection to disease. Protection against infection blocks the first step; protection against disease blocks the second. Onward transmission branches off infection, so it is untouched by protection against disease.">
+            <defs>
+              <marker id="pw-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <rect x="20" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="100" y="62" text-anchor="middle" class="f-box">Exposure</text>
+
+            <path d="M180,56 H382" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <line x1="283" y1="34" x2="283" y2="78" stroke="#7ab51d" stroke-width="6"/>
+            <text x="283" y="24" text-anchor="middle" class="f-key">VE against infection</text>
+
+            <rect x="390" y="30" width="160" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <text x="470" y="62" text-anchor="middle" class="f-box">Infection</text>
+
+            <path d="M550,56 H752" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <line x1="653" y1="34" x2="653" y2="78" stroke="#e8a600" stroke-width="6"/>
+            <text x="653" y="24" text-anchor="middle" class="f-amber">VE against disease</text>
+
+            <rect x="760" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="840" y="62" text-anchor="middle" class="f-box">Disease</text>
+            <text x="840" y="106" text-anchor="middle" class="f-note">clinical outcome only</text>
+
+            <path d="M470,82 V134" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <rect x="360" y="140" width="220" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <text x="470" y="172" text-anchor="middle" class="f-box">Onward transmission</text>
+            <text x="598" y="172" class="f-note">untouched by VE against disease</text>
+          </svg>
+        </figure>
         <div class="highlight-box">
-          <strong>Modeling implication:</strong> With disease-only protection, vaccinated individuals can still be infected and transmit, creating different indirect effects.
+          <strong>Only protection against infection changes transmission.</strong> If a vaccine prevents disease alone, vaccinees are infected and infectious as before — there are no indirect effects, and a static cohort calculation of averted cases is enough. No transmission model needed.
+        </div>
+        <div class="question-card">
+          <span class="q-mark">?</span>
+          <span>What examples can you think of for each?</span>
         </div>
       </section>
 
-      <!-- Slide 9: Waning Vaccine Immunity -->
+      <!-- Waning protection (merged) -->
       <section>
-        <h2>Waning Vaccine Immunity</h2>
-        <p>Vaccine protection often decreases over time:</p>
-        <ul>
-          <li><strong>Boosters required:</strong> Some vaccines need repeated doses to maintain protection</li>
-          <li><strong>Duration of immunity:</strong> Varies from months to decades depending on vaccine and disease</li>
-          <li><strong>Population structure:</strong> Creates cohorts with different immunity levels by vaccination date</li>
-        </ul>
-        <div class="example-box">
-          <strong>Example:</strong> Pertussis vaccine immunity wanes over 5-10 years, requiring boosters in adolescence and adulthood.
-        </div>
-        <p><strong>Modeling approach:</strong> Track vaccinated cohorts by time since vaccination, transition to waned compartments over time.</p>
-      </section>
+        <h2>Waning Protection</h2>
+        <p>Protection is rarely permanent — and the shape you assume for its decay is a modelling choice:</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 215" role="img" aria-label="Schematic of three ways to represent waning protection over time: a fixed duration step, exponential decay, and a measured plateau followed by decline.">
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="80" y1="170" x2="650" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <text x="70" y="50" text-anchor="end" class="f-axis">VE</text>
+            <text x="70" y="175" text-anchor="end" class="f-axis">0</text>
+            <text x="365" y="198" text-anchor="middle" class="f-axis-title">time since vaccination</text>
+            <text x="32" y="100" text-anchor="middle" class="f-axis-title" transform="rotate(-90 32 100)">protection</text>
 
-      <!-- Slide 10: Mathematical Representation of Waning -->
-      <section>
-        <h2>Modeling Waning Mathematically</h2>
-        <ul>
-          <li><strong>Approach 1 (simple):</strong> Vaccinated compartment with fixed duration, then return to susceptible</li>
-          <li><strong>Approach 2 (realistic):</strong> Graduated waning - efficacy decreases gradually over time</li>
-          <li><strong>Approach 3 (complex):</strong> Specify full immunity kinetics from immunological data</li>
-        </ul>
+            <path d="M80,45 H330 V170 H650" fill="none" stroke="#00355f" stroke-width="3"/>
+            <polyline points="80,45 120,73 160,94 200,111 240,124 290,136 340,145 400,153 470,159 540,163 650,166" fill="none" stroke="#7ab51d" stroke-width="3"/>
+            <path d="M80,45 C190,47 260,53 330,82 C400,112 490,142 650,158" fill="none" stroke="#e8a600" stroke-width="3" stroke-dasharray="8 5"/>
+
+            <line x1="690" y1="50" x2="730" y2="50" stroke="#00355f" stroke-width="3"/>
+            <text x="742" y="55" class="f-legend">Fixed duration</text>
+            <text x="742" y="75" class="f-note">step back to susceptible</text>
+            <line x1="690" y1="105" x2="730" y2="105" stroke="#7ab51d" stroke-width="3"/>
+            <text x="742" y="110" class="f-legend">Exponential</text>
+            <text x="742" y="130" class="f-note">constant waning rate</text>
+            <line x1="690" y1="160" x2="730" y2="160" stroke="#e8a600" stroke-width="3" stroke-dasharray="8 5"/>
+            <text x="742" y="165" class="f-legend">Measured kinetics</text>
+            <text x="742" y="185" class="f-note">plateau, then decline</text>
+          </svg>
+        </figure>
         <div class="highlight-box">
-          <strong>Trade-off:</strong> More realism in waning requires more data and parameters to estimate. Choose appropriate complexity for your question.
+          <strong>The shape matters, not just the average duration.</strong> Exponential waning leaks individuals back to full susceptibility at a constant rate; a plateau-then-decline holds a cohort and then loses it together. They imply different booster timing and different long-term control.
         </div>
-        <p style="margin-top: 20px;"><strong>Impact:</strong> Waning affects long-term disease control and optimal booster schedules.</p>
+        <p class="source">Example: protection after the fifth dose of acellular pertussis vaccine declines markedly within ~5 years — Klein et al., N Engl J Med 2012.</p>
       </section>
 
       <!-- Slide 11: Indirect Effects and Herd Immunity -->
@@ -337,49 +570,244 @@
         <p style="margin-top: 20px;"><strong>Key for public health:</strong> Even unvaccinated people benefit when coverage is sufficiently high.</p>
       </section>
 
-      <!-- Slide 12: Other Indirect Effects -->
+      <!-- Other indirect effects: overview -->
       <section>
         <h2>Other Important Indirect Effects</h2>
+        <p>Beyond herd immunity, vaccination reshapes the ecology it acts on:</p>
         <ul>
-          <li><strong>Age-shifting:</strong> Vaccination can delay infection to older ages, potentially increasing severity</li>
-          <li><strong>Serotype replacement:</strong> Vaccination against one strain can allow others to emerge</li>
-          <li><strong>Immune interference:</strong> One infection can reduce susceptibility to another pathogen</li>
-          <li><strong>Vaccine-strain transmission:</strong> Live vaccines can transmit to unvaccinated contacts (beneficial in some settings)</li>
-          <li><strong>Behavioral changes:</strong> People may take more risk if they perceive protection</li>
+          <li><strong>Age-shifting:</strong> infection is delayed to ages where disease is worse</li>
+          <li><strong>Serotype replacement:</strong> the vacated niche is refilled by other strains</li>
+          <li><strong>Pathogen interactions:</strong> preventing one infection changes the burden of others</li>
+          <li><strong>Vaccine-strain transmission:</strong> live vaccines spread — and can revert</li>
+          <li><strong>Behavioural response:</strong> perceived safety may change contact patterns</li>
         </ul>
         <div class="highlight-box">
-          <strong>Modeling note:</strong> These effects are often context-specific and require careful consideration for policy-relevant modeling.
+          <strong>All five are indirect:</strong> none appears in a model of vaccinated individuals alone. Each needs the transmission system, and each has changed a real policy.
         </div>
       </section>
 
-      <!-- Slide 13: Modeling Vaccination in Practice -->
+      <!-- Age-shifting -->
       <section>
-        <h2>Putting It Together: A Simple SVIR Model</h2>
-        <p><strong>Model structure:</strong></p>
-        <ul>
-          <li>S (Susceptible) → V (Vaccinated) at rate determined by coverage</li>
-          <li>V can transition to I at reduced rate (vaccine efficacy)</li>
-          <li>I → R (Recovered) at disease-specific rate</li>
-        </ul>
-        <div class="example-box">
-          <strong>Key equations:</strong>
-          <p style="margin-bottom: 10px;">dS/dt = -β × S × I / N</p>
-          <p style="margin-bottom: 10px;">dV/dt = vaccination_rate - β × (1 - VE) × V × I / N</p>
-          <p>dI/dt = β × (S + (1-VE) × V) × I / N - γ × I</p>
+        <h2>Age-Shifting: Rubella and CRS</h2>
+        <p>Vaccination lowers the force of infection, so those still susceptible meet the virus later in life — and for rubella, later can mean pregnancy.</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 215" role="img" aria-label="Schematic curve of congenital rubella syndrome births against rubella vaccination coverage: the burden rises above the pre-vaccination level at intermediate coverage before falling to elimination at high coverage.">
+            <path d="M90,110 C180,78 270,52 340,52 C410,52 465,95 494,110 Z" fill="#e8a600" fill-opacity="0.18"/>
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="80" y1="170" x2="710" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="90" y1="110" x2="700" y2="110" stroke="#8a97a4" stroke-width="2" stroke-dasharray="7 5"/>
+            <path d="M90,110 C180,78 270,52 340,52 C420,52 470,105 540,132 C600,152 650,160 700,164" fill="none" stroke="#00355f" stroke-width="3"/>
+            <text x="90" y="188" text-anchor="middle" class="f-axis">0</text>
+            <text x="395" y="188" text-anchor="middle" class="f-axis">50%</text>
+            <text x="700" y="188" text-anchor="middle" class="f-axis">100%</text>
+            <text x="395" y="208" text-anchor="middle" class="f-axis-title">rubella vaccination coverage</text>
+            <text x="34" y="100" text-anchor="middle" class="f-axis-title" transform="rotate(-90 34 100)">CRS births</text>
+            <text x="300" y="95" text-anchor="middle" class="f-amber">worse than no vaccination</text>
+            <text x="716" y="114" class="f-note">pre-vaccination level</text>
+            <text x="716" y="168" class="f-key">elimination</text>
+          </svg>
+          <figcaption>Schematic: the shape of the relationship, not fitted values.</figcaption>
+        </figure>
+        <div class="highlight-box">
+          <strong>Partial coverage can be worse than none.</strong> Greece reached moderate, patchy MMR uptake through the 1980s and then recorded its largest congenital rubella epidemic in 1993 — the outcome transmission models had predicted a decade earlier.
         </div>
+        <p class="source">Anderson &amp; May, J Hyg 1983 · Panagiotopoulos et al., BMJ 1999 (Greece)</p>
       </section>
 
-      <!-- Slide 14: Interpreting Model Results -->
+      <!-- Serotype replacement -->
       <section>
-        <h2>Interpreting Results from Vaccine Models</h2>
-        <p>When analyzing vaccine model outputs, consider:</p>
-        <ul>
-          <li><strong>Peak infections:</strong> Does vaccination reduce the height of epidemic peaks?</li>
-          <li><strong>Attack rates:</strong> What proportion of population gets infected, vaccinated vs. unvaccinated?</li>
-          <li><strong>Critical coverage:</strong> What vaccination coverage eliminates endemic transmission?</li>
-          <li><strong>Indirect protection:</strong> How much benefit accrues to the unvaccinated?</li>
-          <li><strong>Sensitivity:</strong> How robust are results to uncertainty in vaccine efficacy or coverage?</li>
-        </ul>
+        <h2>Serotype Replacement: Pneumococcus</h2>
+        <p>Conjugate vaccines target a subset of serotypes — but the niche they occupied does not stay empty.</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 215" role="img" aria-label="Schematic time series after conjugate vaccine introduction: vaccine-type invasive disease collapses, non-vaccine-type disease rises, and all-type disease falls by less than the vaccine-type decline.">
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="80" y1="170" x2="660" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="140" y1="30" x2="140" y2="170" stroke="#8a97a4" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="147" y="26" class="f-note">PCV introduced</text>
+            <polyline points="90,40 140,42 200,60 300,88 420,107 530,106 640,105" fill="none" stroke="#8a97a4" stroke-width="3"/>
+            <polyline points="90,60 140,62 200,85 300,120 420,150 530,157 640,160" fill="none" stroke="#00355f" stroke-width="3"/>
+            <polyline points="90,145 140,145 200,140 300,133 420,122 530,114 640,110" fill="none" stroke="#e8a600" stroke-width="3"/>
+            <text x="365" y="200" text-anchor="middle" class="f-axis-title">years since introduction</text>
+            <text x="34" y="100" text-anchor="middle" class="f-axis-title" transform="rotate(-90 34 100)">invasive disease</text>
+            <line x1="690" y1="60" x2="730" y2="60" stroke="#00355f" stroke-width="3"/>
+            <text x="742" y="65" class="f-legend">Vaccine types</text>
+            <line x1="690" y1="105" x2="730" y2="105" stroke="#e8a600" stroke-width="3"/>
+            <text x="742" y="110" class="f-legend">Non-vaccine types</text>
+            <line x1="690" y1="150" x2="730" y2="150" stroke="#8a97a4" stroke-width="3"/>
+            <text x="742" y="155" class="f-legend">All types</text>
+          </svg>
+          <figcaption>Schematic of the pattern observed after PCV introduction.</figcaption>
+        </figure>
+        <div class="highlight-box">
+          <strong>Carriage stays roughly constant; only its composition changes.</strong> Vaccine types are cleared from the nasopharynx and non-vaccine types expand into the space. The net benefit is therefore set by how much less invasive the replacing serotypes are — not by the vaccine-type decline alone.
+        </div>
+        <p class="source">Weinberger, Malley &amp; Lipsitch, Lancet 2011 · Flasche et al., PLoS Medicine 2011 (England &amp; Wales)</p>
+      </section>
+
+      <!-- Pathogen interactions -->
+      <section>
+        <h2>Pathogen Interactions: Measles Immune Amnesia</h2>
+        <p>Measles infection destroys existing immune memory, so preventing it also prevents deaths from entirely different pathogens.</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 158" role="img" aria-label="Two grids of squares representing antibody memory to many pathogens. Before measles nearly all are filled; after measles most are emptied.">
+            <defs>
+              <marker id="ma-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <text x="60" y="28" class="f-legend">Before measles</text>
+            <rect x="60" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="79" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="98" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="117" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="136" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="155" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="174" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="193" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="60" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="79" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="98" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="117" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="136" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="155" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="174" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="193" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="60" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="79" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="98" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="117" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="136" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="155" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="174" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="193" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="60" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="79" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="98" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="117" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="136" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="155" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="174" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="193" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <text x="60" y="140" class="f-note">memory to many pathogens</text>
+
+            <path d="M222,80 H412" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ma-tip)"/>
+            <text x="320" y="68" text-anchor="middle" class="f-amber">measles infection</text>
+            <text x="320" y="102" text-anchor="middle" class="f-note">erases much of it</text>
+
+            <text x="430" y="28" class="f-legend">After measles</text>
+            <rect x="430" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="449" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="468" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="487" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="506" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="525" y="44" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="544" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="563" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="430" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="449" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="468" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="487" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="506" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="525" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="544" y="63" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="563" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="430" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="449" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="468" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="487" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="506" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="525" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="544" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="563" y="82" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="430" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="449" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="468" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="487" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="506" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="525" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="544" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
+            <rect x="563" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <text x="430" y="140" class="f-note">protection has to be rebuilt</text>
+
+            <text x="620" y="60" class="f-key">Measles vaccination prevents this</text>
+            <text x="620" y="84" class="f-note">— so it averts far more deaths</text>
+            <text x="620" y="104" class="f-note">than measles alone would suggest</text>
+          </svg>
+        </figure>
+        <div class="highlight-box">
+          <strong>The effect is large enough to see in mortality data.</strong> Measles incidence predicts non-measles childhood infectious mortality for two to three years afterwards, which explains a substantial share of the mortality decline that followed measles vaccination.
+        </div>
+        <p class="source">Mina et al., Science 2015 (mortality) · Mina et al., Science 2019 (antibody repertoire)</p>
+      </section>
+
+      <!-- Vaccine-strain transmission -->
+      <section>
+        <h2>Vaccine-Strain Transmission: Oral Polio Vaccine</h2>
+        <p>A live vaccine is itself transmissible — which cuts both ways.</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 212" role="img" aria-label="A child given oral polio vaccine sheds vaccine virus, which either immunises contacts or, where coverage is low, circulates long enough to revert to virulence and cause outbreaks.">
+            <defs>
+              <marker id="opv-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <rect x="20" y="79" width="190" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <text x="115" y="111" text-anchor="middle" class="f-box">Child given OPV</text>
+            <text x="115" y="68" text-anchor="middle" class="f-note">sheds live vaccine virus</text>
+
+            <path d="M210,105 H290" stroke="#44586b" stroke-width="2" fill="none"/>
+            <path d="M290,105 V50 H406" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <path d="M290,105 V160 H406" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <text x="402" y="42" text-anchor="end" class="f-key">immunises contacts</text>
+            <text x="402" y="184" text-anchor="end" class="f-amber">can revert to virulence</text>
+
+            <rect x="414" y="24" width="230" height="52" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <text x="529" y="56" text-anchor="middle" class="f-box">Contact protected</text>
+
+            <rect x="414" y="134" width="230" height="52" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <text x="529" y="166" text-anchor="middle" class="f-box">Keeps circulating</text>
+            <path d="M644,160 H690" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <rect x="698" y="134" width="240" height="52" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <text x="818" y="166" text-anchor="middle" class="f-box">cVDPV outbreak</text>
+            <text x="700" y="206" text-anchor="middle" class="f-note">where coverage is low</text>
+          </svg>
+        </figure>
+        <div class="highlight-box">
+          <strong>Both branches are real.</strong> OPV's transmissibility extended immunity well beyond those actually vaccinated — a large part of its success. But where coverage is low the vaccine virus circulates long enough to regain virulence, and circulating vaccine-derived poliovirus has in recent years caused more paralytic polio worldwide than wild virus.
+        </div>
+        <p class="source">Fine &amp; Carneiro, American Journal of Epidemiology 1999 · GPEI surveillance</p>
+      </section>
+
+      <!-- Behavioural response -->
+      <section>
+        <h2>Behavioural Response: Risk Compensation</h2>
+        <p>A vaccine changes perceived risk, and perceived risk can change behaviour — a loop your model contains only if you put it there.</p>
+        <figure class="fig-mid">
+          <svg viewBox="0 0 960 168" role="img" aria-label="Vaccination lowers perceived risk, which may raise contact rates, which offsets part of the vaccine's benefit, feeding back to the start.">
+            <defs>
+              <marker id="rc-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+              </marker>
+            </defs>
+            <rect x="10" y="36" width="190" height="54" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <text x="105" y="69" text-anchor="middle" class="f-box">Vaccination</text>
+            <path d="M200,63 H246" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="254" y="36" width="220" height="54" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="364" y="69" text-anchor="middle" class="f-box">Perceived risk falls</text>
+            <path d="M474,63 H516" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="524" y="36" width="180" height="54" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <text x="614" y="69" text-anchor="middle" class="f-box">More contacts</text>
+            <path d="M704,63 H746" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="754" y="36" width="196" height="54" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <text x="852" y="69" text-anchor="middle" class="f-box">Net benefit falls</text>
+            <path d="M852,92 C852,140 220,140 112,98" stroke="#8a97a4" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#rc-tip)"/>
+            <text x="480" y="160" text-anchor="middle" class="f-note">feedback that a standard transmission model does not contain by default</text>
+          </svg>
+        </figure>
+        <div class="highlight-box">
+          <strong>Plausible, but rarely observed.</strong> The best-studied case is HPV vaccination, where cohort studies found no increase in sexual risk behaviour or in sexually transmitted infections among vaccinated adolescents. Treat risk compensation as a hypothesis for sensitivity analysis, not a default assumption.
+        </div>
+        <p class="source">Smith et al., CMAJ 2015 (Ontario cohort) · Jena et al., JAMA Internal Medicine 2015</p>
       </section>
 
       <!-- Slide 15: Summary & Key Takeaways -->
@@ -407,7 +835,7 @@
       progress: true,
       slideNumber: 'c/t',
       hash: true,
-      center: true,
+      center: false,
       transition: 'slide'
     });
   </script>
