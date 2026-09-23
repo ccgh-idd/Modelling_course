@@ -32,7 +32,7 @@ window.courseData = {
     { title: "Practical", speaker: "Gesine Meyer-Rath & Julia Mayer", content: "Budget impact analysis" },
     { title: "Climate sensitive models", speaker: "Matthieu Domenech de Cellès", content: "tbd" },
     { title: "Practical", speaker: "Matthieu Domenech de Cellès & Cana Kussmaul", content: "tbd" },
-    { title: "Collaborative modeling and multi model ensambles", speaker: "?", content: "This session reviews the value of multiple models, how to combine their evidence and how to report their result and uncertainty" },
+    { title: "Collaborative modeling and multi model ensambles", speaker: "Johannes Bracher (online)", content: "This session reviews the value of multiple models, how to combine their evidence and how to report their result and uncertainty" },
     { title: "Group work II", speaker: "Stefan Flasche & Gesine Meyer-Rath", content: "Groups discuss key insights from assigned readings and refine their project direction. The session supports peer feedback and stronger framing of policy questions." },
     { title: "Phylogenetic inference", speaker: "Matej Kriznar", content: "We introduce the principles of phylogenetic inference and how sequence data can inform transmission modeling. The session highlights where phylogenetics adds value and where limits remain." },
     { title: "Practical", speaker: "Matej Kriznar & Kaige Dong", content: "Participants work through a simple phylogenetic modeling example. The exercise focuses on interpretation of outputs for epidemiological use." },
