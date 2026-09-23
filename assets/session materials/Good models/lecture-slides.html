@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifying a Good Model</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root {
+      --navy: #00355f;
+      --navy-dark: #001f3d;
+      --green: #7ab51d;
+      --green-dark: #5c8c16;
+      --navy-soft: #e7edf3;
+      --green-soft: #eef6e2;
+      --amber: #e8a600;
+      --amber-soft: #fff5db;
+      --ink: #14212e;
+      --rule: #d8dfe6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Charité Sans", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    .reveal {
+      font-family: inherit;
+      font-size: 30px;
+    }
+
+    .reveal .progress {
+      height: 6px;
+      background: var(--navy-soft);
+      color: var(--green);
+    }
+
+    .reveal .progress span {
+      background: var(--green);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      height: 100%;
+    }
+
+    /* Charité-style header rule + persistent footer */
+    .reveal .slides section:not(.title-slide) {
+      border-top: 6px solid var(--navy);
+      padding-top: 0.8em;
+      padding-bottom: 1.4em;
+    }
+
+    .reveal .slides section:not(.title-slide)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 4px;
+      background: var(--green);
+    }
+
+    .reveal .slides section:not(.title-slide)::before {
+      content: "Identifying a Good Model";
+      position: absolute;
+      bottom: 0.3em;
+      left: 0;
+      font-size: 0.32em;
+      letter-spacing: 0.03em;
+      color: #8a97a4;
+      font-weight: 500;
+    }
+
+    .reveal h2 {
+      font-size: 1.55em;
+      color: var(--navy);
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+
+    .reveal h3 {
+      font-size: 1.2em;
+      color: var(--green-dark);
+      font-weight: 600;
+    }
+
+    .reveal p, .reveal li {
+      font-size: 0.82em;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .reveal ul {
+      margin-left: 1.1em;
+      list-style: none;
+    }
+
+    .reveal li {
+      margin-bottom: 0.32em;
+      position: relative;
+      padding-left: 0.8em;
+    }
+
+    .reveal li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+    }
+
+    .reveal .title-slide {
+      background: var(--navy-dark);
+      color: white;
+      overflow: hidden;
+    }
+
+    .reveal .title-slide .title-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .reveal .title-slide::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: var(--green);
+    }
+
+    .reveal .title-slide h2 {
+      color: white;
+      font-size: 1.9em;
+      font-weight: 700;
+      margin-bottom: 0.6em;
+      letter-spacing: -0.01em;
+    }
+
+    .reveal .title-slide p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95em;
+    }
+
+    .example-box {
+      background: var(--navy-soft);
+      border-left: 5px solid var(--navy);
+      padding: 0.7em 0.8em;
+      margin: 0.6em 0;
+      border-radius: 2px;
+      text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
+    }
+
+    .example-box strong {
+      color: var(--navy);
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    .highlight-box {
+      background: var(--green-soft);
+      border-left: 5px solid var(--green);
+      padding: 0.7em 0.8em;
+      margin: 0.6em 0;
+      border-radius: 2px;
+      text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
+    }
+
+    .highlight-box strong {
+      color: var(--green-dark);
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    .reveal .example-box p,
+    .reveal .highlight-box p {
+      font-size: 1em;
+    }
+
+    .question-card {
+      display: flex;
+      align-items: center;
+      gap: 0.65em;
+      background: var(--amber-soft);
+      border-left: 5px solid var(--amber);
+      padding: 0.55em 0.8em;
+      margin: 0.5em 0 0;
+      border-radius: 2px;
+      font-size: 0.82em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .question-card .q-mark {
+      flex: 0 0 auto;
+      width: 1.6em;
+      height: 1.6em;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.6em;
+      text-align: center;
+    }
+
+    .reveal figure {
+      margin: 0.2em 0 0;
+    }
+
+    .reveal figure svg {
+      width: 100%;
+      max-width: 90%;
+      height: auto;
+      display: block;
+    }
+
+    .reveal figure.fig-compact svg {
+      max-width: 70%;
+    }
+
+    .reveal figure.fig-mid svg {
+      max-width: 84%;
+    }
+
+    .reveal figure text {
+      font-family: inherit;
+    }
+
+    .reveal figure .f-title { font-size: 21px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-sub { font-size: 15px; fill: #647382; }
+    .reveal figure .f-note { font-size: 15px; fill: #647382; }
+    .reveal figure .f-box { font-size: 18px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-arrow { font-size: 16px; fill: #44586b; }
+    .reveal figure .f-key { font-size: 16px; font-weight: 700; fill: var(--green-dark); }
+    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #a17400; }
+    .reveal figure .f-legend { font-size: 16px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-axis { font-size: 14px; fill: #7c8a97; }
+    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #44586b; }
+
+    .reveal .source {
+      font-size: 0.4em;
+      color: #8a97a4;
+      margin: 0.35em 0 0;
+      line-height: 1.4;
+    }
+
+    .reveal figcaption {
+      font-size: 0.48em;
+      color: #7c8a97;
+      line-height: 1.4;
+    }
+
+    .reveal .fig-label {
+      font-size: 0.56em;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0.3em 0 0;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6em;
+      margin: 0.6em 0;
+    }
+
+    .concept-box {
+      background: var(--navy-soft);
+      padding: 0.65em;
+      border-radius: 2px;
+      border-left: 4px solid var(--navy);
+    }
+
+    .concept-box h4 {
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+
+    @media (max-width: 768px) {
+      .reveal {
+        font-size: 22px;
+      }
+
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1: Title -->
+      <section class="title-slide">
+        <div class="title-inner">
+          <h2>Identifying a Good Model</h2>
+          <p>Transparency, reproducibility and fitness for decision support</p>
+          <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
+        </div>
+      </section>
+
+      <!-- Slide 2: Learning Objectives -->
+      <section>
+        <h2>Learning Objectives</h2>
+        <p>By the end of this lecture, you will understand:</p>
+        <ul>
+          <li>What makes a model fit for purpose in public health decision making</li>
+          <li>The Lancet Commission reporting guidelines for transparent and reproducible modelling</li>
+          <li>How to use the WHO IVIR framework to appraise model quality and policy relevance</li>
+        </ul>
+      </section>
+
+      <!-- Placeholder slides -->
+      <section>
+        <h2>The Lancet Commission reporting guidelines</h2>
+        <p>Slide content to follow.</p>
+      </section>
+
+      <section>
+        <h2>The WHO IVIR framework</h2>
+        <p>Slide content to follow.</p>
+      </section>
+
+      <section>
+        <h2>Key take-home messages</h2>
+        <p>Slide content to follow.</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      controlsLayout: 'bottom-right',
+      progress: true,
+      slideNumber: 'c/t',
+      hash: true,
+      center: false,
+      transition: 'slide'
+    });
+  </script>
+</body>
+</html>

@@ -1199,7 +1199,7 @@
     function sessionKind(session, index) {
       if (/^Practical/i.test(session.title)) return "practical";
       if (/^Group work/i.test(session.title) || /^Group presentations/i.test(session.title)) return "groupwork";
-      if (index === 0 || index === sessions.length - 1) return "milestone";
+      if (index === 0 || index === sessions.length - 1) return "groupwork";
       return "normal";
     }
 

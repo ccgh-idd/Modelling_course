@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome and Introductions</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root {
+      --navy: #00355f;
+      --navy-dark: #001f3d;
+      --green: #7ab51d;
+      --green-dark: #5c8c16;
+      --navy-soft: #e7edf3;
+      --green-soft: #eef6e2;
+      --amber: #e8a600;
+      --amber-soft: #fff5db;
+      --ink: #14212e;
+      --rule: #d8dfe6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Charité Sans", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    .reveal {
+      font-family: inherit;
+      font-size: 30px;
+    }
+
+    .reveal .progress {
+      height: 6px;
+      background: var(--navy-soft);
+      color: var(--green);
+    }
+
+    .reveal .progress span {
+      background: var(--green);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      height: 100%;
+    }
+
+    /* Charité-style header rule + persistent footer */
+    .reveal .slides section:not(.title-slide) {
+      border-top: 6px solid var(--navy);
+      padding-top: 0.8em;
+      padding-bottom: 1.4em;
+    }
+
+    .reveal .slides section:not(.title-slide)::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 4px;
+      background: var(--green);
+    }
+
+    .reveal .slides section:not(.title-slide)::before {
+      content: "Welcome and Introductions";
+      position: absolute;
+      bottom: 0.3em;
+      left: 0;
+      font-size: 0.32em;
+      letter-spacing: 0.03em;
+      color: #8a97a4;
+      font-weight: 500;
+    }
+
+    .reveal h2 {
+      font-size: 1.55em;
+      color: var(--navy);
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+
+    .reveal h3 {
+      font-size: 1.2em;
+      color: var(--green-dark);
+      font-weight: 600;
+    }
+
+    .reveal p, .reveal li {
+      font-size: 0.82em;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .reveal ul {
+      margin-left: 1.1em;
+      list-style: none;
+    }
+
+    .reveal li {
+      margin-bottom: 0.32em;
+      position: relative;
+      padding-left: 0.8em;
+    }
+
+    .reveal li:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+    }
+
+    .reveal .title-slide {
+      background: var(--navy-dark);
+      color: white;
+      overflow: hidden;
+    }
+
+    .reveal .title-slide .title-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .reveal .title-slide::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: var(--green);
+    }
+
+    .reveal .title-slide h2 {
+      color: white;
+      font-size: 1.9em;
+      font-weight: 700;
+      margin-bottom: 0.6em;
+      letter-spacing: -0.01em;
+    }
+
+    .reveal .title-slide p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95em;
+    }
+
+    .example-box {
+      background: var(--navy-soft);
+      border-left: 5px solid var(--navy);
+      padding: 0.7em 0.8em;
+      margin: 0.6em 0;
+      border-radius: 2px;
+      text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
+    }
+
+    .example-box strong {
+      color: var(--navy);
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    .highlight-box {
+      background: var(--green-soft);
+      border-left: 5px solid var(--green);
+      padding: 0.7em 0.8em;
+      margin: 0.6em 0;
+      border-radius: 2px;
+      text-align: left;
+      font-size: 0.82em;
+      line-height: 1.45;
+    }
+
+    .highlight-box strong {
+      color: var(--green-dark);
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    .reveal .example-box p,
+    .reveal .highlight-box p {
+      font-size: 1em;
+    }
+
+    .question-card {
+      display: flex;
+      align-items: center;
+      gap: 0.65em;
+      background: var(--amber-soft);
+      border-left: 5px solid var(--amber);
+      padding: 0.55em 0.8em;
+      margin: 0.5em 0 0;
+      border-radius: 2px;
+      font-size: 0.82em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .question-card .q-mark {
+      flex: 0 0 auto;
+      width: 1.6em;
+      height: 1.6em;
+      border-radius: 50%;
+      background: var(--amber);
+      color: #fff;
+      font-weight: 700;
+      line-height: 1.6em;
+      text-align: center;
+    }
+
+    .reveal figure {
+      margin: 0.2em 0 0;
+    }
+
+    .reveal figure svg {
+      width: 100%;
+      max-width: 90%;
+      height: auto;
+      display: block;
+    }
+
+    .reveal figure.fig-compact svg {
+      max-width: 70%;
+    }
+
+    .reveal figure.fig-mid svg {
+      max-width: 84%;
+    }
+
+    .reveal figure text {
+      font-family: inherit;
+    }
+
+    .reveal figure .f-title { font-size: 21px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-sub { font-size: 15px; fill: #647382; }
+    .reveal figure .f-note { font-size: 15px; fill: #647382; }
+    .reveal figure .f-box { font-size: 18px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-arrow { font-size: 16px; fill: #44586b; }
+    .reveal figure .f-key { font-size: 16px; font-weight: 700; fill: var(--green-dark); }
+    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #a17400; }
+    .reveal figure .f-legend { font-size: 16px; font-weight: 700; fill: var(--navy); }
+    .reveal figure .f-axis { font-size: 14px; fill: #7c8a97; }
+    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #44586b; }
+
+    .reveal .source {
+      font-size: 0.4em;
+      color: #8a97a4;
+      margin: 0.35em 0 0;
+      line-height: 1.4;
+    }
+
+    .reveal figcaption {
+      font-size: 0.48em;
+      color: #7c8a97;
+      line-height: 1.4;
+    }
+
+    .reveal .fig-label {
+      font-size: 0.56em;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0.3em 0 0;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6em;
+      margin: 0.6em 0;
+    }
+
+    .concept-box {
+      background: var(--navy-soft);
+      padding: 0.65em;
+      border-radius: 2px;
+      border-left: 4px solid var(--navy);
+    }
+
+    .concept-box h4 {
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+
+    @media (max-width: 768px) {
+      .reveal {
+        font-size: 22px;
+      }
+
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Welcome deck extras */
+    .reveal .divider-slide { background: var(--navy); }
+    .reveal .divider-slide h2 { color: white; font-size: 2em; margin-top: 3em; }
+    .reveal .divider-slide p { color: #cfe3a8; }
+    .reveal .slides section.divider-slide::before { color: #9fb3c6; }
+    .stat-row { display: flex; gap: 0.6em; margin: 0.8em 0; }
+    .stat { flex: 1; background: var(--navy-soft); border-top: 5px solid var(--green); padding: 0.5em 0.6em; }
+    .stat strong { display: block; font-size: 1.6em; color: var(--navy); line-height: 1.1; }
+    .stat span { font-size: 0.6em; color: var(--ink); }
+    .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45em; margin-top: 0.4em; }
+    .topic-grid div { background: var(--navy-soft); border-left: 4px solid var(--navy); padding: 0.4em 0.55em; font-size: 0.56em; line-height: 1.3; }
+    .topic-grid div b { color: var(--navy); display: block; font-size: 1.1em; }
+    .kind-lecture { border-left-color: var(--navy) !important; }
+    .kind-practical { background: var(--green-soft) !important; border-left-color: var(--green) !important; }
+    .kind-group { background: var(--amber-soft) !important; border-left-color: var(--amber) !important; }
+    .faculty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3em 0.8em; margin-top: 0.4em; }
+    .faculty-grid div { font-size: 0.52em; line-height: 1.3; border-bottom: 1px solid var(--rule); padding: 0.25em 0; }
+    .faculty-grid div b { color: var(--navy); }
+    .faculty-grid div span { color: #6b7885; display: block; }
+    .day-table { width: 100%; border-collapse: collapse; font-size: 0.55em; margin-top: 0.4em; }
+    .day-table td, .day-table th { border-bottom: 1px solid var(--rule); padding: 0.35em 0.5em; text-align: left; }
+    .day-table th { color: var(--navy); }
+    .tbd { background: var(--amber-soft); padding: 0 0.3em; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1: Title -->
+      <section class="title-slide">
+        <div class="title-inner">
+          <h2>Welcome and Introductions</h2>
+          <p>Infectious disease modelling short course</p>
+          <p style="margin-top: 40px; font-size: 1.1em;">Stefan Flasche</p>
+        </div>
+      </section>
+
+      <!-- Slide 2: Learning Objectives -->
+      <section>
+        <h2>Learning Objectives</h2>
+        <p>By the end of this session, you will:</p>
+        <ul>
+          <li>Know the participants and faculty of the course</li>
+          <li>Understand the structure, aims and assessment of the course</li>
+          <li>Be familiar with the Excel and R workflows used in the practicals</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3: Why models -->
+      <section>
+        <h2>Why are we here?</h2>
+        <p>Mathematical models increasingly shape public health decisions: from outbreak response to vaccine introduction and resource allocation.</p>
+        <div class="concept-grid">
+          <div class="concept-box"><h3>Understand</h3><p>Make assumptions about transmission explicit and explore their consequences.</p></div>
+          <div class="concept-box"><h3>Predict</h3><p>Nowcast and forecast epidemics to support real-time response.</p></div>
+          <div class="concept-box"><h3>Compare</h3><p>Evaluate interventions and their cost-effectiveness before implementation.</p></div>
+          <div class="concept-box"><h3>Critique</h3><p>Judge whether a model is fit to inform the decision at hand.</p></div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Divider -->
+      <section class="divider-slide">
+        <h2>Who is in the room?</h2>
+        <p>Round of introductions</p>
+      </section>
+
+      <!-- Slide 5: Introductions -->
+      <section>
+        <h2>Introductions</h2>
+        <p>In one minute, tell us:</p>
+        <ul>
+          <li>Your name and where you work</li>
+          <li>Your background: epidemiology, public health, data science, clinical, other?</li>
+          <li>One question you hope this course will help you answer</li>
+        </ul>
+        <div class="question-card">Bonus: the most memorable model-based headline you have come across</div>
+      </section>
+
+      <!-- Slide 6: Who the course is for -->
+      <section>
+        <h2>Who is this course for?</h2>
+        <div class="concept-grid">
+          <div class="concept-box"><h3>Epidemiologists &amp; health professionals</h3><p>Build the ability to critically review models and their use in policy.</p></div>
+          <div class="concept-box"><h3>Data scientists</h3><p>Learn how to build, fit and interpret infectious disease models.</p></div>
+        </div>
+        <div class="highlight-box">You bring different strengths: the group work is designed so that you learn from each other.</div>
+      </section>
+
+      <!-- Slide 7: Course at a glance -->
+      <section>
+        <h2>The course at a glance</h2>
+        <div class="stat-row">
+          <div class="stat"><strong>10</strong><span>days over two weeks</span></div>
+          <div class="stat"><strong>40</strong><span>sessions</span></div>
+          <div class="stat"><strong>17</strong><span>faculty members</span></div>
+          <div class="stat"><strong>3</strong><span>ECTS</span></div>
+        </div>
+        <ul>
+          <li><strong>Week 1 (19–23 April):</strong> foundations: outbreak analytics, serology, transmission models, fitting</li>
+          <li><strong>Week 2 (26–30 April):</strong> applications: vaccines, health economics, climate, phylogenetics, policy</li>
+        </ul>
+      </section>
+
+      <!-- Slide 8: Divider -->
+      <section class="divider-slide">
+        <h2>What will we cover?</h2>
+        <p>Course topics</p>
+      </section>
+
+      <!-- Slide 9: Topics week 1 -->
+      <section>
+        <h2>Week 1: foundations</h2>
+        <div class="topic-grid">
+          <div><b>Outbreak response</b>Delay distributions, nowcasting, R(t), forecasting</div>
+          <div><b>Serological models</b>Catalytic models and individual infection histories</div>
+          <div><b>SIR &amp; SIS models</b>R0, Re and epidemic thresholds</div>
+          <div><b>Model choice</b>Deterministic vs stochastic, static vs dynamic, IBMs</div>
+          <div><b>Fitting a model</b>Likelihoods and parameter estimation</div>
+          <div><b>Identifying a fit model</b>Diagnostics, over- and underfitting</div>
+          <div><b>Heterogeneity I</b>Age structure and contact matrices</div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Topics week 2 -->
+      <section>
+        <h2>Week 2: applications &amp; policy</h2>
+        <div class="topic-grid">
+          <div><b>Vaccine models</b>Leaky vs all-or-nothing, waning, indirect effects</div>
+          <div><b>Health economics</b>QALYs, DALYs, ICERs and budget impact</div>
+          <div><b>Identifying a good model</b>Reporting guidelines and the WHO IVIR framework</div>
+          <div><b>Heterogeneity II</b>Space, risk groups, networks, superspreading</div>
+          <div><b>Climate sensitive models</b>Environmental drivers of transmission</div>
+          <div><b>Multi-model ensembles</b>Combining evidence across models</div>
+          <div><b>Phylogenetic inference</b>What sequence data add to transmission models</div>
+          <div><b>AI &amp; the future of models</b></div>
+          <div><b>Use and abuse of models</b>Responsible modelling in public health</div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Session types -->
+      <section>
+        <h2>Three kinds of sessions</h2>
+        <div class="topic-grid" style="grid-template-columns: 1fr;">
+          <div class="kind-lecture"><b>Lectures (1 h)</b>Concepts, methods and examples from real public health questions.</div>
+          <div class="kind-practical"><b>Practicals (1.5 h)</b>Hands-on exercises in Excel and R that directly follow each lecture, supported by tutors.</div>
+          <div class="kind-group"><b>Group work</b>Apply what you learn to a policy question in small groups, culminating in presentations.</div>
+        </div>
+      </section>
+
+      <!-- Slide 12: A typical day -->
+      <section>
+        <h2>A typical day</h2>
+        <table class="day-table">
+          <tr><th>Time</th><th>Session</th></tr>
+          <tr><td>09:00–10:00</td><td>Lecture</td></tr>
+          <tr><td>10:00–10:30</td><td>Break</td></tr>
+          <tr><td>10:30–12:00</td><td>Practical</td></tr>
+          <tr><td>12:00–13:00</td><td>Lunch</td></tr>
+          <tr><td>13:00–14:00</td><td>Lecture</td></tr>
+          <tr><td>14:00–14:30</td><td>Break</td></tr>
+          <tr><td>14:30–16:00</td><td>Practical or group work</td></tr>
+        </table>
+      </section>
+
+      <!-- Slide 13: Group work -->
+      <section>
+        <h2>Group work: from model to recommendation</h2>
+        <ul>
+          <li><strong>Group work I:</strong> form groups, choose a topic and scope your modelling question</li>
+          <li><strong>Group work II:</strong> discuss readings, get peer feedback and sharpen the policy question</li>
+          <li><strong>Group work III:</strong> prepare a policy-facing presentation</li>
+          <li><strong>Group presentations:</strong> present to a mock NITAG and defend your assumptions</li>
+        </ul>
+        <div class="highlight-box">Focus on clear argument, transparent assumptions and honest communication of uncertainty.</div>
+      </section>
+
+      <!-- Slide 14: Faculty -->
+      <section>
+        <h2>Meet the faculty</h2>
+        <div class="faculty-grid"><div><b>Stefan Flasche</b><span>Charité Centre for Global Health</span></div><div><b>Gesine Meyer-Rath</b><span>Boston University / HE2RO, Wits</span></div><div><b>Frank Sandmann</b><span>Robert Koch Institute</span></div><div><b>Johannes Bracher</b><span>Karlsruhe Institute of Technology</span></div><div><b>Matthieu Domenech de Cellès</b><span>MPI for Infection Biology, Berlin</span></div><div><b>Cana Kussmaul</b><span>MPI for Infection Biology, Berlin</span></div><div><b>David Hodgson</b><span>Charité Centre for Global Health</span></div><div><b>Julia Mayer</b><span>Charité Centre for Global Health</span></div><div><b>Billy Quilty</b><span>Charité Centre for Global Health</span></div><div><b>Hugo Soubrier</b><span>Charité Centre for Global Health</span></div><div><b>Matej Kriznar</b><span>Charité Centre for Global Health</span></div><div><b>Adriana Tibaduiza Torres</b><span>Charité Centre for Global Health</span></div><div><b>Augustine Masinde</b><span>Charité Centre for Global Health</span></div><div><b>Dexin Gong</b><span>Charité Centre for Global Health</span></div><div><b>Kaige Dong</b><span>Charité Centre for Global Health</span></div><div><b>Lukas Hemmers-Pauly</b><span>Charité Centre for Global Health</span></div><div><b>Lucy Mbone Ingaiza</b><span>Charité Centre for Global Health</span></div></div>
+      </section>
+
+      <!-- Slide 15: Assessment -->
+      <section>
+        <h2>Assessment</h2>
+        <div class="concept-grid">
+          <div class="concept-box"><h3>Group presentation</h3><p>NITAG-style presentation and discussion in the final days of the course.</p></div>
+          <div class="concept-box"><h3>Multiple-choice exam</h3><p>Short exam in the final session covering the key concepts from all lectures.</p></div>
+        </div>
+        <p>Successful completion earns <strong>3 ECTS</strong> and a course certificate.</p>
+      </section>
+
+      <!-- Slide 16: Tools -->
+      <section>
+        <h2>Working with Excel and R</h2>
+        <ul>
+          <li>Practicals use Excel and R; no prior R experience is required</li>
+          <li>Please bring a laptop with R and RStudio installed</li>
+          <li>All materials are linked from the course website under each session</li>
+          <li>Pair up: combine someone comfortable with code with someone who is not</li>
+        </ul>
+        <div class="question-card">Check now: can you open R on your laptop?</div>
+      </section>
+
+      <!-- Slide 17: Logistics -->
+      <section>
+        <h2>Logistics</h2>
+        <table class="day-table">
+          <tr><th>What</th><th>Where / when</th></tr>
+          <tr><td>Lectures</td><td><span class="tbd">Room to be confirmed</span></td></tr>
+          <tr><td>Practicals &amp; group work</td><td><span class="tbd">Rooms to be confirmed</span></td></tr>
+          <tr><td>Breaks &amp; lunch</td><td><span class="tbd">Location to be confirmed</span></td></tr>
+          <tr><td>Daily schedule</td><td>09:00–16:00</td></tr>
+          <tr><td>Wi-Fi</td><td><span class="tbd">Details to follow</span></td></tr>
+          <tr><td>Course materials</td><td>Course website</td></tr>
+        </table>
+      </section>
+
+      <!-- Slide 18: Closing -->
+      <section>
+        <h2>Let's get started</h2>
+        <ul>
+          <li>Ask questions at any time: there are no silly questions about models</li>
+          <li>Tell us early if something is not working for you</li>
+          <li>Enjoy two weeks of learning together</li>
+        </ul>
+        <div class="highlight-box"><strong>Next:</strong> Outbreak response I with Hugo Soubrier.</div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      controls: true,
+      controlsLayout: 'bottom-right',
+      progress: true,
+      slideNumber: 'c/t',
+      hash: true,
+      center: false,
+      transition: 'slide'
+    });
+  </script>
+</body>
+</html>
