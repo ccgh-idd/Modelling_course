@@ -305,6 +305,17 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Live poll slide */
+    .poll-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1em; align-items: stretch; height: 70%; }
+    .poll-qr { text-align: center; }
+    .poll-qr #poll-qr { background: white; padding: 12px; display: inline-block; border: 4px solid var(--green); }
+    .poll-qr p { font-size: 0.55em; margin: 0.4em 0 0; }
+    .poll-qr .poll-link { font-size: 0.4em; color: #6b7885; word-break: break-all; }
+    .poll-cloud { position: relative; background: var(--navy-soft); border-left: 5px solid var(--navy); }
+    .poll-cloud canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .poll-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #6b7885; font-size: 0.6em !important; margin: 0; }
+    .poll-reset { position: absolute; right: 8px; bottom: 8px; font-size: 0.35em; padding: 0.3em 0.7em; border: 1px solid var(--rule); background: white; color: #6b7885; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -328,6 +339,23 @@
           <li>The Lancet Commission reporting guidelines for transparent and reproducible modelling</li>
           <li>How to use the WHO IVIR framework to appraise model quality and policy relevance</li>
         </ul>
+      </section>
+
+      <!-- Slide 3: Word cloud (live poll) -->
+      <section>
+        <h2>What makes a good model?</h2>
+        <div class="poll-layout">
+          <div class="poll-qr">
+            <div id="poll-qr"></div>
+            <p>Scan and add up to three words</p>
+            <p class="poll-link" id="poll-link"></p>
+          </div>
+          <div class="poll-cloud">
+            <canvas id="wordcloud"></canvas>
+            <p class="poll-placeholder" id="poll-placeholder">Waiting for the first words&hellip;</p>
+            <button class="poll-reset" id="poll-reset" type="button" title="Start a fresh word cloud">Clear</button>
+          </div>
+        </div>
       </section>
 
       <!-- Placeholder slides -->
@@ -359,6 +387,86 @@
       center: false,
       transition: 'slide'
     });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+  <script>
+    // Live word cloud. Students submit via wordcloud-submit.html, which posts to a public
+    // ntfy.sh topic; this slide streams that topic and redraws the cloud as words arrive.
+    // The topic name must match the one in wordcloud-submit.html. ntfy keeps messages for ~12 h.
+    const WORDCLOUD_TOPIC = "ccgh-course-good-model-q7k2m9";
+    const SUBMIT_URL = "https://course.ccgh-idd.de/assets/session%20materials/Good%20models/wordcloud-submit.html";
+
+    new QRCode(document.getElementById("poll-qr"), { text: SUBMIT_URL, width: 220, height: 220 });
+    document.getElementById("poll-link").textContent = "course.ccgh-idd.de → Identifying a good model";
+
+    const counts = new Map();
+    const canvas = document.getElementById("wordcloud");
+    const placeholder = document.getElementById("poll-placeholder");
+    let stream = null;
+    let redrawTimer = null;
+
+    // Clearing stores a start time so older submissions are ignored after a reload too.
+    function sinceParam() {
+      try { return localStorage.getItem("wordcloud-since") || "all"; } catch (e) { return "all"; }
+    }
+
+    function draw() {
+      const box = canvas.parentElement.getBoundingClientRect();
+      if (!box.width || !counts.size) return;
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = box.width * scale;
+      canvas.height = box.height * scale;
+      const max = Math.max(...counts.values());
+      const list = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 80);
+      WordCloud(canvas, {
+        list,
+        weightFactor: (n) => (18 + 62 * Math.sqrt(n / max)) * scale,
+        fontFamily: "Aptos, Segoe UI, Helvetica Neue, Arial, sans-serif",
+        fontWeight: 700,
+        color: (word, n) => (n === max ? "#00355f" : ["#00355f", "#5c8c16", "#7ab51d", "#2c5d8a", "#e8a600"][word.length % 5]),
+        backgroundColor: "transparent",
+        rotateRatio: 0,
+        gridSize: Math.round(8 * scale),
+        shrinkToFit: true,
+        drawOutOfBound: false
+      });
+    }
+
+    function scheduleDraw() {
+      clearTimeout(redrawTimer);
+      redrawTimer = setTimeout(draw, 250);
+    }
+
+    function addWords(text) {
+      text.split("\n").map((w) => w.trim().toLowerCase().slice(0, 30)).filter(Boolean).forEach((w) => {
+        counts.set(w, (counts.get(w) || 0) + 1);
+      });
+      placeholder.style.display = counts.size ? "none" : "flex";
+      scheduleDraw();
+    }
+
+    function connect() {
+      if (stream) stream.close();
+      stream = new EventSource(`https://ntfy.sh/${WORDCLOUD_TOPIC}/sse?since=${sinceParam()}`);
+      stream.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.event === "message" && data.message) addWords(data.message);
+      };
+    }
+
+    document.getElementById("poll-reset").addEventListener("click", () => {
+      try { localStorage.setItem("wordcloud-since", String(Math.floor(Date.now() / 1000))); } catch (e) {}
+      counts.clear();
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+      placeholder.style.display = "flex";
+      connect();
+    });
+
+    connect();
+    // The canvas has no size until its slide is shown, so redraw on slide change and resize.
+    Reveal.on("slidechanged", scheduleDraw);
+    window.addEventListener("resize", scheduleDraw);
   </script>
 </body>
 </html>
