@@ -313,15 +313,16 @@
     .poll-qr p { font-size: 0.55em; margin: 0.4em 0 0; }
     .poll-qr .poll-link { font-size: 0.4em; color: #6b7885; word-break: break-all; }
     .poll-cloud { position: relative; background: var(--navy-soft); border-left: 5px solid var(--navy); }
-    .poll-cloud { overflow: hidden; background: radial-gradient(circle at 30% 20%, #ffffff, var(--navy-soft) 70%); }
-    #wordcloud { position: absolute; inset: 0; }
+    .poll-cloud { min-height: 360px; overflow: hidden; background: radial-gradient(circle at 30% 20%, #ffffff, var(--navy-soft) 70%); }
+    /* Explicit size: wordcloud2 resets the container to position: relative. */
+    #wordcloud { width: 100%; height: 100%; }
     #wordcloud span { animation: wc-settle 0.6s ease-out both; line-height: 1 !important; }
     #wordcloud span.wc-new { animation: wc-pop 1.1s cubic-bezier(0.2, 1.6, 0.4, 1) both, wc-glow 2.4s ease-out 0.3s both; }
     @keyframes wc-settle { from { opacity: 0; } to { opacity: 1; } }
     @keyframes wc-pop {
-      0% { opacity: 0; transform: scale(0.2) rotate(-12deg); }
-      60% { opacity: 1; transform: scale(1.25) rotate(3deg); }
-      100% { transform: scale(1) rotate(0); }
+      0% { opacity: 0; scale: 0.2; }
+      60% { opacity: 1; scale: 1.3; }
+      100% { scale: 1; }
     }
     @keyframes wc-glow {
       0% { text-shadow: 0 0 18px currentColor, 0 0 36px currentColor; }
