@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="assets/faviconB.png">
   <title>Infectious Disease Dynamics: Introduction to Data Analytics and Mathematical Modelling</title>
@@ -1077,6 +1078,83 @@
       .session-list {
         grid-template-columns: 1fr;
       }
+    }
+    /* Dark theme: follows the operating system / browser setting automatically. */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e1520;
+        --bg-2: #111b29;
+        --panel: rgba(24, 34, 50, 0.82);
+        --panel-solid: #182232;
+        --ink: #e4eaf3;
+        --muted: #9aa8bc;
+        --blue: #f4b6d2;
+        --blue-soft: #45283b;
+        --lecture-soft: #4a2a3e;
+        --gold: #e7b75a;
+        --gold-soft: #3a2d14;
+        --groupwork-soft: #3a2c15;
+        --green-soft: #173327;
+        --practical-soft: #173327;
+        --tile-border: rgba(255, 255, 255, 0.1);
+        --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+        --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.35);
+      }
+
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(244, 182, 210, 0.1), transparent 34%),
+          radial-gradient(circle at 86% 8%, rgba(231, 183, 90, 0.07), transparent 28%),
+          linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #0c131d 100%);
+      }
+
+      body::before { opacity: 0.05; }
+
+      .hero { background: linear-gradient(135deg, rgba(24, 34, 50, 0.95), rgba(18, 27, 41, 0.9)); border-color: rgba(244, 182, 210, 0.15); }
+      .eyebrow, .session-type { background: rgba(244, 182, 210, 0.1); border-color: rgba(244, 182, 210, 0.18); }
+      .badge, .card, .filter-button, .break-pill { background: rgba(24, 34, 50, 0.85); border-color: rgba(255, 255, 255, 0.1); }
+      .table-wrap { background: rgba(24, 34, 50, 0.55); border-color: rgba(255, 255, 255, 0.08); }
+      .week.blue { background: linear-gradient(180deg, rgba(58, 34, 50, 0.95), rgba(44, 28, 42, 0.92)); border-color: rgba(244, 182, 210, 0.2); }
+      .week.gold { background: linear-gradient(180deg, rgba(52, 40, 20, 0.95), rgba(44, 34, 17, 0.92)); border-color: rgba(231, 183, 90, 0.15); }
+      .schedule th { background: rgba(24, 34, 50, 0.9); color: var(--ink); }
+      .schedule td { background: rgba(24, 34, 50, 0.5); }
+      .schedule td.date-cell, .schedule td.break-cell { background: transparent; }
+      .tile-practical { border-color: rgba(92, 196, 140, 0.5); }
+      .tile-groupwork { border-color: rgba(231, 183, 90, 0.5); }
+      .tile-firstlast { border-color: rgba(244, 182, 210, 0.55); }
+
+      .session-card { background: linear-gradient(180deg, rgba(26, 37, 54, 0.98), rgba(21, 31, 46, 0.95)); border-color: rgba(255, 255, 255, 0.08); }
+      .faculty-card:hover { background: linear-gradient(180deg, rgba(22, 46, 48, 0.98), rgba(24, 36, 54, 0.96)); }
+
+      .objective-card[open] { background: linear-gradient(180deg, rgba(26, 37, 54, 0.98), rgba(24, 34, 50, 0.98)); }
+      .objective-card[data-kind="milestone"] { background: linear-gradient(180deg, rgba(74, 42, 62, 0.96), rgba(24, 34, 50, 0.98)); }
+      .objective-card[data-kind="practical"] { background: linear-gradient(180deg, rgba(23, 51, 39, 0.96), rgba(24, 34, 50, 0.98)); }
+      .objective-card[data-kind="groupwork"] { background: linear-gradient(180deg, rgba(58, 44, 21, 0.96), rgba(24, 34, 50, 0.98)); }
+      .objective-card[data-kind="practical"] .objective-number { color: #6fd39c; }
+      .objective-card[data-kind="practical"]:hover,
+      .objective-card[data-kind="practical"].is-timetable-target { background: rgba(23, 60, 43, 0.9); }
+      .objective-card[data-kind="groupwork"]:hover,
+      .objective-card[data-kind="groupwork"].is-timetable-target { background: rgba(66, 50, 22, 0.9); }
+      .objective-card[data-kind="normal"]:hover,
+      .objective-card[data-kind="milestone"]:hover,
+      .objective-card[data-kind="normal"].is-timetable-target,
+      .objective-card[data-kind="milestone"].is-timetable-target { background: rgba(84, 46, 70, 0.9); }
+
+      .faculty-dialog-close, .objective-dialog-close { background: rgba(255, 255, 255, 0.08); color: var(--ink); }
+      .faculty-dialog-close:hover, .faculty-dialog-close:focus-visible,
+      .objective-dialog-close:hover, .objective-dialog-close:focus-visible { background: rgba(255, 255, 255, 0.16); }
+      .faculty-dialog::backdrop, .objective-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+      .faculty-dialog:not(.is-visible)::backdrop, .objective-dialog:not(.is-visible)::backdrop { background: rgba(0, 0, 0, 0); }
+      .session-card::before, .session-card[data-kind="milestone"]::before { background: linear-gradient(180deg, rgba(244, 182, 210, 0.95), rgba(244, 182, 210, 0.2)); }
+      .tile, .tile-firstlast { border-color: rgba(244, 182, 210, 0.35); }
+      .tile-practical { border-color: rgba(92, 196, 140, 0.5); }
+      .tile-groupwork { border-color: rgba(231, 183, 90, 0.5); }
+      a { color: var(--blue); }
+    }
+
+    @media (prefers-color-scheme: dark) and (max-width: 560px) {
+      .schedule td { background: transparent; }
+      .schedule td.date-cell { background: rgba(24, 34, 50, 0.6); }
     }
   </style>
 </head>
