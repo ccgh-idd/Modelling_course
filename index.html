@@ -2,30 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="assets/faviconB.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
   <title>Infectious Disease Dynamics: Introduction to Data Analytics and Mathematical Modelling</title>
   <style>
     /* Core visual theme and design tokens used across the course page. */
     :root {
-      --bg: #f3f6fb;
-      --bg-2: #eef4ff;
+      --bg: #f5f7f9;
+      --bg-2: #eef3f8;
       --panel: rgba(255, 255, 255, 0.82);
       --panel-solid: #ffffff;
-      --ink: #142033;
-      --muted: #5c6b82;
-      --blue: #1d4e89;
-      --blue-soft: #e7f0ff;
-      --lecture-soft: #e8f1fb;
-      --gold: #8a5a00;
-      --gold-soft: #fff2d9;
-      --groupwork-soft: #fff3df;
-      --green-soft: #e8f5ec;
-      --practical-soft: #e8f5ec;
-      --tile-border: rgba(20, 32, 51, 0.08);
-      --shadow: 0 22px 60px rgba(16, 31, 58, 0.12);
-      --shadow-soft: 0 10px 24px rgba(16, 31, 58, 0.08);
+      --ink: #1c2833;
+      --muted: #5e676c;
+      --blue: #002552;
+      --blue-soft: #e5edf5;
+      --lecture-soft: #ccdceb;
+      --gold: #5e676c;
+      --gold-soft: #eceef0;
+      --groupwork-soft: #e3e6e8;
+      --green-soft: #d3eef1;
+      --practical-soft: #d3eef1;
+      --tile-border: rgba(0, 37, 82, 0.08);
+      --shadow: 0 22px 60px rgba(0, 37, 82, 0.12);
+      --shadow-soft: 0 10px 24px rgba(0, 37, 82, 0.08);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -45,10 +47,10 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(29, 78, 137, 0.14), transparent 34%),
-        radial-gradient(circle at 86% 8%, rgba(138, 90, 0, 0.11), transparent 28%),
+        radial-gradient(circle at top left, rgba(0, 37, 82, 0.14), transparent 34%),
+        radial-gradient(circle at 86% 8%, rgba(94, 103, 108, 0.11), transparent 28%),
         linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #eef3f9 100%);
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       line-height: 1.55;
     }
 
@@ -83,7 +85,7 @@
       padding: 30px 30px 26px;
       border-radius: var(--radius-xl);
       background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(245,248,255,0.82));
-      border: 1px solid rgba(29, 78, 137, 0.12);
+      border: 1px solid rgba(0, 37, 82, 0.12);
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
@@ -95,7 +97,7 @@
       inset: auto -10% -40% auto;
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle, rgba(29, 78, 137, 0.16), transparent 70%);
+      background: radial-gradient(circle, rgba(0, 37, 82, 0.16), transparent 70%);
       pointer-events: none;
     }
 
@@ -110,14 +112,16 @@
       letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--blue);
-      background: rgba(29, 78, 137, 0.08);
-      border: 1px solid rgba(29, 78, 137, 0.12);
+      background: rgba(0, 37, 82, 0.08);
+      border: 1px solid rgba(0, 37, 82, 0.12);
       margin-bottom: 1rem;
     }
 
     h1 {
       margin: 0;
-      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
+      font-weight: 600;
+      color: var(--blue);
       font-size: clamp(2.2rem, 4vw, 3.8rem);
       line-height: 1.08;
       letter-spacing: -0.03em;
@@ -165,7 +169,7 @@
       padding: 0.75rem 0.95rem;
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(20, 32, 51, 0.08);
+      border: 1px solid rgba(0, 37, 82, 0.08);
       box-shadow: var(--shadow-soft);
       font-size: 0.95rem;
       color: var(--muted);
@@ -193,7 +197,7 @@
 
     .card {
       background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(20, 32, 51, 0.08);
+      border: 1px solid rgba(0, 37, 82, 0.08);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-soft);
       padding: 1.25rem;
@@ -203,7 +207,9 @@
 
     .card h2 {
       margin: 0 0 0.75rem;
-      font-family: "Iowan Old Style", Georgia, serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
+      font-weight: 600;
+      color: var(--blue);
       font-size: clamp(1.8rem, 2.5vw, 2.3rem);
       letter-spacing: -0.02em;
     }
@@ -215,7 +221,7 @@
       border-radius: 20px;
       padding: 0.1rem;
       background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(20, 32, 51, 0.07);
+      border: 1px solid rgba(0, 37, 82, 0.07);
     }
 
     .week {
@@ -225,14 +231,14 @@
     }
 
     .week.blue {
-      background: linear-gradient(180deg, rgba(243, 248, 255, 0.98), rgba(236, 243, 255, 0.95));
-      border: 1px solid rgba(29, 78, 137, 0.11);
+      background: linear-gradient(180deg, rgba(240, 245, 250, 0.98), rgba(229, 237, 245, 0.95));
+      border: 1px solid rgba(0, 37, 82, 0.11);
       border-left: 7px solid var(--blue);
     }
 
     .week.gold {
-      background: linear-gradient(180deg, rgba(255, 248, 232, 0.98), rgba(255, 244, 220, 0.94));
-      border: 1px solid rgba(138, 90, 0, 0.11);
+      background: linear-gradient(180deg, rgba(244, 245, 246, 0.98), rgba(236, 238, 240, 0.94));
+      border: 1px solid rgba(94, 103, 108, 0.11);
       border-left: 7px solid var(--gold);
     }
 
@@ -311,7 +317,7 @@
       padding: 0.1rem 0.18rem;
       border-radius: 9px;
       background: rgba(255, 255, 255, 0.88);
-      border: 1px dashed rgba(20, 32, 51, 0.14);
+      border: 1px dashed rgba(0, 37, 82, 0.14);
       color: var(--muted);
       font-size: 0.8rem;
       line-height: 1;
@@ -334,7 +340,7 @@
       text-decoration: none;
       color: var(--ink);
       border: 1px solid var(--tile-border);
-      box-shadow: 0 6px 14px rgba(18, 43, 77, 0.05);
+      box-shadow: 0 6px 14px rgba(0, 37, 82, 0.05);
       transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
       line-height: 1.16;
       font-size: 0.85rem;
@@ -361,7 +367,7 @@
     .tile:hover,
     .tile:focus-visible {
       transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(18, 43, 77, 0.11);
+      box-shadow: 0 10px 20px rgba(0, 37, 82, 0.11);
       outline: none;
     }
 
@@ -382,19 +388,19 @@
     .tile:focus-visible,
     .tile-firstlast:hover,
     .tile-firstlast:focus-visible {
-      border: 4px solid rgba(29, 78, 137, 0.5);
+      border: 4px solid rgba(0, 37, 82, 0.5);
       background: var(--lecture-soft);
     }
 
     .tile-practical:hover,
     .tile-practical:focus-visible {
-      border: 4px solid rgba(20, 122, 72, 0.5);
+      border: 4px solid rgba(13, 154, 169, 0.5);
       background: var(--practical-soft);
     }
 
     .tile-groupwork:hover,
     .tile-groupwork:focus-visible {
-      border: 4px solid rgba(138, 90, 0, 0.5);
+      border: 4px solid rgba(94, 103, 108, 0.5);
       background: var(--groupwork-soft);
     }
 
@@ -416,7 +422,7 @@
     }
 
     .filter-button {
-      border: 1px solid rgba(29, 78, 137, 0.16);
+      border: 1px solid rgba(0, 37, 82, 0.16);
       border-radius: 999px;
       padding: 0.42rem 0.72rem;
       color: var(--muted);
@@ -438,7 +444,7 @@
 
     .filter-select {
       min-width: 13rem;
-      border: 1px solid rgba(29, 78, 137, 0.16);
+      border: 1px solid rgba(0, 37, 82, 0.16);
       border-radius: 999px;
       padding: 0.48rem 2rem 0.48rem 0.78rem;
       color: var(--blue);
@@ -457,7 +463,7 @@
       position: relative;
       border-radius: 22px;
       background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,251,255,0.95));
-      border: 1px solid rgba(20, 32, 51, 0.08);
+      border: 1px solid rgba(0, 37, 82, 0.08);
       box-shadow: var(--shadow-soft);
       padding: 1rem 1rem 1rem 1.15rem;
       scroll-margin-top: 18px;
@@ -469,19 +475,19 @@
       inset: 1rem auto 1rem 0.55rem;
       width: 8px;
       border-radius: 999px;
-      background: linear-gradient(180deg, rgba(29, 78, 137, 0.95), rgba(29, 78, 137, 0.2));
+      background: linear-gradient(180deg, rgba(0, 37, 82, 0.95), rgba(0, 37, 82, 0.2));
     }
 
     .session-card[data-kind="practical"]::before {
-      background: linear-gradient(180deg, rgba(20, 122, 72, 0.95), rgba(20, 122, 72, 0.2));
+      background: linear-gradient(180deg, rgba(13, 154, 169, 0.95), rgba(13, 154, 169, 0.2));
     }
 
     .session-card[data-kind="groupwork"]::before {
-      background: linear-gradient(180deg, rgba(138, 90, 0, 0.95), rgba(138, 90, 0, 0.2));
+      background: linear-gradient(180deg, rgba(94, 103, 108, 0.95), rgba(94, 103, 108, 0.2));
     }
 
     .session-card[data-kind="milestone"]::before {
-      background: linear-gradient(180deg, rgba(29, 78, 137, 0.95), rgba(29, 78, 137, 0.2));
+      background: linear-gradient(180deg, rgba(0, 37, 82, 0.95), rgba(0, 37, 82, 0.2));
     }
 
     .session-card h3 {
@@ -512,8 +518,8 @@
     .faculty-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(238, 249, 247, 0.98), rgba(241, 247, 255, 0.96));
-      border-color: rgba(20, 122, 112, 0.2);
+      background: linear-gradient(180deg, rgba(220, 241, 244, 0.98), rgba(241, 247, 255, 0.96));
+      border-color: rgba(13, 154, 169, 0.2);
     }
 
     .faculty-card::before {
@@ -548,7 +554,7 @@
     }
 
     .faculty-trigger:focus-visible {
-      outline: 3px solid rgba(29, 78, 137, 0.25);
+      outline: 3px solid rgba(0, 37, 82, 0.25);
       outline-offset: 5px;
       border-radius: 12px;
     }
@@ -570,7 +576,7 @@
       height: 90px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid rgba(20, 32, 51, 0.08);
+      border: 1px solid rgba(0, 37, 82, 0.08);
       box-shadow: var(--shadow-soft);
     }
 
@@ -578,11 +584,11 @@
       width: min(680px, calc(100% - 2rem));
       max-height: min(720px, calc(100dvh - 2rem));
       padding: 0;
-      border: 1px solid rgba(20, 32, 51, 0.1);
+      border: 1px solid rgba(0, 37, 82, 0.1);
       border-radius: 24px;
       color: var(--ink);
       background: var(--panel-solid);
-      box-shadow: 0 28px 80px rgba(16, 31, 58, 0.24);
+      box-shadow: 0 28px 80px rgba(0, 37, 82, 0.24);
       opacity: 0;
       transform: scale(0.5) translateY(20px);
       transform-origin: var(--faculty-origin-x, center) var(--faculty-origin-y, center);
@@ -595,13 +601,13 @@
     }
 
     .faculty-dialog::backdrop {
-      background: rgba(20, 32, 51, 0.42);
+      background: rgba(0, 37, 82, 0.42);
       backdrop-filter: blur(4px);
       transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
     }
 
     .faculty-dialog:not(.is-visible)::backdrop {
-      background: rgba(20, 32, 51, 0);
+      background: rgba(0, 37, 82, 0);
       backdrop-filter: blur(0);
     }
 
@@ -619,7 +625,9 @@
 
     .faculty-dialog h2 {
       margin: 0 2rem 0.35rem 0;
-      font-family: "Iowan Old Style", Georgia, serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
+      font-weight: 600;
+      color: var(--blue);
       font-size: 2rem;
       line-height: 1.1;
     }
@@ -649,7 +657,7 @@
       border: 0;
       border-radius: 50%;
       color: var(--muted);
-      background: rgba(20, 32, 51, 0.07);
+      background: rgba(0, 37, 82, 0.07);
       font-size: 1.2rem;
       line-height: 1;
       cursor: pointer;
@@ -658,7 +666,7 @@
     .faculty-dialog-close:hover,
     .faculty-dialog-close:focus-visible {
       color: var(--ink);
-      background: rgba(20, 32, 51, 0.14);
+      background: rgba(0, 37, 82, 0.14);
       outline: none;
     }
 
@@ -683,7 +691,7 @@
       border-radius: 999px;
       padding: 0.18rem 0.5rem;
       color: var(--muted);
-      background: rgba(29, 78, 137, 0.07);
+      background: rgba(0, 37, 82, 0.07);
       font-size: 0.72rem;
       line-height: 1.2;
     }
@@ -739,7 +747,7 @@
     }
 
     .objective-card[open] {
-      border-color: rgba(29, 78, 137, 0.2);
+      border-color: rgba(0, 37, 82, 0.2);
       background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(255, 255, 255, 0.98));
     }
 
@@ -751,22 +759,22 @@
 
     .objective-card[data-kind="normal"],
     .objective-card[data-kind="milestone"] {
-      border-color: rgba(29, 78, 137, 0.18);
-      background: linear-gradient(180deg, rgba(232, 241, 251, 0.96), rgba(247, 250, 255, 0.98));
+      border-color: rgba(0, 37, 82, 0.18);
+      background: linear-gradient(180deg, rgba(204, 220, 235, 0.96), rgba(247, 250, 255, 0.98));
     }
 
     .objective-card[data-kind="practical"] {
-      border-color: rgba(20, 122, 72, 0.18);
-      background: linear-gradient(180deg, rgba(232, 245, 236, 0.96), rgba(249, 253, 250, 0.98));
+      border-color: rgba(13, 154, 169, 0.18);
+      background: linear-gradient(180deg, rgba(211, 238, 241, 0.96), rgba(244, 251, 252, 0.98));
     }
 
     .objective-card[data-kind="groupwork"] {
-      border-color: rgba(138, 90, 0, 0.18);
-      background: linear-gradient(180deg, rgba(255, 243, 223, 0.96), rgba(255, 251, 244, 0.98));
+      border-color: rgba(94, 103, 108, 0.18);
+      background: linear-gradient(180deg, rgba(227, 230, 232, 0.96), rgba(246, 247, 248, 0.98));
     }
 
     .objective-card[data-kind="practical"] .objective-number {
-      color: #147a48;
+      color: #0a7f8c;
       background: var(--practical-soft);
     }
 
@@ -781,25 +789,25 @@
 
     .objective-card[data-kind="practical"]:hover,
     .objective-card[data-kind="practical"].is-timetable-target {
-      border-color: rgba(20, 122, 72, 0.62);
-      background: rgba(232, 247, 237, 0.9);
-      box-shadow: 0 16px 34px rgba(20, 122, 72, 0.24);
+      border-color: rgba(13, 154, 169, 0.62);
+      background: rgba(211, 238, 241, 0.9);
+      box-shadow: 0 16px 34px rgba(13, 154, 169, 0.24);
     }
 
     .objective-card[data-kind="groupwork"]:hover,
     .objective-card[data-kind="groupwork"].is-timetable-target {
-      border-color: rgba(138, 90, 0, 0.62);
-      background: rgba(255, 242, 217, 0.9);
-      box-shadow: 0 16px 34px rgba(138, 90, 0, 0.24);
+      border-color: rgba(94, 103, 108, 0.62);
+      background: rgba(227, 230, 232, 0.9);
+      box-shadow: 0 16px 34px rgba(94, 103, 108, 0.24);
     }
 
     .objective-card[data-kind="normal"]:hover,
     .objective-card[data-kind="milestone"]:hover,
     .objective-card[data-kind="normal"].is-timetable-target,
     .objective-card[data-kind="milestone"].is-timetable-target {
-      border-color: rgba(29, 78, 137, 0.56);
-      background: rgba(231, 240, 255, 0.9);
-      box-shadow: 0 16px 34px rgba(29, 78, 137, 0.24);
+      border-color: rgba(0, 37, 82, 0.56);
+      background: rgba(204, 220, 235, 0.9);
+      box-shadow: 0 16px 34px rgba(0, 37, 82, 0.24);
     }
 
     .objective-trigger {
@@ -818,7 +826,7 @@
     }
 
     .objective-trigger:focus-visible {
-      outline: 3px solid rgba(29, 78, 137, 0.25);
+      outline: 3px solid rgba(0, 37, 82, 0.25);
       outline-offset: 5px;
       border-radius: 12px;
     }
@@ -833,11 +841,11 @@
       width: min(680px, calc(100% - 2rem));
       max-height: min(720px, calc(100dvh - 2rem));
       padding: 0;
-      border: 1px solid rgba(20, 32, 51, 0.1);
+      border: 1px solid rgba(0, 37, 82, 0.1);
       border-radius: 24px;
       color: var(--ink);
       background: var(--panel-solid);
-      box-shadow: 0 28px 80px rgba(16, 31, 58, 0.24);
+      box-shadow: 0 28px 80px rgba(0, 37, 82, 0.24);
       opacity: 0;
       transform: scale(0.5) translateY(20px);
       transform-origin: var(--objective-origin-x, center) var(--objective-origin-y, center);
@@ -850,13 +858,13 @@
     }
 
     .objective-dialog::backdrop {
-      background: rgba(20, 32, 51, 0.42);
+      background: rgba(0, 37, 82, 0.42);
       backdrop-filter: blur(4px);
       transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
     }
 
     .objective-dialog:not(.is-visible)::backdrop {
-      background: rgba(20, 32, 51, 0);
+      background: rgba(0, 37, 82, 0);
       backdrop-filter: blur(0);
     }
 
@@ -866,7 +874,9 @@
 
     .objective-dialog h2 {
       margin: 0 2rem 0.45rem 0;
-      font-family: "Iowan Old Style", Georgia, serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
+      font-weight: 600;
+      color: var(--blue);
       font-size: 2rem;
       line-height: 1.1;
     }
@@ -891,7 +901,7 @@
       border: 0;
       border-radius: 50%;
       color: var(--muted);
-      background: rgba(20, 32, 51, 0.07);
+      background: rgba(0, 37, 82, 0.07);
       font-size: 1.2rem;
       line-height: 1;
       cursor: pointer;
@@ -900,7 +910,7 @@
     .objective-dialog-close:hover,
     .objective-dialog-close:focus-visible {
       color: var(--ink);
-      background: rgba(20, 32, 51, 0.14);
+      background: rgba(0, 37, 82, 0.14);
       outline: none;
     }
 
@@ -1079,90 +1089,68 @@
         grid-template-columns: 1fr;
       }
     }
-    /* Dark theme: follows the operating system / browser setting automatically. */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0e1520;
-        --bg-2: #111b29;
-        --panel: rgba(24, 34, 50, 0.82);
-        --panel-solid: #182232;
-        --ink: #e4eaf3;
-        --muted: #9aa8bc;
-        --blue: #f4b6d2;
-        --blue-soft: #45283b;
-        --lecture-soft: #4a2a3e;
-        --gold: #e7b75a;
-        --gold-soft: #3a2d14;
-        --groupwork-soft: #3a2c15;
-        --green-soft: #173327;
-        --practical-soft: #173327;
-        --tile-border: rgba(255, 255, 255, 0.1);
-        --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
-        --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.35);
-      }
 
-      body {
-        background:
-          radial-gradient(circle at top left, rgba(244, 182, 210, 0.1), transparent 34%),
-          radial-gradient(circle at 86% 8%, rgba(231, 183, 90, 0.07), transparent 28%),
-          linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #0c131d 100%);
-      }
-
-      body::before { opacity: 0.05; }
-
-      .hero { background: linear-gradient(135deg, rgba(24, 34, 50, 0.95), rgba(18, 27, 41, 0.9)); border-color: rgba(244, 182, 210, 0.15); }
-      .eyebrow, .session-type { background: rgba(244, 182, 210, 0.1); border-color: rgba(244, 182, 210, 0.18); }
-      .badge, .card, .filter-button, .break-pill { background: rgba(24, 34, 50, 0.85); border-color: rgba(255, 255, 255, 0.1); }
-      .table-wrap { background: rgba(24, 34, 50, 0.55); border-color: rgba(255, 255, 255, 0.08); }
-      .week.blue { background: linear-gradient(180deg, rgba(58, 34, 50, 0.95), rgba(44, 28, 42, 0.92)); border-color: rgba(244, 182, 210, 0.2); }
-      .week.gold { background: linear-gradient(180deg, rgba(52, 40, 20, 0.95), rgba(44, 34, 17, 0.92)); border-color: rgba(231, 183, 90, 0.15); }
-      .schedule th { background: rgba(24, 34, 50, 0.9); color: var(--ink); }
-      .schedule td { background: rgba(24, 34, 50, 0.5); }
-      .schedule td.date-cell, .schedule td.break-cell { background: transparent; }
-      .tile-practical { border-color: rgba(92, 196, 140, 0.5); }
-      .tile-groupwork { border-color: rgba(231, 183, 90, 0.5); }
-      .tile-firstlast { border-color: rgba(244, 182, 210, 0.55); }
-
-      .session-card { background: linear-gradient(180deg, rgba(26, 37, 54, 0.98), rgba(21, 31, 46, 0.95)); border-color: rgba(255, 255, 255, 0.08); }
-      .faculty-card:hover { background: linear-gradient(180deg, rgba(22, 46, 48, 0.98), rgba(24, 36, 54, 0.96)); }
-
-      .objective-card[open] { background: linear-gradient(180deg, rgba(26, 37, 54, 0.98), rgba(24, 34, 50, 0.98)); }
-      .objective-card[data-kind="milestone"] { background: linear-gradient(180deg, rgba(74, 42, 62, 0.96), rgba(24, 34, 50, 0.98)); }
-      .objective-card[data-kind="practical"] { background: linear-gradient(180deg, rgba(23, 51, 39, 0.96), rgba(24, 34, 50, 0.98)); }
-      .objective-card[data-kind="groupwork"] { background: linear-gradient(180deg, rgba(58, 44, 21, 0.96), rgba(24, 34, 50, 0.98)); }
-      .objective-card[data-kind="practical"] .objective-number { color: #6fd39c; }
-      .objective-card[data-kind="practical"]:hover,
-      .objective-card[data-kind="practical"].is-timetable-target { background: rgba(23, 60, 43, 0.9); }
-      .objective-card[data-kind="groupwork"]:hover,
-      .objective-card[data-kind="groupwork"].is-timetable-target { background: rgba(66, 50, 22, 0.9); }
-      .objective-card[data-kind="normal"]:hover,
-      .objective-card[data-kind="milestone"]:hover,
-      .objective-card[data-kind="normal"].is-timetable-target,
-      .objective-card[data-kind="milestone"].is-timetable-target { background: rgba(84, 46, 70, 0.9); }
-
-      .faculty-dialog-close, .objective-dialog-close { background: rgba(255, 255, 255, 0.08); color: var(--ink); }
-      .faculty-dialog-close:hover, .faculty-dialog-close:focus-visible,
-      .objective-dialog-close:hover, .objective-dialog-close:focus-visible { background: rgba(255, 255, 255, 0.16); }
-      .faculty-dialog::backdrop, .objective-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
-      .faculty-dialog:not(.is-visible)::backdrop, .objective-dialog:not(.is-visible)::backdrop { background: rgba(0, 0, 0, 0); }
-      .session-card::before, .session-card[data-kind="milestone"]::before { background: linear-gradient(180deg, rgba(244, 182, 210, 0.95), rgba(244, 182, 210, 0.2)); }
-      .tile, .tile-firstlast { border-color: rgba(244, 182, 210, 0.35); }
-      .tile-practical { border-color: rgba(92, 196, 140, 0.5); }
-      .tile-groupwork { border-color: rgba(231, 183, 90, 0.5); }
-      a { color: var(--blue); }
+    /* CCGH branding: logo bar in the header and dark-blue footer. */
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
     }
 
-    @media (prefers-color-scheme: dark) and (max-width: 560px) {
-      .schedule td { background: transparent; }
-      .schedule td.date-cell { background: rgba(24, 34, 50, 0.6); }
+    .brand-bar .eyebrow { margin-bottom: 0; }
+
+    .brand-logo {
+      display: block;
+      height: 64px;
+      width: auto;
     }
+
+    .hero { border-top: 6px solid #0d9aa9; }
+
+    .site-footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 2rem;
+      background: #002552;
+      color: #ffffff;
+    }
+
+    .site-footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 1.8rem 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    .site-footer .brand-logo { height: 56px; }
+    .site-footer a { color: #ffffff; }
+    .site-footer p { margin: 0; color: #ccdceb; }
+
+    @media (max-width: 560px) {
+      .brand-bar { flex-direction: column-reverse; align-items: flex-start; }
+      .brand-logo { height: 48px; }
+    }
+
+
   </style>
 </head>
 <body>
   <div class="page">
     <!-- Hero section with the course title and short summary. -->
     <header class="hero">
-      <div class="eyebrow">Short course / MScIH module</div>
+      <div class="brand-bar">
+        <div class="eyebrow">Short course / MScIH module</div>
+        <picture>
+          <img class="brand-logo" src="assets/ccgh-logo.png" alt="Charité Center for Global Health">
+        </picture>
+      </div>
       <h1><span class="title-line">Infectious Disease Dynamics:</span><span class="title-line">Introduction to Data Analytics and Mathematical Modelling</span></h1>
       <div class="hero-grid">
         <div class="hero-copy">
@@ -1202,6 +1190,13 @@
       <div class="objective-dialog-content" id="objective-dialog-content"></div>
     </dialog>
   </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <img class="brand-logo" src="assets/ccgh-logo-white.png" alt="Charité Center for Global Health">
+      <p>Organised by the Charité Center for Global Health (CCGH), Berlin</p>
+    </div>
+  </footer>
 
   <script src="course-data.js"></script>
   <script src="faculty-data.js"></script>

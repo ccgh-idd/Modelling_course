@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>Welcome and Introductions</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
   <style>
     :root {
-      --navy: #00355f;
-      --navy-dark: #001f3d;
-      --green: #7ab51d;
-      --green-dark: #5c8c16;
-      --navy-soft: #e7edf3;
-      --green-soft: #eef6e2;
-      --amber: #e8a600;
-      --amber-soft: #fff5db;
-      --ink: #14212e;
-      --rule: #d8dfe6;
+      --navy: #002552;
+      --navy-dark: #001833;
+      --green: #0d9aa9;
+      --green-dark: #0a7f8c;
+      --navy-soft: #ccdceb;
+      --green-soft: #d9f0f2;
+      --amber: #5e676c;
+      --amber-soft: #eceef0;
+      --ink: #1c2833;
+      --rule: #cbcfd2;
     }
 
     * {
@@ -25,7 +27,7 @@
     }
 
     body {
-      font-family: "Charité Sans", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       color: var(--ink);
     }
 
@@ -73,7 +75,7 @@
       left: 0;
       font-size: 0.32em;
       letter-spacing: 0.03em;
-      color: #8a97a4;
+      color: #5e676c;
       font-weight: 500;
     }
 
@@ -247,16 +249,16 @@
     .reveal figure .f-sub { font-size: 15px; fill: #647382; }
     .reveal figure .f-note { font-size: 15px; fill: #647382; }
     .reveal figure .f-box { font-size: 18px; font-weight: 700; fill: var(--navy); }
-    .reveal figure .f-arrow { font-size: 16px; fill: #44586b; }
+    .reveal figure .f-arrow { font-size: 16px; fill: #5e676c; }
     .reveal figure .f-key { font-size: 16px; font-weight: 700; fill: var(--green-dark); }
-    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #a17400; }
+    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #5e676c; }
     .reveal figure .f-legend { font-size: 16px; font-weight: 700; fill: var(--navy); }
     .reveal figure .f-axis { font-size: 14px; fill: #7c8a97; }
-    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #44586b; }
+    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #5e676c; }
 
     .reveal .source {
       font-size: 0.4em;
-      color: #8a97a4;
+      color: #5e676c;
       margin: 0.35em 0 0;
       line-height: 1.4;
     }
@@ -309,7 +311,7 @@
     /* Welcome deck extras */
     .reveal .divider-slide { background: var(--navy); }
     .reveal .divider-slide h2 { color: white; font-size: 2em; margin-top: 3em; }
-    .reveal .divider-slide p { color: #cfe3a8; }
+    .reveal .divider-slide p { color: #a6dbe1; }
     .reveal .slides section.divider-slide::before { color: #9fb3c6; }
     .stat-row { display: flex; gap: 0.6em; margin: 0.8em 0; }
     .stat { flex: 1; background: var(--navy-soft); border-top: 5px solid var(--green); padding: 0.5em 0.6em; }
@@ -329,13 +331,40 @@
     .day-table td, .day-table th { border-bottom: 1px solid var(--rule); padding: 0.35em 0.5em; text-align: left; }
     .day-table th { color: var(--navy); }
     .tbd { background: var(--amber-soft); padding: 0 0.3em; font-weight: 600; }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif; }
+
+    /* CCGH logo: large on the title slide, small on every other slide. */
+    .reveal .title-slide .title-logo {
+      position: absolute;
+      top: 0.4em;
+      right: 0;
+      height: 2.6em;
+      width: auto;
+      margin: 0;
+    }
+
+    .deck-logo {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      height: 46px;
+      width: auto;
+      z-index: 30;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .on-title-slide .deck-logo { opacity: 0; }
   </style>
 </head>
 <body>
+  <img class="deck-logo" src="../../ccgh-logo.png" alt="Charité Center for Global Health">
   <div class="reveal">
     <div class="slides">
       <!-- Slide 1: Title -->
       <section class="title-slide">
+        <img class="title-logo" src="../../ccgh-logo-white.png" alt="Charité Center for Global Health">
         <div class="title-inner">
           <h2>Welcome and Introductions</h2>
           <p>Infectious disease modelling short course</p>
@@ -548,6 +577,10 @@
       center: false,
       transition: 'slide'
     });
+    // Hide the small corner logo on the title slide, which shows its own.
+    const syncTitleLogo = () => document.body.classList.toggle('on-title-slide', Reveal.getCurrentSlide()?.classList.contains('title-slide'));
+    Reveal.on('ready', syncTitleLogo);
+    Reveal.on('slidechanged', syncTitleLogo);
   </script>
 </body>
 </html>

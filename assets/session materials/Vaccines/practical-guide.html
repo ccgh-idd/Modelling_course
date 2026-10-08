@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>Vaccine Models Practical - Interactive Worksheet</title>
   <style>
     /* Core visual theme and design tokens used across the course page. */
@@ -11,16 +13,16 @@
       --bg-2: #e9edf1;
       --panel: rgba(255, 255, 255, 0.86);
       --panel-solid: #ffffff;
-      --ink: #1b2a38;
-      --muted: #667085;
-      --blue: #003c6e;
-      --blue-soft: #e3edf3;
-      --gold: #a6192e;
-      --gold-soft: #fbeaec;
+      --ink: #1c2833;
+      --muted: #5e676c;
+      --blue: #002552;
+      --blue-soft: #ccdceb;
+      --gold: #0d9aa9;
+      --gold-soft: #d9f0f2;
       --green-soft: #eef0f2;
-      --tile-border: rgba(27, 42, 56, 0.1);
-      --shadow: 0 22px 60px rgba(16, 31, 58, 0.12);
-      --shadow-soft: 0 10px 24px rgba(16, 31, 58, 0.08);
+      --tile-border: rgba(0, 37, 82, 0.1);
+      --shadow: 0 22px 60px rgba(0, 37, 82, 0.12);
+      --shadow-soft: 0 10px 24px rgba(0, 37, 82, 0.08);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -37,10 +39,10 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(29, 78, 137, 0.14), transparent 34%),
-        radial-gradient(circle at 86% 8%, rgba(138, 90, 0, 0.11), transparent 28%),
+        radial-gradient(circle at top left, rgba(0, 37, 82, 0.14), transparent 34%),
+        radial-gradient(circle at 86% 8%, rgba(13, 154, 169, 0.11), transparent 28%),
         linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #eef3f9 100%);
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       line-height: 1.55;
     }
 
@@ -110,7 +112,7 @@
 
     .card-highlight {
       background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(245,248,255,0.82));
-      border: 1px solid rgba(29, 78, 137, 0.12);
+      border: 1px solid rgba(0, 37, 82, 0.12);
       box-shadow: var(--shadow);
     }
 
@@ -171,7 +173,7 @@
     }
 
     .copy-button:hover {
-      background: #002544;
+      background: #001833;
     }
 
     button {
@@ -188,7 +190,7 @@
     }
 
     button:hover {
-      background: #002544;
+      background: #001833;
     }
 
     button.secondary {
@@ -196,7 +198,7 @@
     }
 
     button.secondary:hover {
-      background: #7a1220;
+      background: #0a7f8c;
     }
 
     .question-box {
@@ -212,7 +214,7 @@
     }
 
     textarea, input {
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       font-size: 14px;
       padding: 10px;
       border: 1px solid var(--tile-border);
@@ -325,10 +327,18 @@
         color: var(--ink);
       }
     }
+
+    /* CCGH branding: logo above the title and dark-blue footer. */
+    .brand-logo { display: block; height: 60px; width: auto; margin: 0 0 1rem; }
+    .site-footer { position: relative; z-index: 1; margin-top: 2rem; background: #002552; color: #ffffff; }
+    .site-footer-inner { max-width: 900px; margin: 0 auto; padding: 1.6rem 22px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; font-size: 0.9rem; }
+    .site-footer .brand-logo { height: 50px; margin: 0; }
+    .site-footer p { margin: 0; color: #ccdceb; }
   </style>
 </head>
 <body>
   <div class="page">
+    <img class="brand-logo" src="../../ccgh-logo.png" alt="Charité Center for Global Health">
     <h1>Vaccine Models Practical Session</h1>
     <div class="subtitle">Interactive Worksheet | Instructors: Stefan Flasche & Augustine Masinde</div>
     
@@ -615,5 +625,11 @@ cat("Attack rate:", round(attack_rate, 2), "%\n")</pre>
     }
   </script>
 
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <img class="brand-logo" src="../../ccgh-logo-white.png" alt="Charité Center for Global Health">
+      <p>Infectious Disease Dynamics short course &middot; Charité Center for Global Health</p>
+    </div>
+  </footer>
 </body>
 </html>

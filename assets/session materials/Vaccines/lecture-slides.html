@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>Vaccine Models in Mathematical Epidemiology</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
   <style>
     :root {
-      --navy: #00355f;
-      --navy-dark: #001f3d;
-      --green: #7ab51d;
-      --green-dark: #5c8c16;
-      --navy-soft: #e7edf3;
-      --green-soft: #eef6e2;
-      --amber: #e8a600;
-      --amber-soft: #fff5db;
-      --ink: #14212e;
-      --rule: #d8dfe6;
+      --navy: #002552;
+      --navy-dark: #001833;
+      --green: #0d9aa9;
+      --green-dark: #0a7f8c;
+      --navy-soft: #ccdceb;
+      --green-soft: #d9f0f2;
+      --amber: #5e676c;
+      --amber-soft: #eceef0;
+      --ink: #1c2833;
+      --rule: #cbcfd2;
     }
 
     * {
@@ -25,7 +27,7 @@
     }
 
     body {
-      font-family: "Charité Sans", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       color: var(--ink);
     }
 
@@ -73,7 +75,7 @@
       left: 0;
       font-size: 0.32em;
       letter-spacing: 0.03em;
-      color: #8a97a4;
+      color: #5e676c;
       font-weight: 500;
     }
 
@@ -247,16 +249,16 @@
     .reveal figure .f-sub { font-size: 15px; fill: #647382; }
     .reveal figure .f-note { font-size: 15px; fill: #647382; }
     .reveal figure .f-box { font-size: 18px; font-weight: 700; fill: var(--navy); }
-    .reveal figure .f-arrow { font-size: 16px; fill: #44586b; }
+    .reveal figure .f-arrow { font-size: 16px; fill: #5e676c; }
     .reveal figure .f-key { font-size: 16px; font-weight: 700; fill: var(--green-dark); }
-    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #a17400; }
+    .reveal figure .f-amber { font-size: 16px; font-weight: 700; fill: #5e676c; }
     .reveal figure .f-legend { font-size: 16px; font-weight: 700; fill: var(--navy); }
     .reveal figure .f-axis { font-size: 14px; fill: #7c8a97; }
-    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #44586b; }
+    .reveal figure .f-axis-title { font-size: 15px; font-weight: 600; fill: #5e676c; }
 
     .reveal .source {
       font-size: 0.4em;
-      color: #8a97a4;
+      color: #5e676c;
       margin: 0.35em 0 0;
       line-height: 1.4;
     }
@@ -305,13 +307,40 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif; }
+
+    /* CCGH logo: large on the title slide, small on every other slide. */
+    .reveal .title-slide .title-logo {
+      position: absolute;
+      top: 0.4em;
+      right: 0;
+      height: 2.6em;
+      width: auto;
+      margin: 0;
+    }
+
+    .deck-logo {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      height: 46px;
+      width: auto;
+      z-index: 30;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .on-title-slide .deck-logo { opacity: 0; }
   </style>
 </head>
 <body>
+  <img class="deck-logo" src="../../ccgh-logo.png" alt="Charité Center for Global Health">
   <div class="reveal">
     <div class="slides">
       <!-- Slide 1: Title -->
       <section class="title-slide">
+        <img class="title-logo" src="../../ccgh-logo-white.png" alt="Charité Center for Global Health">
         <div class="title-inner">
           <h2>Vaccine Models in Mathematical Epidemiology</h2>
           <p>Conceptualizing vaccine protection and its population-level impacts</p>
@@ -356,43 +385,43 @@
             <!-- All-or-nothing panel -->
             <text x="20" y="20" class="f-title">All-or-nothing</text>
             <text x="20" y="44" class="f-sub">protection is complete, but only for some</text>
-            <rect x="20" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="90" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="160" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="230" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="300" y="62" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="20" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="90" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="160" y="132" width="56" height="56" rx="2" fill="#7ab51d" stroke="#5c8c16" stroke-width="2"/>
-            <rect x="230" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="300" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
+            <rect x="20" y="62" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="90" y="62" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="160" y="62" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="230" y="62" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="300" y="62" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="20" y="132" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="90" y="132" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="160" y="132" width="56" height="56" rx="2" fill="#0d9aa9" stroke="#0a7f8c" stroke-width="2"/>
+            <rect x="230" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="300" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
             <text x="20" y="212" class="f-note">8 fully immune · 2 with no protection at all</text>
 
-            <line x1="480" y1="8" x2="480" y2="216" stroke="#d8dfe6" stroke-width="2"/>
+            <line x1="480" y1="8" x2="480" y2="216" stroke="#cbcfd2" stroke-width="2"/>
 
             <!-- Leaky panel -->
             <text x="520" y="20" class="f-title">Leaky</text>
             <text x="520" y="44" class="f-sub">protection is partial, but for everyone</text>
-            <rect x="520" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="522" y="74" width="52" height="42" fill="#7ab51d"/>
-            <rect x="590" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="592" y="74" width="52" height="42" fill="#7ab51d"/>
-            <rect x="660" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="662" y="74" width="52" height="42" fill="#7ab51d"/>
-            <rect x="730" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="732" y="74" width="52" height="42" fill="#7ab51d"/>
-            <rect x="800" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="802" y="74" width="52" height="42" fill="#7ab51d"/>
-            <rect x="520" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="522" y="144" width="52" height="42" fill="#7ab51d"/>
-            <rect x="590" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="592" y="144" width="52" height="42" fill="#7ab51d"/>
-            <rect x="660" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="662" y="144" width="52" height="42" fill="#7ab51d"/>
-            <rect x="730" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="732" y="144" width="52" height="42" fill="#7ab51d"/>
-            <rect x="800" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="2"/>
-            <rect x="802" y="144" width="52" height="42" fill="#7ab51d"/>
+            <rect x="520" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="522" y="74" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="590" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="592" y="74" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="660" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="662" y="74" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="730" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="732" y="74" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="800" y="62" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="802" y="74" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="520" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="522" y="144" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="590" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="592" y="144" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="660" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="662" y="144" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="730" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="732" y="144" width="52" height="42" fill="#0d9aa9"/>
+            <rect x="800" y="132" width="56" height="56" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="2"/>
+            <rect x="802" y="144" width="52" height="42" fill="#0d9aa9"/>
             <text x="520" y="212" class="f-note">all 10 have their risk per exposure cut by 80%</text>
           </svg>
           <figcaption>Each square is one vaccinated person; the green fill is their degree of protection. Both vaccines have 80% efficacy.</figcaption>
@@ -410,33 +439,33 @@
           <svg viewBox="0 0 960 200" role="img" aria-label="All-or-nothing structure: vaccination splits susceptibles into a fully protected compartment and an unprotected one that is infected at the ordinary force of infection.">
             <defs>
               <marker id="ao-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
-            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="73" y="45" text-anchor="middle" class="f-box">S</text>
-            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="473" y="45" text-anchor="middle" class="f-box">I</text>
-            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="723" y="45" text-anchor="middle" class="f-box">R</text>
-            <path d="M116,39 H420" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M116,39 H420" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
             <text x="268" y="30" text-anchor="middle" class="f-arrow">λ</text>
-            <path d="M516,39 H670" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M516,39 H670" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
             <text x="593" y="30" text-anchor="middle" class="f-arrow">γ</text>
 
-            <path d="M73,62 V104 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
-            <path d="M73,62 V166 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M73,62 V104 H142" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M73,62 V166 H142" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
             <text x="66" y="120" text-anchor="end" class="f-note">vaccinate</text>
             <text x="82" y="86" class="f-key">ε</text>
             <text x="82" y="152" class="f-key">1 − ε</text>
 
-            <rect x="150" y="84" width="200" height="40" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <rect x="150" y="84" width="200" height="40" rx="3" fill="#d9f0f2" stroke="#0d9aa9" stroke-width="2"/>
             <text x="250" y="109" text-anchor="middle" class="f-box">Protected</text>
             <text x="364" y="109" class="f-note">never infected</text>
 
-            <rect x="150" y="146" width="200" height="40" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <rect x="150" y="146" width="200" height="40" rx="3" fill="#ccdceb" stroke="#002552" stroke-width="2"/>
             <text x="250" y="171" text-anchor="middle" class="f-box">Unprotected</text>
-            <path d="M350,166 H500 V66" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
+            <path d="M350,166 H500 V66" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ao-tip)"/>
             <text x="360" y="188" class="f-arrow">λ — the same as an unvaccinated person</text>
           </svg>
         </figure>
@@ -445,25 +474,25 @@
           <svg viewBox="0 0 960 158" role="img" aria-label="Leaky structure: all vaccinees enter one compartment and are infected at a force of infection reduced by one minus epsilon.">
             <defs>
               <marker id="lk-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
-            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="30" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="73" y="45" text-anchor="middle" class="f-box">S</text>
-            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="430" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="473" y="45" text-anchor="middle" class="f-box">I</text>
-            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="680" y="16" width="86" height="46" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="723" y="45" text-anchor="middle" class="f-box">R</text>
-            <path d="M116,39 H420" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <path d="M116,39 H420" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
             <text x="268" y="30" text-anchor="middle" class="f-arrow">λ</text>
-            <path d="M516,39 H670" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <path d="M516,39 H670" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
             <text x="593" y="30" text-anchor="middle" class="f-arrow">γ</text>
 
-            <path d="M73,62 V116 H142" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <path d="M73,62 V116 H142" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
             <text x="66" y="98" text-anchor="end" class="f-note">vaccinate</text>
-            <rect x="150" y="96" width="200" height="40" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <rect x="150" y="96" width="200" height="40" rx="3" fill="#d9f0f2" stroke="#0d9aa9" stroke-width="2"/>
             <text x="250" y="121" text-anchor="middle" class="f-box">Vaccinated</text>
-            <path d="M350,116 H500 V66" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
+            <path d="M350,116 H500 V66" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#lk-tip)"/>
             <text x="360" y="140" class="f-key">(1 − ε) λ</text>
             <text x="445" y="140" class="f-note">— reduced, but never zero</text>
           </svg>
@@ -485,29 +514,29 @@
           <svg viewBox="0 0 960 205" role="img" aria-label="Pathway from exposure to infection to disease. Protection against infection blocks the first step; protection against disease blocks the second. Onward transmission branches off infection, so it is untouched by protection against disease.">
             <defs>
               <marker id="pw-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
-            <rect x="20" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="20" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="100" y="62" text-anchor="middle" class="f-box">Exposure</text>
 
-            <path d="M180,56 H382" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
-            <line x1="283" y1="34" x2="283" y2="78" stroke="#7ab51d" stroke-width="6"/>
+            <path d="M180,56 H382" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <line x1="283" y1="34" x2="283" y2="78" stroke="#0d9aa9" stroke-width="6"/>
             <text x="283" y="24" text-anchor="middle" class="f-key">VE against infection</text>
 
-            <rect x="390" y="30" width="160" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <rect x="390" y="30" width="160" height="52" rx="3" fill="#ccdceb" stroke="#002552" stroke-width="2"/>
             <text x="470" y="62" text-anchor="middle" class="f-box">Infection</text>
 
-            <path d="M550,56 H752" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
-            <line x1="653" y1="34" x2="653" y2="78" stroke="#e8a600" stroke-width="6"/>
+            <path d="M550,56 H752" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <line x1="653" y1="34" x2="653" y2="78" stroke="#5e676c" stroke-width="6"/>
             <text x="653" y="24" text-anchor="middle" class="f-amber">VE against disease</text>
 
-            <rect x="760" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <rect x="760" y="30" width="160" height="52" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="840" y="62" text-anchor="middle" class="f-box">Disease</text>
             <text x="840" y="106" text-anchor="middle" class="f-note">clinical outcome only</text>
 
-            <path d="M470,82 V134" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
-            <rect x="360" y="140" width="220" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <path d="M470,82 V134" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#pw-tip)"/>
+            <rect x="360" y="140" width="220" height="52" rx="3" fill="#ccdceb" stroke="#002552" stroke-width="2"/>
             <text x="470" y="172" text-anchor="middle" class="f-box">Onward transmission</text>
             <text x="598" y="172" class="f-note">untouched by VE against disease</text>
           </svg>
@@ -527,24 +556,24 @@
         <p>Protection is rarely permanent — and the shape you assume for its decay is a modelling choice:</p>
         <figure class="fig-mid">
           <svg viewBox="0 0 960 215" role="img" aria-label="Schematic of three ways to represent waning protection over time: a fixed duration step, exponential decay, and a measured plateau followed by decline.">
-            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
-            <line x1="80" y1="170" x2="650" y2="170" stroke="#c3ccd4" stroke-width="2"/>
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#cbcfd2" stroke-width="2"/>
+            <line x1="80" y1="170" x2="650" y2="170" stroke="#cbcfd2" stroke-width="2"/>
             <text x="70" y="50" text-anchor="end" class="f-axis">VE</text>
             <text x="70" y="175" text-anchor="end" class="f-axis">0</text>
             <text x="365" y="198" text-anchor="middle" class="f-axis-title">time since vaccination</text>
             <text x="32" y="100" text-anchor="middle" class="f-axis-title" transform="rotate(-90 32 100)">protection</text>
 
-            <path d="M80,45 H330 V170 H650" fill="none" stroke="#00355f" stroke-width="3"/>
-            <polyline points="80,45 120,73 160,94 200,111 240,124 290,136 340,145 400,153 470,159 540,163 650,166" fill="none" stroke="#7ab51d" stroke-width="3"/>
-            <path d="M80,45 C190,47 260,53 330,82 C400,112 490,142 650,158" fill="none" stroke="#e8a600" stroke-width="3" stroke-dasharray="8 5"/>
+            <path d="M80,45 H330 V170 H650" fill="none" stroke="#002552" stroke-width="3"/>
+            <polyline points="80,45 120,73 160,94 200,111 240,124 290,136 340,145 400,153 470,159 540,163 650,166" fill="none" stroke="#0d9aa9" stroke-width="3"/>
+            <path d="M80,45 C190,47 260,53 330,82 C400,112 490,142 650,158" fill="none" stroke="#5e676c" stroke-width="3" stroke-dasharray="8 5"/>
 
-            <line x1="690" y1="50" x2="730" y2="50" stroke="#00355f" stroke-width="3"/>
+            <line x1="690" y1="50" x2="730" y2="50" stroke="#002552" stroke-width="3"/>
             <text x="742" y="55" class="f-legend">Fixed duration</text>
             <text x="742" y="75" class="f-note">step back to susceptible</text>
-            <line x1="690" y1="105" x2="730" y2="105" stroke="#7ab51d" stroke-width="3"/>
+            <line x1="690" y1="105" x2="730" y2="105" stroke="#0d9aa9" stroke-width="3"/>
             <text x="742" y="110" class="f-legend">Exponential</text>
             <text x="742" y="130" class="f-note">constant waning rate</text>
-            <line x1="690" y1="160" x2="730" y2="160" stroke="#e8a600" stroke-width="3" stroke-dasharray="8 5"/>
+            <line x1="690" y1="160" x2="730" y2="160" stroke="#5e676c" stroke-width="3" stroke-dasharray="8 5"/>
             <text x="742" y="165" class="f-legend">Measured kinetics</text>
             <text x="742" y="185" class="f-note">plateau, then decline</text>
           </svg>
@@ -592,11 +621,11 @@
         <p>Vaccination lowers the force of infection, so those still susceptible meet the virus later in life — and for rubella, later can mean pregnancy.</p>
         <figure class="fig-mid">
           <svg viewBox="0 0 960 215" role="img" aria-label="Schematic curve of congenital rubella syndrome births against rubella vaccination coverage: the burden rises above the pre-vaccination level at intermediate coverage before falling to elimination at high coverage.">
-            <path d="M90,110 C180,78 270,52 340,52 C410,52 465,95 494,110 Z" fill="#e8a600" fill-opacity="0.18"/>
-            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
-            <line x1="80" y1="170" x2="710" y2="170" stroke="#c3ccd4" stroke-width="2"/>
-            <line x1="90" y1="110" x2="700" y2="110" stroke="#8a97a4" stroke-width="2" stroke-dasharray="7 5"/>
-            <path d="M90,110 C180,78 270,52 340,52 C420,52 470,105 540,132 C600,152 650,160 700,164" fill="none" stroke="#00355f" stroke-width="3"/>
+            <path d="M90,110 C180,78 270,52 340,52 C410,52 465,95 494,110 Z" fill="#5e676c" fill-opacity="0.18"/>
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#cbcfd2" stroke-width="2"/>
+            <line x1="80" y1="170" x2="710" y2="170" stroke="#cbcfd2" stroke-width="2"/>
+            <line x1="90" y1="110" x2="700" y2="110" stroke="#5e676c" stroke-width="2" stroke-dasharray="7 5"/>
+            <path d="M90,110 C180,78 270,52 340,52 C420,52 470,105 540,132 C600,152 650,160 700,164" fill="none" stroke="#002552" stroke-width="3"/>
             <text x="90" y="188" text-anchor="middle" class="f-axis">0</text>
             <text x="395" y="188" text-anchor="middle" class="f-axis">50%</text>
             <text x="700" y="188" text-anchor="middle" class="f-axis">100%</text>
@@ -620,20 +649,20 @@
         <p>Conjugate vaccines target a subset of serotypes — but the niche they occupied does not stay empty.</p>
         <figure class="fig-mid">
           <svg viewBox="0 0 960 215" role="img" aria-label="Schematic time series after conjugate vaccine introduction: vaccine-type invasive disease collapses, non-vaccine-type disease rises, and all-type disease falls by less than the vaccine-type decline.">
-            <line x1="80" y1="30" x2="80" y2="170" stroke="#c3ccd4" stroke-width="2"/>
-            <line x1="80" y1="170" x2="660" y2="170" stroke="#c3ccd4" stroke-width="2"/>
-            <line x1="140" y1="30" x2="140" y2="170" stroke="#8a97a4" stroke-width="2" stroke-dasharray="6 5"/>
+            <line x1="80" y1="30" x2="80" y2="170" stroke="#cbcfd2" stroke-width="2"/>
+            <line x1="80" y1="170" x2="660" y2="170" stroke="#cbcfd2" stroke-width="2"/>
+            <line x1="140" y1="30" x2="140" y2="170" stroke="#5e676c" stroke-width="2" stroke-dasharray="6 5"/>
             <text x="147" y="26" class="f-note">PCV introduced</text>
-            <polyline points="90,40 140,42 200,60 300,88 420,107 530,106 640,105" fill="none" stroke="#8a97a4" stroke-width="3"/>
-            <polyline points="90,60 140,62 200,85 300,120 420,150 530,157 640,160" fill="none" stroke="#00355f" stroke-width="3"/>
-            <polyline points="90,145 140,145 200,140 300,133 420,122 530,114 640,110" fill="none" stroke="#e8a600" stroke-width="3"/>
+            <polyline points="90,40 140,42 200,60 300,88 420,107 530,106 640,105" fill="none" stroke="#5e676c" stroke-width="3"/>
+            <polyline points="90,60 140,62 200,85 300,120 420,150 530,157 640,160" fill="none" stroke="#002552" stroke-width="3"/>
+            <polyline points="90,145 140,145 200,140 300,133 420,122 530,114 640,110" fill="none" stroke="#5e676c" stroke-width="3"/>
             <text x="365" y="200" text-anchor="middle" class="f-axis-title">years since introduction</text>
             <text x="34" y="100" text-anchor="middle" class="f-axis-title" transform="rotate(-90 34 100)">invasive disease</text>
-            <line x1="690" y1="60" x2="730" y2="60" stroke="#00355f" stroke-width="3"/>
+            <line x1="690" y1="60" x2="730" y2="60" stroke="#002552" stroke-width="3"/>
             <text x="742" y="65" class="f-legend">Vaccine types</text>
-            <line x1="690" y1="105" x2="730" y2="105" stroke="#e8a600" stroke-width="3"/>
+            <line x1="690" y1="105" x2="730" y2="105" stroke="#5e676c" stroke-width="3"/>
             <text x="742" y="110" class="f-legend">Non-vaccine types</text>
-            <line x1="690" y1="150" x2="730" y2="150" stroke="#8a97a4" stroke-width="3"/>
+            <line x1="690" y1="150" x2="730" y2="150" stroke="#5e676c" stroke-width="3"/>
             <text x="742" y="155" class="f-legend">All types</text>
           </svg>
           <figcaption>Schematic of the pattern observed after PCV introduction.</figcaption>
@@ -652,81 +681,81 @@
           <svg viewBox="0 0 960 158" role="img" aria-label="Two grids of squares representing antibody memory to many pathogens. Before measles nearly all are filled; after measles most are emptied.">
             <defs>
               <marker id="ma-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
             <text x="60" y="28" class="f-legend">Before measles</text>
-            <rect x="60" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="79" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="98" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="117" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="136" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="155" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="174" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="193" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="60" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="79" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="98" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="117" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="136" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="155" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="174" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="193" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="60" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="79" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="98" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="117" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="136" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="155" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="174" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="193" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="60" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="79" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="98" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="117" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="136" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="155" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="174" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="193" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="60" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="79" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="98" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="117" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="136" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="155" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="174" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="193" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="60" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="79" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="98" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="117" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="136" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="155" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="174" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="193" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="60" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="79" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="98" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="117" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="136" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="155" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="174" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="193" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="60" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="79" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="98" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="117" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="136" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="155" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="174" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="193" y="101" width="14" height="14" rx="2" fill="#002552"/>
             <text x="60" y="140" class="f-note">memory to many pathogens</text>
 
-            <path d="M222,80 H412" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#ma-tip)"/>
+            <path d="M222,80 H412" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#ma-tip)"/>
             <text x="320" y="68" text-anchor="middle" class="f-amber">measles infection</text>
             <text x="320" y="102" text-anchor="middle" class="f-note">erases much of it</text>
 
             <text x="430" y="28" class="f-legend">After measles</text>
-            <rect x="430" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="449" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="468" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="487" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="506" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="525" y="44" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="544" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="563" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="430" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="449" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="468" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="487" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="506" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="525" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="544" y="63" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="563" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="430" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="449" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="468" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="487" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="506" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="525" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="544" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="563" y="82" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="430" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="449" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="468" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="487" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="506" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="525" y="101" width="14" height="14" rx="2" fill="#00355f"/>
-            <rect x="544" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#c3ccd4" stroke-width="1.5"/>
-            <rect x="563" y="101" width="14" height="14" rx="2" fill="#00355f"/>
+            <rect x="430" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="449" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="468" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="487" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="506" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="525" y="44" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="544" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="563" y="44" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="430" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="449" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="468" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="487" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="506" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="525" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="544" y="63" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="563" y="63" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="430" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="449" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="468" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="487" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="506" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="525" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="544" y="82" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="563" y="82" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="430" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="449" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="468" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="487" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="506" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="525" y="101" width="14" height="14" rx="2" fill="#002552"/>
+            <rect x="544" y="101" width="14" height="14" rx="2" fill="#eef1f4" stroke="#cbcfd2" stroke-width="1.5"/>
+            <rect x="563" y="101" width="14" height="14" rx="2" fill="#002552"/>
             <text x="430" y="140" class="f-note">protection has to be rebuilt</text>
 
             <text x="620" y="60" class="f-key">Measles vaccination prevents this</text>
@@ -748,26 +777,26 @@
           <svg viewBox="0 0 960 212" role="img" aria-label="A child given oral polio vaccine sheds vaccine virus, which either immunises contacts or, where coverage is low, circulates long enough to revert to virulence and cause outbreaks.">
             <defs>
               <marker id="opv-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
-            <rect x="20" y="79" width="190" height="52" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <rect x="20" y="79" width="190" height="52" rx="3" fill="#ccdceb" stroke="#002552" stroke-width="2"/>
             <text x="115" y="111" text-anchor="middle" class="f-box">Child given OPV</text>
             <text x="115" y="68" text-anchor="middle" class="f-note">sheds live vaccine virus</text>
 
-            <path d="M210,105 H290" stroke="#44586b" stroke-width="2" fill="none"/>
-            <path d="M290,105 V50 H406" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
-            <path d="M290,105 V160 H406" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <path d="M210,105 H290" stroke="#5e676c" stroke-width="2" fill="none"/>
+            <path d="M290,105 V50 H406" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <path d="M290,105 V160 H406" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
             <text x="402" y="42" text-anchor="end" class="f-key">immunises contacts</text>
             <text x="402" y="184" text-anchor="end" class="f-amber">can revert to virulence</text>
 
-            <rect x="414" y="24" width="230" height="52" rx="3" fill="#eef6e2" stroke="#7ab51d" stroke-width="2"/>
+            <rect x="414" y="24" width="230" height="52" rx="3" fill="#d9f0f2" stroke="#0d9aa9" stroke-width="2"/>
             <text x="529" y="56" text-anchor="middle" class="f-box">Contact protected</text>
 
-            <rect x="414" y="134" width="230" height="52" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <rect x="414" y="134" width="230" height="52" rx="3" fill="#eceef0" stroke="#5e676c" stroke-width="2"/>
             <text x="529" y="166" text-anchor="middle" class="f-box">Keeps circulating</text>
-            <path d="M644,160 H690" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
-            <rect x="698" y="134" width="240" height="52" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <path d="M644,160 H690" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#opv-tip)"/>
+            <rect x="698" y="134" width="240" height="52" rx="3" fill="#eceef0" stroke="#5e676c" stroke-width="2"/>
             <text x="818" y="166" text-anchor="middle" class="f-box">cVDPV outbreak</text>
             <text x="700" y="206" text-anchor="middle" class="f-note">where coverage is low</text>
           </svg>
@@ -786,21 +815,21 @@
           <svg viewBox="0 0 960 168" role="img" aria-label="Vaccination lowers perceived risk, which may raise contact rates, which offsets part of the vaccine's benefit, feeding back to the start.">
             <defs>
               <marker id="rc-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M0,1 L9,5 L0,9 z" fill="#44586b"/>
+                <path d="M0,1 L9,5 L0,9 z" fill="#5e676c"/>
               </marker>
             </defs>
-            <rect x="10" y="36" width="190" height="54" rx="3" fill="#e7edf3" stroke="#00355f" stroke-width="2"/>
+            <rect x="10" y="36" width="190" height="54" rx="3" fill="#ccdceb" stroke="#002552" stroke-width="2"/>
             <text x="105" y="69" text-anchor="middle" class="f-box">Vaccination</text>
-            <path d="M200,63 H246" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
-            <rect x="254" y="36" width="220" height="54" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <path d="M200,63 H246" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="254" y="36" width="220" height="54" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="364" y="69" text-anchor="middle" class="f-box">Perceived risk falls</text>
-            <path d="M474,63 H516" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
-            <rect x="524" y="36" width="180" height="54" rx="3" fill="#ffffff" stroke="#00355f" stroke-width="2"/>
+            <path d="M474,63 H516" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="524" y="36" width="180" height="54" rx="3" fill="#ffffff" stroke="#002552" stroke-width="2"/>
             <text x="614" y="69" text-anchor="middle" class="f-box">More contacts</text>
-            <path d="M704,63 H746" stroke="#44586b" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
-            <rect x="754" y="36" width="196" height="54" rx="3" fill="#fff5db" stroke="#e8a600" stroke-width="2"/>
+            <path d="M704,63 H746" stroke="#5e676c" stroke-width="2" fill="none" marker-end="url(#rc-tip)"/>
+            <rect x="754" y="36" width="196" height="54" rx="3" fill="#eceef0" stroke="#5e676c" stroke-width="2"/>
             <text x="852" y="69" text-anchor="middle" class="f-box">Net benefit falls</text>
-            <path d="M852,92 C852,140 220,140 112,98" stroke="#8a97a4" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#rc-tip)"/>
+            <path d="M852,92 C852,140 220,140 112,98" stroke="#5e676c" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#rc-tip)"/>
             <text x="480" y="160" text-anchor="middle" class="f-note">feedback that a standard transmission model does not contain by default</text>
           </svg>
         </figure>
@@ -838,6 +867,10 @@
       center: false,
       transition: 'slide'
     });
+    // Hide the small corner logo on the title slide, which shows its own.
+    const syncTitleLogo = () => document.body.classList.toggle('on-title-slide', Reveal.getCurrentSlide()?.classList.contains('title-slide'));
+    Reveal.on('ready', syncTitleLogo);
+    Reveal.on('slidechanged', syncTitleLogo);
   </script>
 </body>
 </html>
