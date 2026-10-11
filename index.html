@@ -6,8 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="assets/faviconB.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <title>Infectious Disease Dynamics: Introduction to Data Analytics and Mathematical Modelling</title>
+  <title>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling Short Course | Charité CCGH</title>
+  <meta name="description" content="Two-week short course (3 ECTS) at the Charité Center for Global Health, Berlin, 19–30 April 2027: infectious disease data analytics and mathematical modelling through lectures, hands-on R practicals and group work.">
+  <meta name="keywords" content="infectious disease modelling, mathematical modelling, epidemiology, data analytics, short course, Charité, Center for Global Health, Berlin, MScIH, vaccines, outbreak response">
+  <meta name="author" content="Charité Center for Global Health">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#002552">
+  <link rel="canonical" href="https://course.ccgh-idd.de/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Charité Center for Global Health">
+  <meta property="og:title" content="Infectious Disease Dynamics: Data Analytics and Mathematical Modelling">
+  <meta property="og:description" content="Two-week short course (3 ECTS) at the Charité Center for Global Health, Berlin, 19–30 April 2027.">
+  <meta property="og:url" content="https://course.ccgh-idd.de/">
+  <meta property="og:image" content="https://course.ccgh-idd.de/assets/ccgh-logo.png">
+  <meta property="og:image:alt" content="Charité Center for Global Health logo">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Infectious Disease Dynamics: Introduction to Data Analytics and Mathematical Modelling",
+    "description": "Short course introducing core ideas, methods and practical workflows for infectious disease data analytics and mathematical modelling, combining lectures, hands-on exercises and group work.",
+    "url": "https://course.ccgh-idd.de/",
+    "inLanguage": "en",
+    "educationalCredentialAwarded": "3 ECTS",
+    "provider": {
+      "@type": "CollegeOrUniversity",
+      "name": "Charité – Universitätsmedizin Berlin, Center for Global Health",
+      "url": "https://globalhealth.charite.de/"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Onsite",
+      "startDate": "2027-04-19",
+      "endDate": "2027-04-30",
+      "location": { "@type": "Place", "name": "Charité – Universitätsmedizin Berlin", "address": { "@type": "PostalAddress", "addressLocality": "Berlin", "addressCountry": "DE" } }
+    }
+  }
+  </script>
   <style>
     /* Core visual theme and design tokens used across the course page. */
     :root {
@@ -54,18 +93,6 @@
       line-height: 1.55;
     }
 
-    /* Subtle grid overlay for the background to add visual structure without distraction. */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0));
-      opacity: 0.2;
-      z-index: 0;
-    }
 
     a {
       color: inherit;
@@ -202,7 +229,6 @@
       box-shadow: var(--shadow-soft);
       padding: 1.25rem;
       margin-bottom: 1.25rem;
-      backdrop-filter: blur(10px);
     }
 
     .card h2 {
@@ -1216,7 +1242,7 @@
 
     // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
     facultyRoot.innerHTML = faculty.map((member, index) => {
-      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" loading="lazy">` : "";
+      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" width="90" height="90" decoding="async">` : "";
       return `
         <article class="session-card faculty-card" data-kind="milestone">
           <button class="faculty-trigger" type="button" data-faculty-index="${index}" aria-label="Open profile for ${member.name}">

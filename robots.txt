@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://course.ccgh-idd.de/sitemap.xml
