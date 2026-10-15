@@ -4,11 +4,9 @@
   <meta charset="utf-8">
   <meta name="color-scheme" content="light">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="assets/faviconB.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <title>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling Short Course | Charité CCGH</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <title>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling | Short course, Charité Center for Global Health</title>
   <meta name="description" content="Two-week short course (3 ECTS) at the Charité Center for Global Health, Berlin, 19–30 April 2027: infectious disease data analytics and mathematical modelling through lectures, hands-on R practicals and group work.">
   <meta name="keywords" content="infectious disease modelling, mathematical modelling, epidemiology, data analytics, short course, Charité, Center for Global Health, Berlin, MScIH, vaccines, outbreak response">
   <meta name="author" content="Charité Center for Global Health">
@@ -48,1186 +46,966 @@
   }
   </script>
   <style>
-    /* Core visual theme and design tokens used across the course page. */
+    /* CCGH colours; one font throughout (the device's system font). */
     :root {
-      --bg: #f5f7f9;
-      --bg-2: #eef3f8;
-      --panel: rgba(255, 255, 255, 0.82);
-      --panel-solid: #ffffff;
-      --ink: #1c2833;
-      --muted: #5e676c;
-      --blue: #002552;
-      --blue-soft: #e5edf5;
-      --lecture-soft: #ccdceb;
-      --gold: #5e676c;
-      --gold-soft: #eceef0;
-      --groupwork-soft: #e3e6e8;
-      --green-soft: #d3eef1;
-      --practical-soft: #d3eef1;
-      --tile-border: rgba(0, 37, 82, 0.08);
-      --shadow: 0 22px 60px rgba(0, 37, 82, 0.12);
-      --shadow-soft: 0 10px 24px rgba(0, 37, 82, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --nav-width: 300px;
+      --primary: #002552;
+      /* Charité-Dunkelblau */
+      --primary-light: #ccdceb;
+      --secondary: #0d9aa9;
+      /* Charité-Mineral, for marks and rules only */
+      --secondary-text: #0a7682;
+      --text: #1f2b36;
+      --text-light: #5e676c;
+      --rule: #dde2e6;
+      --bg: #ffffff;
+      --bg-soft: #f5f7f9;
+      /* Text and rules on the navy footer, and the dialog backdrop */
+      --on-primary: #ffffff;
+      --on-primary-muted: rgba(255, 255, 255, 0.85);
+      --on-primary-rule: rgba(255, 255, 255, 0.4);
+      --backdrop: rgba(0, 37, 82, 0.5);
+      /* Session types: a flat tint and an edge colour each; the type is also written in each tile */
+      --lecture-tint: #e3ebf5;
+      --practical-tint: #d5eef1;
+      --groupwork-tint: #eceef0;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --nav-height: 72px;
     }
 
-    /* Normalize browser defaults so spacing and layout behave consistently. */
-    * { box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 24px;
+      scroll-padding-top: var(--nav-height);
+      scrollbar-gutter: stable;
     }
 
-    /* Page background, typography, and overall canvas styling. */
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(0, 37, 82, 0.14), transparent 34%),
-        radial-gradient(circle at 86% 8%, rgba(94, 103, 108, 0.11), transparent 28%),
-        linear-gradient(180deg, var(--bg), var(--bg-2) 54%, #eef3f9 100%);
-      font-family: "Lexend", "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.55;
-    }
-
-
-    a {
-      color: inherit;
-    }
-
-    /* Main page container that keeps content centered and readable. */
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 28px 22px 48px;
-    }
-
-    /* Hero banner for the course title and overview summary. */
-    .hero {
-      padding: 30px 30px 26px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(245,248,255,0.82));
-      border: 1px solid rgba(0, 37, 82, 0.12);
-      box-shadow: var(--shadow);
-      position: relative;
+    /* The page behind an open dialog stays still */
+    html:has(dialog[open]) {
       overflow: hidden;
     }
 
-    .hero::after {
-      content: "";
+    /* Read by screen readers, not shown */
+    .visually-hidden {
       position: absolute;
-      inset: auto -10% -40% auto;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(0, 37, 82, 0.16), transparent 70%);
-      pointer-events: none;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--blue);
-      background: rgba(0, 37, 82, 0.08);
-      border: 1px solid rgba(0, 37, 82, 0.12);
-      margin-bottom: 1rem;
+    body {
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
     }
 
-    h1 {
-      margin: 0;
-      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      color: var(--blue);
-      font-size: clamp(2.2rem, 4vw, 3.8rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      max-width: 100%;
+    /* No bold text anywhere: hierarchy comes from size and colour */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b,
+    th {
+      font-weight: 400;
     }
 
-    .title-line {
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+      color: var(--primary);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration-color: var(--primary-light);
+      text-underline-offset: 3px;
+    }
+
+    @media (hover: hover) {
+      a:hover {
+        color: var(--secondary-text);
+        text-decoration-color: currentColor;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--secondary);
+      outline-offset: 3px;
+    }
+
+    img {
       display: block;
       max-width: 100%;
     }
 
-    .title-line:first-child {
-      white-space: nowrap;
-      width: fit-content;
-      max-width: 100%;
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Navigation */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* min-height so the links can wrap to a second line at large text sizes */
+    .nav-content {
+      min-height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-logo {
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0 28px;
+      list-style: none;
+    }
+
+    /* 44px tall touch targets; the text itself does not move */
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    @media (hover: hover) {
+      .nav-links a:hover {
+        color: var(--secondary-text);
+      }
+    }
+
+    /* Section currently on screen */
+    .nav-links a.current {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--secondary);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 8px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 48px 0 64px;
+      border-bottom: 1px solid var(--rule);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 1.5rem;
-      align-items: end;
-      margin-top: 1rem;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      align-items: center;
     }
 
-    .hero-copy {
-      max-width: 78ch;
-      color: var(--ink);
-      font-size: 1.02rem;
-    }
-
-    #course-description {
-      margin: 0;
-      scroll-margin-top: 20px;
-    }
-
-    .hero-badges {
-      display: grid;
-      gap: 0.7rem;
-      min-width: 240px;
-      justify-self: end;
-    }
-
-    .badge {
-      padding: 0.75rem 0.95rem;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(0, 37, 82, 0.08);
-      box-shadow: var(--shadow-soft);
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    .badge strong {
-      display: block;
-      color: var(--ink);
-      font-size: 1rem;
-      margin-bottom: 0.15rem;
-    }
-
-    /* Split layout with a sticky sidebar and the main content stream. */
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      margin-top: 1.75rem;
-      align-items: start;
-    }
-
-    /* Main content area and generic card styling for each major section. */
-    .main-column {
-      min-width: 0;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 37, 82, 0.08);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-soft);
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .card h2 {
-      margin: 0 0 0.75rem;
-      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      color: var(--blue);
-      font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+    /* Hero title and subtitle */
+    .hero h1 {
+      font-size: clamp(2rem, 3.6vw, 2.75rem);
+      font-weight: 400;
       letter-spacing: -0.02em;
+      line-height: 1.12;
+      text-wrap: balance;
+      margin-bottom: 16px;
     }
 
-    /* Timetable table wrapper and weekly section styling. */
-    .table-wrap {
-      margin-top: 0.85rem;
-      overflow-x: auto;
-      border-radius: 20px;
-      padding: 0.1rem;
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(0, 37, 82, 0.07);
+    /* Names the format directly under the full course title */
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--secondary-text);
+      margin-bottom: 16px;
     }
 
-    .week {
-      border-radius: 20px;
-      padding: 0.7rem;
-      margin-bottom: 0.85rem;
+    .lead {
+      font-size: 1.25rem;
+      line-height: 1.55;
+      max-width: 34em;
+      margin-bottom: 28px;
     }
 
-    .week.blue {
-      background: linear-gradient(180deg, rgba(240, 245, 250, 0.98), rgba(229, 237, 245, 0.95));
-      border: 1px solid rgba(0, 37, 82, 0.11);
-      border-left: 7px solid var(--blue);
+    /* Key facts under the subtitle, in two even columns (four facts are too wide for one row) */
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 24px;
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
+      max-width: 34em;
     }
 
-    .week.gold {
-      background: linear-gradient(180deg, rgba(244, 245, 246, 0.98), rgba(236, 238, 240, 0.94));
-      border: 1px solid rgba(94, 103, 108, 0.11);
-      border-left: 7px solid var(--gold);
+    .hero-facts dt {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 2px;
+    }
+
+    .hero-facts dd {
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-figure figcaption {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Hero chart: a minimal SIR epidemic, lines labelled directly */
+    .sir-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .sir-chart .axis {
+      stroke: var(--rule);
+      stroke-width: 1;
+    }
+
+    .sir-chart .axis-label {
+      font-size: 12px;
+      fill: var(--text-light);
+    }
+
+    .sir-chart .curve {
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sir-chart .curve-s { stroke: var(--primary); }
+    .sir-chart .curve-i { stroke: var(--secondary); }
+    .sir-chart .curve-r { stroke: var(--text-light); }
+
+    .sir-chart .curve-label {
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .sir-chart .label-s { fill: var(--primary); }
+    .sir-chart .label-i { fill: var(--secondary-text); }
+    .sir-chart .label-r { fill: var(--text-light); }
+
+    /* Each curve draws once on load */
+    .sir-chart .curve {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: draw-curve 1.6s ease-out forwards;
+    }
+
+    .sir-chart .curve-i { animation-delay: 0.15s; }
+    .sir-chart .curve-r { animation-delay: 0.3s; }
+
+    @keyframes draw-curve {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sir-chart .curve {
+        animation: none;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Sections */
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* Heading (and any notes) in a narrow left column, content on the right */
+    .section-grid {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    /* Heading stays in view while a long section scrolls past */
+    .section-side {
+      position: sticky;
+      top: calc(var(--nav-height) + 24px);
+      align-self: start;
+    }
+
+    .section-side h2 {
+      font-size: 1.75rem;
+    }
+
+    /* Prose fills the content column, in line with the timetable and faculty grid (user's choice) */
+    .prose p {
+      max-width: none;
+    }
+
+    .prose p + p {
+      margin-top: 1em;
+    }
+
+    .section-note {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+
+    /* Timetable */
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 24px;
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .legend li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend li::before {
+      content: '';
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--kind-edge);
+      border-radius: 4px;
+      background: var(--kind-tint);
+    }
+
+    .kind-lecture {
+      --kind-edge: var(--primary);
+      --kind-tint: var(--lecture-tint);
+    }
+
+    .kind-practical {
+      --kind-edge: var(--secondary);
+      --kind-tint: var(--practical-tint);
+    }
+
+    .kind-groupwork {
+      --kind-edge: var(--text-light);
+      --kind-tint: var(--groupwork-tint);
+    }
+
+    .week + .week {
+      margin-top: 48px;
     }
 
     .week h3 {
-      margin: 0 0 0.6rem;
-      font-size: 1.2rem;
-      letter-spacing: 0.02em;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
     }
 
     table.schedule {
       width: 100%;
-      min-width: 900px;
       table-layout: fixed;
-      border-collapse: separate;
-      border-spacing: 0.28rem;
-      font-size: 0.88rem;
+      border-collapse: collapse;
+      font-size: 0.9rem;
     }
 
-    .schedule th,
+    .schedule thead th {
+      padding: 8px 6px;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-align: left;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
     .schedule td {
+      padding: 6px;
       vertical-align: top;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .schedule th {
-      padding: 0.58rem 0.5rem;
-      border-radius: 11px;
-      background: rgba(255, 255, 255, 0.82);
-      color: #101827;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    /* Date cells are row headers; the weekday sits on its own line on wider screens */
+    .schedule .date-cell {
+      padding: 14px 6px;
+      font-weight: 400;
+      text-align: left;
+      vertical-align: top;
+      color: var(--primary);
+      white-space: nowrap;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .schedule td {
-      padding: 0.18rem;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.6);
+    .date-weekday {
+      display: block;
     }
 
-    .schedule td.date-cell {
-      background: transparent;
-      padding: 0.42rem 0.35rem;
-      font-weight: 700;
-      color: var(--muted);
-      font-size: 0.86rem;
-      text-align: center;
-      vertical-align: middle;
+    .tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 4px;
+      background: var(--kind-tint);
+      color: var(--text);
+      font: inherit;
+      line-height: 1.3;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    @media (hover: hover) {
+      .tile:hover {
+        background: var(--bg);
+        box-shadow: inset 0 0 0 1px var(--kind-edge);
+      }
+    }
+
+    /* Time and type: hidden on wider screens, where the column header gives the time;
+       shown as the first line of each tile on phones */
+    .tile-when {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
       white-space: nowrap;
     }
 
-    .schedule th.break-head,
-    .schedule td.break-cell {
-      width: 2.2%;
-      text-align: center;
-    }
-
-    .schedule th.break-head {
-      padding: 0;
-      font-size: 0;
-      line-height: 0;
-    }
-
-    .schedule td.break-cell {
-      padding: 0;
-      background: transparent;
-      vertical-align: middle;
-    }
-
-    .break-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      min-width: 1.45rem;
-      min-height: 4.05rem;
-      padding: 0.1rem 0.18rem;
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px dashed rgba(0, 37, 82, 0.14);
-      color: var(--muted);
-      font-size: 0.8rem;
-      line-height: 1;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      word-break: normal;
-      overflow: hidden;
-    }
-
-    /* Individual timetable tiles for each session and session category styling. */
-    .tile {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      position: relative;
-      min-height: 4.35rem;
-      padding: 0.78rem 0.82rem;
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--tile-border);
-      box-shadow: 0 6px 14px rgba(0, 37, 82, 0.05);
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
-      line-height: 1.16;
-      font-size: 0.85rem;
-      word-break: break-word;
-      background: var(--panel-solid);
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .schedule .tile {
-      width: 100%;
-      height: var(--schedule-tile-height, auto);
-    }
-
-    .tile .lecturer-placeholder {
+    .tile-title {
       display: block;
-      margin-top: 0.28rem;
-      color: var(--ink);
-      font-size: 0.78rem;
-      font-style: italic;
+      font-weight: 400;
+      color: var(--primary);
     }
 
-    .tile:hover,
-    .tile:focus-visible {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(0, 37, 82, 0.11);
-      outline: none;
+    .tile-speaker {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: var(--text-light);
     }
 
-    .tile,
-    .tile-firstlast {
-      background: linear-gradient(180deg, var(--lecture-soft), var(--panel-solid));
-    }
-
-    .tile-practical {
-      background: linear-gradient(180deg, var(--practical-soft), var(--panel-solid));
-    }
-
-    .tile-groupwork {
-      background: linear-gradient(180deg, var(--groupwork-soft), var(--panel-solid));
-    }
-
-    .tile:hover,
-    .tile:focus-visible,
-    .tile-firstlast:hover,
-    .tile-firstlast:focus-visible {
-      border: 4px solid rgba(0, 37, 82, 0.5);
-      background: var(--lecture-soft);
-    }
-
-    .tile-practical:hover,
-    .tile-practical:focus-visible {
-      border: 4px solid rgba(13, 154, 169, 0.5);
-      background: var(--practical-soft);
-    }
-
-    .tile-groupwork:hover,
-    .tile-groupwork:focus-visible {
-      border: 4px solid rgba(94, 103, 108, 0.5);
-      background: var(--groupwork-soft);
-    }
-
-    /* Detailed content list styling for the narrative session descriptions. */
-    .session-list {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      align-items: start;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .section-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-      margin: 0 0 1rem;
-    }
-
-    .filter-button {
-      border: 1px solid rgba(0, 37, 82, 0.16);
-      border-radius: 999px;
-      padding: 0.42rem 0.72rem;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.7);
-      font: inherit;
-      font-size: 0.84rem;
-      cursor: pointer;
-      transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
-    }
-
-    .filter-button:hover,
-    .filter-button:focus-visible,
-    .filter-button.active {
-      color: var(--blue);
-      background: var(--blue-soft);
-      transform: translateY(-1px);
-      outline: none;
-    }
-
-    .filter-select {
-      min-width: 13rem;
-      border: 1px solid rgba(0, 37, 82, 0.16);
-      border-radius: 999px;
-      padding: 0.48rem 2rem 0.48rem 0.78rem;
-      color: var(--blue);
-      background: var(--blue-soft);
-      font: inherit;
-      font-size: 0.84rem;
-    }
-
+    /* Faculty */
     .faculty-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
-      gap: 0.85rem;
-    }
-
-    .session-card {
-      position: relative;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,251,255,0.95));
-      border: 1px solid rgba(0, 37, 82, 0.08);
-      box-shadow: var(--shadow-soft);
-      padding: 1rem 1rem 1rem 1.15rem;
-      scroll-margin-top: 18px;
-    }
-
-    .session-card::before {
-      content: "";
-      position: absolute;
-      inset: 1rem auto 1rem 0.55rem;
-      width: 8px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, rgba(0, 37, 82, 0.95), rgba(0, 37, 82, 0.2));
-    }
-
-    .session-card[data-kind="practical"]::before {
-      background: linear-gradient(180deg, rgba(13, 154, 169, 0.95), rgba(13, 154, 169, 0.2));
-    }
-
-    .session-card[data-kind="groupwork"]::before {
-      background: linear-gradient(180deg, rgba(94, 103, 108, 0.95), rgba(94, 103, 108, 0.2));
-    }
-
-    .session-card[data-kind="milestone"]::before {
-      background: linear-gradient(180deg, rgba(0, 37, 82, 0.95), rgba(0, 37, 82, 0.2));
-    }
-
-    .session-card h3 {
-      margin: 0 0 0.45rem;
-      padding-left: 0.7rem;
-      font-size: 1.15rem;
-      line-height: 1.3;
-    }
-
-    .session-card p {
-      margin: 0;
-      padding-left: 0.7rem;
-      color: var(--muted);
-      max-width: 82ch;
-    }
-
-    /* Faculty cards place the bio text alongside a portrait photo. */
-    .faculty-card {
-      display: block;
-      gap: 1rem;
-      margin: 0;
-      padding: 0.7rem;
-      position: relative;
-      min-height: 105px;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
-    }
-
-    .faculty-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(220, 241, 244, 0.98), rgba(241, 247, 255, 0.96));
-      border-color: rgba(13, 154, 169, 0.2);
-    }
-
-    .faculty-card::before {
-      display: none;
-    }
-
-    .faculty-card .faculty-text {
-      min-width: 0;
-      overflow-wrap: anywhere;
-      word-break: normal;
-    }
-
-    .faculty-card h3 {
-      font-size: 1.04rem;
-      overflow-wrap: anywhere;
+      grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+      gap: 32px 24px;
     }
 
     .faculty-trigger {
-      display: grid;
+      display: block;
+      align-self: start;
       width: 100%;
-      grid-template-columns: 90px minmax(0, 1fr);
-      gap: 0.8rem;
-      align-items: center;
-      min-height: 105px;
       padding: 0;
       border: 0;
-      color: inherit;
-      background: transparent;
+      background: none;
       font: inherit;
       text-align: left;
+      color: inherit;
       cursor: pointer;
     }
 
-    .faculty-trigger:focus-visible {
-      outline: 3px solid rgba(0, 37, 82, 0.25);
-      outline-offset: 5px;
-      border-radius: 12px;
-    }
-
-    .faculty-trigger .faculty-text {
-      grid-column: 2;
-      align-self: center;
-      text-align: center;
-    }
-
-    .faculty-trigger .faculty-photo {
-      grid-column: 1;
-      grid-row: 1;
-      justify-self: center;
-    }
-
     .faculty-photo {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
       object-fit: cover;
-      border: 1px solid rgba(0, 37, 82, 0.08);
-      box-shadow: var(--shadow-soft);
+      border-radius: 4px;
+      background: var(--bg-soft);
+      margin-bottom: 10px;
     }
 
-    .faculty-dialog {
-      width: min(680px, calc(100% - 2rem));
-      max-height: min(720px, calc(100dvh - 2rem));
+    .faculty-name {
+      display: block;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--primary);
+    }
+
+    @media (hover: hover) {
+      .faculty-trigger:hover .faculty-name {
+        color: var(--secondary-text);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+
+    .faculty-affiliation {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.85rem;
+      line-height: 1.35;
+      color: var(--text-light);
+    }
+
+    /* Dialogs for faculty profiles and session details */
+    dialog {
+      width: min(660px, calc(100% - 2rem));
+      max-height: min(760px, calc(100dvh - 2rem));
+      margin: auto;
       padding: 0;
-      border: 1px solid rgba(0, 37, 82, 0.1);
-      border-radius: 24px;
-      color: var(--ink);
-      background: var(--panel-solid);
-      box-shadow: 0 28px 80px rgba(0, 37, 82, 0.24);
-      opacity: 0;
-      transform: scale(0.5) translateY(20px);
-      transform-origin: var(--faculty-origin-x, center) var(--faculty-origin-y, center);
-      transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      color: var(--text);
+      background: var(--bg);
     }
 
-    .faculty-dialog.is-visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
+    /* Only the content scrolls, so the close button in the row above it stays in view */
+    dialog[open] {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    .faculty-dialog::backdrop {
-      background: rgba(0, 37, 82, 0.42);
-      backdrop-filter: blur(4px);
-      transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
+    dialog::backdrop {
+      background: var(--backdrop);
     }
 
-    .faculty-dialog:not(.is-visible)::backdrop {
-      background: rgba(0, 37, 82, 0);
-      backdrop-filter: blur(0);
+    .dialog-bar {
+      flex: none;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem 0.5rem 0;
+    }
+
+    .dialog-close {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 4px;
+      background: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    @media (hover: hover) {
+      .dialog-close:hover {
+        color: var(--primary);
+      }
+    }
+
+    .dialog-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 0 2rem 2rem;
+    }
+
+    .dialog-content h2 {
+      font-size: 1.6rem;
+      margin: 0 0 0.35rem;
+    }
+
+    .dialog-meta {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .dialog-content ul {
+      margin: 0.5rem 0 0 1.25rem;
     }
 
     .faculty-dialog-content {
       display: grid;
-      grid-template-columns: 140px minmax(0, 1fr);
-      gap: 1.4rem;
-      padding: 2rem;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 1.25rem 1.5rem;
+      align-items: center;
     }
 
-    .faculty-dialog .faculty-photo {
-      width: 140px;
-      height: 140px;
-    }
-
-    .faculty-dialog h2 {
-      margin: 0 2rem 0.35rem 0;
-      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      color: var(--blue);
-      font-size: 2rem;
-      line-height: 1.1;
-    }
-
-    .faculty-dialog .faculty-bio {
-      grid-column: 1 / -1;
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .faculty-dialog .topic-list {
-      grid-column: 1 / -1;
-      margin-top: 0;
-    }
-
-    .faculty-dialog .objective-meta {
-      grid-column: 1 / -1;
+    .faculty-dialog-content .faculty-photo {
+      width: 120px;
       margin: 0;
     }
 
-    .faculty-dialog-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2rem;
-      height: 2rem;
-      border: 0;
-      border-radius: 50%;
-      color: var(--muted);
-      background: rgba(0, 37, 82, 0.07);
-      font-size: 1.2rem;
-      line-height: 1;
-      cursor: pointer;
+    .faculty-dialog-content .dialog-meta {
+      margin: 0;
     }
 
-    .faculty-dialog-close:hover,
-    .faculty-dialog-close:focus-visible {
-      color: var(--ink);
-      background: rgba(0, 37, 82, 0.14);
-      outline: none;
-    }
-
-    .faculty-affiliation {
-      margin: -0.2rem 0 0.45rem;
-      color: var(--blue);
-      font-size: 0.82rem;
-      font-weight: 700;
+    .faculty-bio,
+    .topic-list,
+    .profile-link {
+      grid-column: 1 / -1;
     }
 
     .topic-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-top: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
     }
 
-    .topic-tag,
-    .session-type {
-      display: inline-flex;
-      width: fit-content;
-      border-radius: 999px;
-      padding: 0.18rem 0.5rem;
-      color: var(--muted);
-      background: rgba(0, 37, 82, 0.07);
-      font-size: 0.72rem;
-      line-height: 1.2;
+    .profile-link a {
+      font-weight: 400;
     }
 
-    .objective-card summary {
-      display: grid;
-      grid-template-columns: 2.2rem minmax(0, 1fr) auto;
-      gap: 0.7rem;
-      align-items: start;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .objective-card summary::-webkit-details-marker { display: none; }
-
-    .objective-card summary::after {
-      content: "+";
-      color: var(--blue);
-      font-size: 1.25rem;
-      line-height: 1;
-    }
-
-    .objective-card[open] summary::after { content: "-"; }
-
-    .objective-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.2rem;
-      height: 2.2rem;
-      border-radius: 10px;
-      color: var(--blue);
-      background: var(--blue-soft);
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-    }
-
-    .objective-heading {
-      min-width: 0;
-    }
-
-    .objective-heading h3 {
-      margin: 0;
-      padding: 0;
-    }
-
-    .objective-kicker {
-      display: block;
-      margin-top: 0.22rem;
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    .objective-card[open] {
-      border-color: rgba(0, 37, 82, 0.2);
-      background: linear-gradient(180deg, rgba(247, 250, 255, 0.98), rgba(255, 255, 255, 0.98));
-    }
-
-    .objective-card {
-      align-self: start;
-      padding-left: 1.9rem;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
-    }
-
-    .objective-card[data-kind="normal"],
-    .objective-card[data-kind="milestone"] {
-      border-color: rgba(0, 37, 82, 0.18);
-      background: linear-gradient(180deg, rgba(204, 220, 235, 0.96), rgba(247, 250, 255, 0.98));
-    }
-
-    .objective-card[data-kind="practical"] {
-      border-color: rgba(13, 154, 169, 0.18);
-      background: linear-gradient(180deg, rgba(211, 238, 241, 0.96), rgba(244, 251, 252, 0.98));
-    }
-
-    .objective-card[data-kind="groupwork"] {
-      border-color: rgba(94, 103, 108, 0.18);
-      background: linear-gradient(180deg, rgba(227, 230, 232, 0.96), rgba(246, 247, 248, 0.98));
-    }
-
-    .objective-card[data-kind="practical"] .objective-number {
-      color: #0a7f8c;
-      background: var(--practical-soft);
-    }
-
-    .objective-card[data-kind="groupwork"] .objective-number {
-      color: var(--gold);
-      background: var(--groupwork-soft);
-    }
-
-    .objective-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .objective-card[data-kind="practical"]:hover,
-    .objective-card[data-kind="practical"].is-timetable-target {
-      border-color: rgba(13, 154, 169, 0.62);
-      background: rgba(211, 238, 241, 0.9);
-      box-shadow: 0 16px 34px rgba(13, 154, 169, 0.24);
-    }
-
-    .objective-card[data-kind="groupwork"]:hover,
-    .objective-card[data-kind="groupwork"].is-timetable-target {
-      border-color: rgba(94, 103, 108, 0.62);
-      background: rgba(227, 230, 232, 0.9);
-      box-shadow: 0 16px 34px rgba(94, 103, 108, 0.24);
-    }
-
-    .objective-card[data-kind="normal"]:hover,
-    .objective-card[data-kind="milestone"]:hover,
-    .objective-card[data-kind="normal"].is-timetable-target,
-    .objective-card[data-kind="milestone"].is-timetable-target {
-      border-color: rgba(0, 37, 82, 0.56);
-      background: rgba(204, 220, 235, 0.9);
-      box-shadow: 0 16px 34px rgba(0, 37, 82, 0.24);
-    }
-
-    .objective-trigger {
-      display: grid;
-      width: 100%;
-      grid-template-columns: 1fr;
-      gap: 0;
-      align-items: start;
-      padding: 0;
-      border: 0;
-      color: inherit;
-      background: transparent;
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .objective-trigger:focus-visible {
-      outline: 3px solid rgba(0, 37, 82, 0.25);
-      outline-offset: 5px;
-      border-radius: 12px;
-    }
-
-    .objective-trigger .objective-number {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-    }
-
-    .objective-dialog {
-      width: min(680px, calc(100% - 2rem));
-      max-height: min(720px, calc(100dvh - 2rem));
-      padding: 0;
-      border: 1px solid rgba(0, 37, 82, 0.1);
-      border-radius: 24px;
-      color: var(--ink);
-      background: var(--panel-solid);
-      box-shadow: 0 28px 80px rgba(0, 37, 82, 0.24);
-      opacity: 0;
-      transform: scale(0.5) translateY(20px);
-      transform-origin: var(--objective-origin-x, center) var(--objective-origin-y, center);
-      transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .objective-dialog.is-visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-
-    .objective-dialog::backdrop {
-      background: rgba(0, 37, 82, 0.42);
-      backdrop-filter: blur(4px);
-      transition: background-color 180ms ease-out, backdrop-filter 180ms ease-out;
-    }
-
-    .objective-dialog:not(.is-visible)::backdrop {
-      background: rgba(0, 37, 82, 0);
-      backdrop-filter: blur(0);
-    }
-
-    .objective-dialog-content {
-      padding: 2rem;
-    }
-
-    .objective-dialog h2 {
-      margin: 0 2rem 0.45rem 0;
-      font-family: "Lexend", "Aptos", "Segoe UI", Arial, sans-serif;
-      font-weight: 600;
-      color: var(--blue);
-      font-size: 2rem;
-      line-height: 1.1;
-    }
-
-    .objective-dialog .objective-meta {
-      margin: 0 0 1.2rem;
-    }
-
-    .objective-dialog .objective-content {
-      margin: 0;
-      padding: 0;
-      color: var(--muted);
-      max-width: 82ch;
-    }
-
-    .objective-dialog-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2rem;
-      height: 2rem;
-      border: 0;
-      border-radius: 50%;
-      color: var(--muted);
-      background: rgba(0, 37, 82, 0.07);
-      font-size: 1.2rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .objective-dialog-close:hover,
-    .objective-dialog-close:focus-visible {
-      color: var(--ink);
-      background: rgba(0, 37, 82, 0.14);
-      outline: none;
-    }
-
-    .objective-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-      margin: 0.65rem 0 0 0.7rem;
-    }
-
-    .objective-meta a {
-      color: var(--blue);
-      font-size: 0.84rem;
-      font-weight: 700;
-    }
-
-    .hidden-by-filter { display: none; }
-
-    /* Anchor offset so in-page links land cleanly with the sticky header in mind. */
-    .section-anchor {
-      scroll-margin-top: 18px;
-    }
-
-    .subtle-note {
-      color: var(--muted);
+    /* Footer */
+    .site-footer {
+      background: var(--primary);
+      color: var(--on-primary-muted);
+      padding: 48px 0;
       font-size: 0.95rem;
-      margin-top: 0.2rem;
     }
 
-    @media (max-width: 1100px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-badges {
-        justify-self: start;
-        min-width: 0;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
+    .site-footer a {
+      color: var(--on-primary);
+      text-decoration-color: var(--on-primary-rule);
     }
 
-    @media (max-width: 720px) {
-      .page {
-        padding: 16px 14px 28px;
+    @media (hover: hover) {
+      .site-footer a:hover {
+        color: var(--on-primary);
+        text-decoration-color: var(--on-primary);
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) auto;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .footer-logo {
+      height: 56px;
+      width: auto;
+    }
+
+    .footer-title {
+      color: var(--on-primary);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    /* 44px tall touch targets; the negative margin keeps the first link level with the title */
+    .footer-links {
+      list-style: none;
+      margin-top: -10px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    /* Tablet */
+    @media (max-width: 960px) {
+      .hero-grid,
+      .section-grid,
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      .section-grid,
+      .footer-grid {
+        gap: 24px;
+      }
+
+      .section-side {
+        position: static;
+      }
+
+      .legend {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px 24px;
+      }
+
+      .hero-figure {
+        max-width: 480px;
+        width: 100%;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table.schedule {
+        min-width: 820px;
+      }
+    }
+
+    /* Phones: each day becomes a block with times above the sessions */
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .nav-logo img {
+        height: 38px;
+      }
+
+      .nav-links {
+        gap: 18px;
       }
 
       .hero {
-        padding: 20px 18px 18px;
-        border-radius: 22px;
+        padding: 40px 0 48px;
       }
 
-      .hero-badges {
-        grid-template-columns: 1fr;
+      .section {
+        padding: 56px 0;
       }
 
-      .card {
-        padding: 1rem;
-        border-radius: 22px;
+      .hero-subtitle {
+        font-size: 1.25rem;
       }
 
-      .week {
-        padding: 0.65rem;
+      .lead {
+        font-size: 1.125rem;
       }
 
-      .session-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      /* The email address needs the full width to stay on one line */
+      .hero-facts .fact-apply {
+        grid-column: 1 / -1;
       }
 
-      .session-card {
-        padding: 0.92rem 0.88rem 0.92rem 0.96rem;
-      }
-
-      .objective-card {
-        padding-left: 1.7rem;
-      }
-
-      .faculty-trigger {
-        grid-template-columns: 96px minmax(0, 1fr);
-        min-height: 112px;
-      }
-
-      .faculty-photo {
-        width: 96px;
-        height: 96px;
-      }
-
-      .faculty-dialog-content {
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-        padding: 1.5rem;
-      }
-
-      .faculty-dialog .faculty-photo {
-        width: 112px;
-        height: 112px;
-      }
-
-      .faculty-dialog h2,
-      .faculty-dialog .faculty-affiliation {
-        text-align: center;
-      }
-
-      .faculty-dialog .faculty-photo {
-        justify-self: center;
-      }
-
-      .objective-dialog-content {
-        padding: 1.5rem;
-      }
-    }
-
-    @media (max-width: 560px) {
       .table-wrap {
-        overflow-x: visible;
-        padding: 0.35rem;
+        overflow: visible;
       }
 
       table.schedule,
-      .schedule tbody {
+      .schedule tbody,
+      .schedule tr,
+      .schedule th,
+      .schedule td {
         display: block;
         min-width: 0;
       }
 
-      .schedule thead,
-      .schedule td.break-cell {
+      .schedule thead {
         display: none;
       }
 
       .schedule tr {
-        display: grid;
-        grid-template-columns: 5.5rem minmax(0, 1fr);
-        gap: 0.38rem 0.5rem;
-        margin-bottom: 0.8rem;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--rule);
       }
 
       .schedule td {
-        display: block;
-        padding: 0;
-        background: transparent;
+        padding: 4px 0;
+        border: 0;
       }
 
-      .schedule td.date-cell {
-        grid-row: 1 / span 4;
-        align-self: stretch;
-        padding: 0.8rem 0.3rem;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.54);
-        font-size: 0.9rem;
+      .schedule .date-cell {
+        padding: 0 0 4px;
+        border: 0;
       }
 
-      .schedule td[data-time]::before {
-        content: attr(data-time);
-        display: block;
-        margin: 0 0 0.16rem 0.35rem;
-        color: var(--muted);
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.04em;
+      .date-weekday {
+        display: inline;
       }
 
-      .schedule .tile {
-        min-height: 0;
-        height: var(--schedule-tile-height, auto);
-        padding: 0.58rem 2.45rem 0.58rem 0.68rem;
-        font-size: 0.92rem;
+      .tile {
+        height: auto;
       }
 
-      .tile .lecturer-placeholder {
-        margin-top: 0.18rem;
-        font-size: 0.82rem;
+      .tile-when {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip-path: none;
+        white-space: normal;
+        margin-bottom: 4px;
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--text-light);
       }
 
-      .session-list {
+      /* The type moves to the time line above, so screen readers keep this copy only */
+      .tile-kind {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      /* Chart text at about 12px on screen, as the chart scales down with the page */
+      .sir-chart .axis-label {
+        font-size: 17px;
+      }
+
+      .sir-chart .curve-label {
+        font-size: 18px;
+      }
+
+      .faculty-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 16px;
+      }
+
+      .faculty-dialog-content {
         grid-template-columns: 1fr;
       }
+
+      .dialog-content {
+        padding: 0 1.5rem 1.5rem;
+      }
     }
 
-    /* CCGH branding: logo bar in the header and dark-blue footer. */
-    .brand-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.1rem;
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
     }
-
-    .brand-bar .eyebrow { margin-bottom: 0; }
-
-    .brand-logo {
-      display: block;
-      height: 64px;
-      width: auto;
-    }
-
-    .hero { border-top: 6px solid #0d9aa9; }
-
-    .site-footer {
-      position: relative;
-      z-index: 1;
-      margin-top: 2rem;
-      background: #002552;
-      color: #ffffff;
-    }
-
-    .site-footer-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 1.8rem 22px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem 2rem;
-      font-size: 0.9rem;
-    }
-
-    .site-footer .brand-logo { height: 56px; }
-    .site-footer a { color: #ffffff; }
-    .site-footer p { margin: 0; color: #ccdceb; }
-
-    @media (max-width: 560px) {
-      .brand-bar { flex-direction: column-reverse; align-items: flex-start; }
-      .brand-logo { height: 48px; }
-    }
-
-
   </style>
 </head>
 <body>
-  <div class="page">
-    <!-- Hero section with the course title and short summary. -->
-    <header class="hero">
-      <div class="brand-bar">
-        <div class="eyebrow">Short course / MScIH module</div>
-        <picture>
-          <img class="brand-logo" src="assets/ccgh-logo.png" alt="Charité Center for Global Health">
-        </picture>
-      </div>
-      <h1><span class="title-line">Infectious Disease Dynamics:</span><span class="title-line">Introduction to Data Analytics and Mathematical Modelling</span></h1>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p id="course-description">This short course introduces core ideas, methods, and practical workflows for infectious disease data analytics and mathematical modelling. It combines lectures, hands-on exercises, and group work to help participants move from surveillance data and transmission concepts to model fitting, interpretation, and policy-relevant communication. The course is intended for both epidemiologists and health professionals who want to improve their ability to critically review models and for data scientists who wish to increase their proficiency in how to create infectious disease models.</p>
-        </div>
-        <div class="hero-badges" aria-hidden="true">
-          <div class="badge"><strong>3 ECTS</strong>Lectures, practicals, and group work</div>
-          <div class="badge"><strong>2 weeks</strong>19-23 April and 26-30 April 2027</div>
-        </div>
-      </div>
-    </header>
-
-    <div class="layout">
-      <main class="main-column">
-        <!-- Main course timetable section. -->
-        <section class="card section-anchor" id="timetable">
-          <h2>Timetable</h2>
-          <div id="timetable-root"></div>
-        </section>
-
-        <!-- Course faculty introduction section. -->
-        <section class="card section-anchor" id="faculty">
-          <h2>Faculty</h2>
-          <div class="faculty-grid" id="faculty-root"></div>
-        </section>
-
-      </main>
+  <header class="site-nav">
+    <div class="container nav-content">
+      <a class="nav-logo" href="#"><img src="assets/ccgh-logo-nav.png" width="132" height="52" alt="Charité Center for Global Health"></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#timetable">Timetable</a></li>
+        <li><a href="#faculty">Faculty</a></li>
+      </ul>
     </div>
+  </header>
 
-    <dialog class="faculty-dialog" id="faculty-dialog" aria-labelledby="faculty-dialog-name">
-      <button class="faculty-dialog-close" type="button" aria-label="Close faculty profile">&times;</button>
-      <div class="faculty-dialog-content" id="faculty-dialog-content"></div>
-    </dialog>
+  <main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling</h1>
+        <p class="hero-subtitle">Two-week short course</p>
+        <p class="lead">Lectures, hands-on R practicals and group work for epidemiologists, health professionals and
+          data scientists.</p>
+        <dl class="hero-facts">
+          <div>
+            <dt>Dates</dt>
+            <dd>19–30 April 2027</dd>
+          </div>
+          <div>
+            <dt>Credits</dt>
+            <dd>3 ECTS</dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd>Charité, Berlin</dd>
+          </div>
+          <div class="fact-apply">
+            <dt>Apply</dt>
+            <dd><a href="mailto:stefan.flasche@charite.de?subject=Short%20course%20application">stefan.flasche@charite.de</a></dd>
+          </div>
+        </dl>
+      </div>
+      <figure class="hero-figure">
+        <svg class="sir-chart" id="sir-chart" viewBox="0 0 520 320" role="img" aria-describedby="sir-caption"
+          aria-label="Curves of a simple SIR epidemic: the susceptible share falls, infections rise to a peak and fall, and the recovered share rises."></svg>
+        <figcaption id="sir-caption">A simple SIR epidemic model.</figcaption>
+      </figure>
+    </div>
+  </section>
 
-    <dialog class="objective-dialog" id="objective-dialog" aria-labelledby="objective-dialog-name">
-      <button class="objective-dialog-close" type="button" aria-label="Close learning objective">&times;</button>
-      <div class="objective-dialog-content" id="objective-dialog-content"></div>
-    </dialog>
-  </div>
+    <section class="section" id="about">
+      <div class="container section-grid">
+        <div class="section-side">
+          <h2>About the course</h2>
+        </div>
+        <div class="prose">
+          <p id="course-description">This short course introduces core ideas, methods and practical workflows for infectious disease data analytics and mathematical modelling. It combines lectures, hands-on exercises and group work to help participants move from surveillance data and transmission concepts to model fitting, interpretation and policy-relevant communication.</p>
+          <p>The course is intended both for epidemiologists and health professionals who want to improve their ability to review models critically, and for data scientists who want to become more proficient in building infectious disease models. It also runs as a module of the Charité MSc in International Health (MScIH).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timetable">
+      <div class="container section-grid">
+        <div class="section-side">
+          <h2>Timetable</h2>
+          <p class="section-note" id="today-link" hidden><a href="#timetable">Today's sessions</a></p>
+          <ul class="legend">
+            <li class="kind-lecture">Lecture</li>
+            <li class="kind-practical">Practical</li>
+            <li class="kind-groupwork">Group work</li>
+          </ul>
+          <p class="section-note">Breaks 10:00–10:30 and 14:00–14:30; lunch 12:00–13:00.</p>
+          <p class="section-note">Select a session for its learning objectives and materials.</p>
+        </div>
+        <div id="timetable-root"></div>
+      </div>
+    </section>
+
+    <section class="section" id="faculty">
+      <div class="container section-grid">
+        <div class="section-side">
+          <h2>Faculty</h2>
+        </div>
+        <div class="faculty-grid" id="faculty-root"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="faculty-dialog" aria-labelledby="faculty-dialog-name">
+    <div class="dialog-bar"><button class="dialog-close" type="button" aria-label="Close faculty profile">&times;</button></div>
+    <div class="dialog-content faculty-dialog-content" id="faculty-dialog-content"></div>
+  </dialog>
+
+  <dialog id="objective-dialog" aria-labelledby="objective-dialog-name">
+    <div class="dialog-bar"><button class="dialog-close" type="button" aria-label="Close session details">&times;</button></div>
+    <div class="dialog-content" id="objective-dialog-content"></div>
+  </dialog>
 
   <footer class="site-footer">
-    <div class="site-footer-inner">
-      <img class="brand-logo" src="assets/ccgh-logo-white.png" alt="Charité Center for Global Health">
-      <p>Organised by the Charité Center for Global Health (CCGH), Berlin</p>
+    <div class="container footer-grid">
+      <img class="footer-logo" src="assets/ccgh-logo-white-footer.png" width="135" height="56" alt="Charité Center for Global Health">
+      <div>
+        <p class="footer-title">Infectious Disease Dynamics short course</p>
+        <p>Organised by the <a href="https://ccgh-idd.de/" target="_blank" rel="noopener">Infectious Disease Dynamics group</a> at the Charité Center for Global Health, Berlin</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#timetable">Timetable</a></li>
+        <li><a href="#faculty">Faculty</a></li>
+        <li><a href="https://globalhealth.charite.de/en/" target="_blank" rel="noopener">CCGH</a></li>
+      </ul>
     </div>
   </footer>
 
-  <script src="course-data.js"></script>
-  <script src="faculty-data.js"></script>
+  <script src="course-data.js?v=2026-10-15d"></script>
+  <script src="faculty-data.js?v=2026-10-15e"></script>
   <script>
-    const { sessions, dates, weekSections, breakLetters, lunchLetters, schedule } = window.courseData;
+    const { sessions, year, dates, weekSections, schedule } = window.courseData;
     const { faculty } = window.facultyData;
 
     // DOM references for the rendered course views.
@@ -1235,141 +1013,96 @@
     const facultyRoot = document.getElementById("faculty-root");
     const facultyDialog = document.getElementById("faculty-dialog");
     const facultyDialogContent = document.getElementById("faculty-dialog-content");
-    const facultyDialogClose = facultyDialog.querySelector(".faculty-dialog-close");
     const objectiveDialog = document.getElementById("objective-dialog");
     const objectiveDialogContent = document.getElementById("objective-dialog-content");
-    const objectiveDialogClose = objectiveDialog.querySelector(".objective-dialog-close");
 
-    // Render the faculty introduction cards, alphabetically by first name as defined in the data file.
+    // Render the faculty grid, alphabetically by first name as defined in the data file.
     facultyRoot.innerHTML = faculty.map((member, index) => {
-      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}" width="90" height="90" decoding="async">` : "";
+      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="" width="360" height="360" loading="lazy" decoding="async">` : "";
       return `
-        <article class="session-card faculty-card" data-kind="milestone">
-          <button class="faculty-trigger" type="button" data-faculty-index="${index}" aria-label="Open profile for ${member.name}">
-            <div class="faculty-text">
-              <h3>${member.name}</h3>
-            </div>
-            ${photo}
-          </button>
-        </article>
+        <button class="faculty-trigger" type="button" data-faculty-index="${index}" aria-label="Open profile for ${member.name}">
+          ${photo}
+          <span class="faculty-name">${member.name}</span>
+          <span class="faculty-affiliation">${member.affiliation}</span>
+        </button>
       `;
     }).join("");
 
-    function openFacultyProfile(index, trigger) {
+    function openFacultyProfile(index) {
       const member = faculty[index];
-      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="${member.name}">` : "";
+      const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="" width="360" height="360">` : "";
       facultyDialogContent.innerHTML = `
         ${photo}
         <div>
           <h2 id="faculty-dialog-name">${member.name}</h2>
-          <div class="faculty-affiliation">${member.affiliation}</div>
+          <p class="dialog-meta">${member.affiliation}</p>
         </div>
         <p class="faculty-bio">${member.bio}</p>
-        <div class="topic-list">${member.topics.map((topic) => `<span class="topic-tag">${topic}</span>`).join("")}</div>
-        <p class="objective-meta"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile</a></p>
+        <p class="topic-list">${member.topics.join(", ")}</p>
+        <p class="profile-link"><a href="${member.profileUrl}" target="_blank" rel="noopener noreferrer">View profile</a></p>
       `;
-      facultyDialog.classList.remove("is-visible");
       facultyDialog.showModal();
-      const dialogRect = facultyDialog.getBoundingClientRect();
-      const triggerRect = trigger.getBoundingClientRect();
-      facultyDialog.style.setProperty("--faculty-origin-x", `${triggerRect.left + triggerRect.width / 2 - dialogRect.left}px`);
-      facultyDialog.style.setProperty("--faculty-origin-y", `${triggerRect.top + triggerRect.height / 2 - dialogRect.top}px`);
-      requestAnimationFrame(() => facultyDialog.classList.add("is-visible"));
     }
 
     facultyRoot.addEventListener("click", (event) => {
       const trigger = event.target.closest("[data-faculty-index]");
-      if (trigger) openFacultyProfile(Number(trigger.dataset.facultyIndex), trigger);
+      if (trigger) openFacultyProfile(Number(trigger.dataset.facultyIndex));
     });
 
-    facultyDialogClose.addEventListener("click", () => {
-      facultyDialog.classList.remove("is-visible");
-      facultyDialog.close();
-    });
-    facultyDialog.addEventListener("click", (event) => {
-      if (event.target === facultyDialog) {
-        facultyDialog.classList.remove("is-visible");
-        facultyDialog.close();
-      }
-    });
-
-    // Classify each session so the visual styling can distinguish lectures, practicals,
-    // group work, and the first/last milestone sessions.
+    // Classify each session so the timetable can distinguish lectures, practicals and group work.
+    // The first and last sessions (welcome, end of course) count as group work.
     function sessionKind(session, index) {
       if (/^Practical/i.test(session.title)) return "practical";
       if (/^Group work/i.test(session.title) || /^Group presentations/i.test(session.title)) return "groupwork";
       if (index === 0 || index === sessions.length - 1) return "groupwork";
-      return "normal";
+      return "lecture";
     }
 
-    // Map the visual style for a session tile in the timetable.
-    function sessionClass(session, index) {
-      const classes = ["tile"];
-      const kind = sessionKind(session, index);
-      if (kind === "practical") classes.push("tile-practical");
-      if (kind === "groupwork") classes.push("tile-groupwork");
-      if (kind === "milestone") classes.push("tile-firstlast");
-      return classes.join(" ");
-    }
-
-    // Break and lunch cells are inserted between session cells to keep the timetable
-    // visually aligned with the course day structure.
-    function breakCell(label) {
-      return `<td class="break-cell"><div class="break-pill">${label}</div></td>`;
-    }
+    const kindLabels = { lecture: "Lecture", practical: "Practical", groupwork: "Group work" };
+    const sessionTimes = ["09:00–10:00", "10:30–12:00", "13:00–14:00", "14:30–16:00"];
 
     // Render one timetable cell by looking up the relevant session index in the schedule.
-    // The slotIndex decides whether a break/lunch gap is inserted after the session.
-    function scheduleCell(sessionIndex, slotIndex, weekOffset) {
+    // The session type is written twice: in the time line (shown on phones, hidden from screen
+    // readers) and before the speaker (shown on wider screens, always read by screen readers).
+    // Titles that already name the type ("Practical", "Group work I") skip it to avoid repetition.
+    function scheduleCell(sessionIndex, slotIndex) {
       const session = sessions[sessionIndex];
-      const classes = sessionClass(session, sessionIndex);
+      const kind = sessionKind(session, sessionIndex);
       const speaker = session.speaker || "tbc";
-      const timetableSpeaker = speaker.replace(/\s*&\s*/g, " &<br>");
-      const sessionTimes = ["09:00-10:00", "10:30-12:00", "13:00-14:00", "14:30-16:00"];
-      const sessionCell = `<td data-time="${sessionTimes[slotIndex]}"><button class="${classes}" type="button" data-objective-index="${sessionIndex}" aria-label="Open learning objective: ${session.title}">${session.title}<span class="lecturer-placeholder">${timetableSpeaker}</span></button></td>`;
-
-      if (slotIndex === 0) return `${sessionCell}${breakCell(breakLetters[weekOffset])}`;
-      if (slotIndex === 1) return `${sessionCell}${breakCell(lunchLetters[weekOffset])}`;
-      if (slotIndex === 2) return `${sessionCell}${breakCell(breakLetters[weekOffset])}`;
-      return sessionCell;
+      const label = kindLabels[kind];
+      const titleNamesType = session.title.toLowerCase().startsWith(label.toLowerCase());
+      const whenType = titleNamesType ? "" : `<span aria-hidden="true"> · ${label}</span>`;
+      const speakerType = titleNamesType ? "" : `<span class="tile-kind">${label} · </span>`;
+      return `<td><button class="tile kind-${kind}" type="button" data-objective-index="${sessionIndex}"><span class="tile-when">${sessionTimes[slotIndex]}${whenType}</span><span class="tile-title">${session.title}</span><span class="tile-speaker">${speakerType}${speaker}</span></button></td>`;
     }
 
-    // Build one week of the timetable using the arranged session matrix.
-    function buildTable(weekTitle, rowIndexes, themeClass) {
-      const rows = rowIndexes.map((rowIndex) => {
-        const weekOffset = rowIndex % 5;
-        const cells = schedule[rowIndex].map((sessionIndex, slotIndex) => {
-          return scheduleCell(sessionIndex, slotIndex, weekOffset);
-        }).join("");
+    // Each day row gets an id such as "day-19-april", used by the "Today's sessions" link.
+    const dayId = (date) => `day-${date.split(" ").slice(-2).join("-").toLowerCase()}`;
 
-        return `<tr><td class="date-cell">${dates[rowIndex]}</td>${cells}</tr>`;
+    // Build one week of the timetable using the arranged session matrix.
+    function buildTable(weekTitle, rowIndexes) {
+      const rows = rowIndexes.map((rowIndex) => {
+        const cells = schedule[rowIndex].map((sessionIndex, slotIndex) => scheduleCell(sessionIndex, slotIndex)).join("");
+        const [weekday, ...dayMonth] = dates[rowIndex].split(" ");
+        return `<tr id="${dayId(dates[rowIndex])}"><th class="date-cell" scope="row"><span class="date-weekday">${weekday}</span> ${dayMonth.join(" ")}</th>${cells}</tr>`;
       }).join("");
 
       return `
-        <section class="week ${themeClass}">
-          <h3>${weekTitle}</h3>
+        <section class="week">
+          <h3>${weekTitle.replace(/(\d)-(\d)/, "$1–$2")}</h3>
           <div class="table-wrap">
             <table class="schedule" aria-label="${weekTitle} timetable">
               <colgroup>
-                <col style="width: 10%">
-                <col style="width: 21%">
-                <col style="width: 2%">
-                <col style="width: 21%">
-                <col style="width: 2%">
-                <col style="width: 21%">
-                <col style="width: 2%">
-                <col style="width: 21%">
+                <col style="width: 12%">
+                <col style="width: 22%">
+                <col style="width: 22%">
+                <col style="width: 22%">
+                <col style="width: 22%">
               </colgroup>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>09:00-10:00</th>
-                  <th class="break-head" aria-hidden="true"></th>
-                  <th>10:30-12:00</th>
-                  <th class="break-head" aria-hidden="true"></th>
-                  <th>13:00-14:00</th>
-                  <th class="break-head" aria-hidden="true"></th>
-                  <th>14:30-16:00</th>
+                  <th scope="col">Date</th>
+                  ${sessionTimes.map((time) => `<th scope="col">${time}</th>`).join("")}
                 </tr>
               </thead>
               <tbody>${rows}</tbody>
@@ -1379,56 +1112,125 @@
       `;
     }
 
-    function equalizeScheduleTiles() {
-      const tiles = [...timetableRoot.querySelectorAll(".schedule .tile")];
-      timetableRoot.style.removeProperty("--schedule-tile-height");
-      tiles.forEach((tile) => tile.style.removeProperty("height"));
-      const tallestTile = Math.max(...tiles.map((tile) => tile.getBoundingClientRect().height), 0);
-      if (tallestTile) timetableRoot.style.setProperty("--schedule-tile-height", `${tallestTile}px`);
-    }
-
     // Insert the generated weekly timetable blocks into the page.
-    timetableRoot.innerHTML = weekSections.map((week) => {
-      return buildTable(week.title, week.rows, week.theme);
-    }).join("");
-    equalizeScheduleTiles();
-    window.addEventListener("resize", equalizeScheduleTiles);
+    timetableRoot.innerHTML = weekSections.map((week) => buildTable(week.title, week.rows)).join("");
+
+    // Give the tiles in each day the height of that day's tallest tile, so rows read evenly.
+    // On phones the sessions stack, so heights are left natural.
+    const stackedLayout = window.matchMedia("(max-width: 640px)");
+    function equalizeRows() {
+      timetableRoot.querySelectorAll(".schedule tbody tr").forEach((row) => {
+        const tiles = [...row.querySelectorAll(".tile")];
+        tiles.forEach((tile) => { tile.style.height = ""; });
+        if (stackedLayout.matches) return;
+        const tallest = Math.max(...tiles.map((tile) => tile.getBoundingClientRect().height));
+        tiles.forEach((tile) => { tile.style.height = `${tallest}px`; });
+      });
+    }
+    equalizeRows();
+    // Recalculate at most once per frame while the window is resized.
+    let resizeFrame = 0;
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(equalizeRows);
+    });
+
+    // During the course, show a link to today's row (weekends have no row, so no link).
+    const now = new Date();
+    const todayRow = now.getFullYear() === year
+      ? document.getElementById(dayId(now.toLocaleDateString("en-GB", { day: "numeric", month: "long" })))
+      : null;
+    if (todayRow) {
+      const todayLink = document.getElementById("today-link");
+      todayLink.querySelector("a").href = `#${todayRow.id}`;
+      todayLink.hidden = false;
+    }
 
     timetableRoot.addEventListener("click", (event) => {
       const trigger = event.target.closest("[data-objective-index]");
-      if (trigger) openObjective(Number(trigger.dataset.objectiveIndex), trigger);
+      if (trigger) openObjective(Number(trigger.dataset.objectiveIndex));
     });
 
-    function openObjective(index, trigger) {
+    function openObjective(index) {
       const session = sessions[index];
       const kind = sessionKind(session, index);
-      const typeLabel = kind === "practical" ? "Practical" : kind === "groupwork" ? "Group work" : "Lecture";
+      // Sessions still being prepared have their content entered as "tbd"
+      const content = /^\s*tbd\s*$/i.test(session.content)
+        ? "<p>Learning objectives and materials will be added before the course.</p>"
+        : session.content;
       objectiveDialogContent.innerHTML = `
         <h2 id="objective-dialog-name">${session.title}</h2>
-        <div class="objective-meta"><span class="session-type">${typeLabel}</span><span class="session-type">${session.speaker || "Faculty TBC"}</span></div>
-        <div class="objective-content">${session.content}</div>
+        <p class="dialog-meta">${kindLabels[kind]}, ${session.speaker || "faculty to be confirmed"}</p>
+        <div class="objective-content">${content}</div>
       `;
-      objectiveDialog.classList.remove("is-visible");
       objectiveDialog.showModal();
-      const dialogRect = objectiveDialog.getBoundingClientRect();
-      const triggerRect = trigger.getBoundingClientRect();
-      objectiveDialog.style.setProperty("--objective-origin-x", `${triggerRect.left + triggerRect.width / 2 - dialogRect.left}px`);
-      objectiveDialog.style.setProperty("--objective-origin-y", `${triggerRect.top + triggerRect.height / 2 - dialogRect.top}px`);
-      requestAnimationFrame(() => objectiveDialog.classList.add("is-visible"));
     }
 
-    objectiveDialogClose.addEventListener("click", () => {
-      objectiveDialog.classList.remove("is-visible");
-      objectiveDialog.close();
-    });
+    // Hero chart: a deterministic SIR model solved with small Euler steps,
+    // drawn as three directly labelled curves.
+    (function drawSIR() {
+      const R0 = 2.5;
+      const recoveryDays = 7;
+      const gamma = 1 / recoveryDays;
+      const beta = R0 * gamma;
+      const days = 120;
+      const dt = 0.1;
 
-    objectiveDialog.addEventListener("click", (event) => {
-      if (event.target === objectiveDialog) {
-        objectiveDialog.classList.remove("is-visible");
-        objectiveDialog.close();
+      let S = 0.999, I = 0.001, R = 0;
+      const points = [];
+      for (let step = 0; step <= days / dt; step++) {
+        if (step % 10 === 0) points.push({ t: step * dt, S, I, R });
+        const newInfections = beta * S * I * dt;
+        const recoveries = gamma * I * dt;
+        S -= newInfections;
+        I += newInfections - recoveries;
+        R += recoveries;
       }
-    });
 
+      // Plot area inside the 520 x 320 viewBox; the right margin holds the curve labels,
+      // wide enough for the larger label size used on phones
+      const left = 4, right = 400, top = 12, bottom = 284;
+      const x = (t) => left + (t / days) * (right - left);
+      const y = (v) => bottom - v * (bottom - top);
+      const path = (key) => points.map((p, i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p[key]).toFixed(1)}`).join("");
+
+      const peak = points.reduce((a, b) => (b.I > a.I ? b : a));
+      const last = points[points.length - 1];
+
+      document.getElementById("sir-chart").innerHTML = `
+        <line class="axis" x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}"></line>
+        <text class="axis-label" x="${right}" y="${bottom + 22}" text-anchor="end">Time</text>
+        <path class="curve curve-s" pathLength="1" d="${path("S")}"></path>
+        <path class="curve curve-i" pathLength="1" d="${path("I")}"></path>
+        <path class="curve curve-r" pathLength="1" d="${path("R")}"></path>
+        <text class="curve-label label-s" x="${right + 10}" y="${y(last.S) + 4}">Susceptible</text>
+        <text class="curve-label label-r" x="${right + 10}" y="${y(last.R) + 4}">Recovered</text>
+        <text class="curve-label label-i" x="${x(peak.t) - 30}" y="${y(peak.I) - 6}" text-anchor="end">Infected</text>
+      `;
+
+      document.getElementById("sir-caption").textContent =
+        `A simple SIR epidemic: R₀ = ${R0}, infections last ${recoveryDays} days on average and peak at ${Math.round(peak.I * 100)}% of the population.`;
+    })();
+
+    // Mark the nav link of the section currently on screen.
+    const navTargets = [...document.querySelectorAll(".nav-links a")]
+      .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
+      .filter((t) => t.section);
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navTargets.forEach((t) => t.link.classList.toggle("current", t.section === entry.target));
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    navTargets.forEach((t) => sectionObserver.observe(t.section));
+
+    // Close either dialog from its close button or by clicking the backdrop.
+    [facultyDialog, objectiveDialog].forEach((dialog) => {
+      dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    });
   </script>
 </body>
 </html>

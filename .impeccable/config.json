@@ -1,0 +1,33 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T16:44:15.285Z",
+        "reason": "Agent: .hero-facts > div has padding-right 24px in CSS; source-only scan misses it and live desktop/390px scans report nothing (verified in all three audits)"
+      },
+      {
+        "rule": "line-length",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T17:04:00.549Z",
+        "reason": "User confirmed: prose should fill the content column, in line with the lists below"
+      }
+    ]
+  }
+}
