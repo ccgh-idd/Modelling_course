@@ -409,7 +409,7 @@
       width: 14px;
       height: 14px;
       border: 1px solid var(--kind-edge);
-      border-radius: 4px;
+      border-radius: 0;
       background: var(--kind-tint);
     }
 
@@ -484,7 +484,7 @@
       width: 100%;
       padding: 10px 12px;
       border: 0;
-      border-radius: 4px;
+      border-radius: 0;
       background: var(--kind-tint);
       color: var(--text);
       font: inherit;
@@ -525,18 +525,23 @@
     }
 
     /* Faculty */
+    /* Three across (two on tablets, one on phones) keeps the 18 faculty in even rows */
     .faculty-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
-      gap: 32px 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
+    /* Cards: square corners, a hairline border and no shadow; photo on the left, name and affiliation beside it */
     .faculty-trigger {
-      display: block;
-      align-self: start;
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      column-gap: 14px;
+      align-content: start;
       width: 100%;
-      padding: 0;
-      border: 0;
+      padding: 12px;
+      border: 1px solid var(--rule);
       background: none;
       font: inherit;
       text-align: left;
@@ -545,13 +550,12 @@
     }
 
     .faculty-photo {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1;
+      grid-row: 1 / span 2;
+      width: 72px;
+      height: 72px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 0;
       background: var(--bg-soft);
-      margin-bottom: 10px;
     }
 
     .faculty-name {
@@ -562,6 +566,10 @@
     }
 
     @media (hover: hover) {
+      .faculty-trigger:hover {
+        border-color: var(--primary);
+      }
+
       .faculty-trigger:hover .faculty-name {
         color: var(--secondary-text);
         text-decoration: underline;
@@ -584,7 +592,7 @@
       margin: auto;
       padding: 0;
       border: 1px solid var(--rule);
-      border-radius: 4px;
+      border-radius: 0;
       color: var(--text);
       background: var(--bg);
     }
@@ -611,7 +619,7 @@
       width: 44px;
       height: 44px;
       border: 0;
-      border-radius: 4px;
+      border-radius: 0;
       background: none;
       color: var(--text-light);
       font-size: 1.5rem;
@@ -656,7 +664,9 @@
     }
 
     .faculty-dialog-content .faculty-photo {
+      grid-row: auto;
       width: 120px;
+      height: 120px;
       margin: 0;
     }
 
@@ -764,6 +774,10 @@
 
       table.schedule {
         min-width: 820px;
+      }
+
+      .faculty-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -875,8 +889,8 @@
       }
 
       .faculty-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px 16px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
       }
 
       .faculty-dialog-content {
