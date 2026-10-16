@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <title>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling | Short course, Charité Center for Global Health</title>
-  <meta name="description" content="Two-week short course (3 ECTS) at the Charité Center for Global Health, Berlin, 19–30 April 2027: infectious disease data analytics and mathematical modelling through lectures, hands-on R practicals and group work.">
+  <meta name="description" content="Two-week short course (3 ECTS) at the Charité Center for Global Health, Berlin, 19–30 April 2027: infectious disease data analytics and mathematical modelling through lectures, hands-on practicals and group work.">
   <meta name="keywords" content="infectious disease modelling, mathematical modelling, epidemiology, data analytics, short course, Charité, Center for Global Health, Berlin, MScIH, vaccines, outbreak response">
   <meta name="author" content="Charité Center for Global Health">
   <meta name="robots" content="index, follow">
@@ -282,13 +282,14 @@
       overflow-wrap: anywhere;
     }
 
-    .hero-figure figcaption {
-      margin-top: 12px;
-      font-size: 0.85rem;
-      color: var(--text-light);
+    /* Hero chart: a minimal SIR epidemic, lines labelled directly */
+    /* Chart sits at the bottom of the hero, level with the key facts */
+    .hero-figure {
+      align-self: end;
+      justify-self: end;
+      width: 85%;
     }
 
-    /* Hero chart: a minimal SIR epidemic, lines labelled directly */
     .sir-chart {
       display: block;
       width: 100%;
@@ -525,23 +526,20 @@
     }
 
     /* Faculty */
-    /* Three across (two on tablets, one on phones) keeps the 18 faculty in even rows */
+    /* Portrait grid: square photos with the name beneath; square corners and no shadow,
+       with a Charité-Mineral rule under the photo on hover */
     .faculty-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 28px 16px;
+      align-items: start;
     }
 
-    /* Cards: square corners, a hairline border and no shadow; photo on the left, name and affiliation beside it */
     .faculty-trigger {
-      display: grid;
-      grid-template-columns: 72px minmax(0, 1fr);
-      grid-template-rows: auto 1fr;
-      column-gap: 14px;
-      align-content: start;
+      display: block;
       width: 100%;
-      padding: 12px;
-      border: 1px solid var(--rule);
+      padding: 0;
+      border: 0;
       background: none;
       font: inherit;
       text-align: left;
@@ -549,40 +547,68 @@
       cursor: pointer;
     }
 
-    .faculty-photo {
-      grid-row: 1 / span 2;
-      width: 72px;
-      height: 72px;
-      object-fit: cover;
-      border-radius: 0;
+    .faculty-frame {
+      position: relative;
+      display: block;
+      aspect-ratio: 1;
+      overflow: hidden;
       background: var(--bg-soft);
+    }
+
+    .faculty-frame::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      background: var(--secondary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .faculty-grid .faculty-photo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
     }
 
     .faculty-name {
       display: block;
+      margin-top: 8px;
+      font-size: 0.9rem;
       font-weight: 400;
       line-height: 1.3;
       color: var(--primary);
     }
 
     @media (hover: hover) {
-      .faculty-trigger:hover {
-        border-color: var(--primary);
+      .faculty-trigger:hover .faculty-photo {
+        transform: scale(1.04);
+      }
+
+      .faculty-trigger:hover .faculty-frame::after {
+        transform: scaleX(1);
       }
 
       .faculty-trigger:hover .faculty-name {
         color: var(--secondary-text);
-        text-decoration: underline;
-        text-underline-offset: 3px;
       }
     }
 
-    .faculty-affiliation {
-      display: block;
-      margin-top: 2px;
-      font-size: 0.85rem;
-      line-height: 1.35;
-      color: var(--text-light);
+    .faculty-trigger:focus-visible {
+      outline: 2px solid var(--secondary);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .faculty-grid .faculty-photo,
+      .faculty-frame::after {
+        transition: none;
+      }
     }
 
     /* Dialogs for faculty profiles and session details */
@@ -711,7 +737,7 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr) auto;
+      grid-template-columns: 220px minmax(0, 1fr);
       gap: 48px;
       align-items: start;
     }
@@ -725,18 +751,6 @@
       color: var(--on-primary);
       font-weight: 400;
       margin-bottom: 4px;
-    }
-
-    /* 44px tall touch targets; the negative margin keeps the first link level with the title */
-    .footer-links {
-      list-style: none;
-      margin-top: -10px;
-    }
-
-    .footer-links a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
     }
 
     /* Tablet */
@@ -777,7 +791,7 @@
       }
 
       .faculty-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
 
@@ -809,11 +823,6 @@
 
       .lead {
         font-size: 1.125rem;
-      }
-
-      /* The email address needs the full width to stay on one line */
-      .hero-facts .fact-apply {
-        grid-column: 1 / -1;
       }
 
       .table-wrap {
@@ -889,8 +898,8 @@
       }
 
       .faculty-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px 10px;
       }
 
       .faculty-dialog-content {
@@ -927,7 +936,7 @@
       <div class="hero-text">
         <h1>Infectious Disease Dynamics: Data Analytics and Mathematical Modelling</h1>
         <p class="hero-subtitle">Two-week short course</p>
-        <p class="lead">Lectures, hands-on R practicals and group work for epidemiologists, health professionals and
+        <p class="lead">Lectures, hands-on practicals and group work for epidemiologists, health professionals and
           data scientists.</p>
         <dl class="hero-facts">
           <div>
@@ -938,20 +947,11 @@
             <dt>Credits</dt>
             <dd>3 ECTS</dd>
           </div>
-          <div>
-            <dt>Location</dt>
-            <dd>Charité, Berlin</dd>
-          </div>
-          <div class="fact-apply">
-            <dt>Apply</dt>
-            <dd><a href="mailto:stefan.flasche@charite.de?subject=Short%20course%20application">stefan.flasche@charite.de</a></dd>
-          </div>
         </dl>
       </div>
       <figure class="hero-figure">
-        <svg class="sir-chart" id="sir-chart" viewBox="0 0 520 320" role="img" aria-describedby="sir-caption"
+        <svg class="sir-chart" id="sir-chart" viewBox="0 0 520 320" role="img"
           aria-label="Curves of a simple SIR epidemic: the susceptible share falls, infections rise to a peak and fall, and the recovered share rises."></svg>
-        <figcaption id="sir-caption">A simple SIR epidemic model.</figcaption>
       </figure>
     </div>
   </section>
@@ -1012,11 +1012,6 @@
         <p class="footer-title">Infectious Disease Dynamics short course</p>
         <p>Organised by the <a href="https://ccgh-idd.de/" target="_blank" rel="noopener">Infectious Disease Dynamics group</a> at the Charité Center for Global Health, Berlin</p>
       </div>
-      <ul class="footer-links">
-        <li><a href="#timetable">Timetable</a></li>
-        <li><a href="#faculty">Faculty</a></li>
-        <li><a href="https://globalhealth.charite.de/en/" target="_blank" rel="noopener">CCGH</a></li>
-      </ul>
     </div>
   </footer>
 
@@ -1039,9 +1034,8 @@
       const photo = member.photoUrl ? `<img class="faculty-photo" src="${member.photoUrl}" alt="" width="360" height="360" loading="lazy" decoding="async">` : "";
       return `
         <button class="faculty-trigger" type="button" data-faculty-index="${index}" aria-label="Open profile for ${member.name}">
-          ${photo}
+          <span class="faculty-frame">${photo}</span>
           <span class="faculty-name">${member.name}</span>
-          <span class="faculty-affiliation">${member.affiliation}</span>
         </button>
       `;
     }).join("");
@@ -1226,8 +1220,6 @@
         <text class="curve-label label-i" x="${x(peak.t) - 30}" y="${y(peak.I) - 6}" text-anchor="end">Infected</text>
       `;
 
-      document.getElementById("sir-caption").textContent =
-        `A simple SIR epidemic: R₀ = ${R0}, infections last ${recoveryDays} days on average and peak at ${Math.round(peak.I * 100)}% of the population.`;
     })();
 
     // Mark the nav link of the section currently on screen.
