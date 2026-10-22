@@ -878,16 +878,6 @@
         color: var(--text-light);
       }
 
-      /* The type moves to the time line above, so screen readers keep this copy only */
-      .tile-kind {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip-path: inset(50%);
-        white-space: nowrap;
-      }
-
       /* Chart text at about 12px on screen, as the chart scales down with the page */
       .sir-chart .axis-label {
         font-size: 17px;
@@ -1015,7 +1005,7 @@
     </div>
   </footer>
 
-  <script src="course-data.js?v=2026-10-22a"></script>
+  <script src="course-data.js?v=2026-10-22c"></script>
   <script src="faculty-data.js?v=2026-10-15e"></script>
   <script>
     const { sessions, year, dates, weekSections, schedule } = window.courseData;
@@ -1074,8 +1064,7 @@
     const sessionTimes = ["09:00–10:00", "10:30–12:00", "13:00–14:00", "14:30–16:00"];
 
     // Render one timetable cell by looking up the relevant session index in the schedule.
-    // The session type is written twice: in the time line (shown on phones, hidden from screen
-    // readers) and before the speaker (shown on wider screens, always read by screen readers).
+    // The tile colour shows the session type; the type is also given to screen readers only.
     // Titles that already name the type ("Practical", "Group work I") skip it to avoid repetition.
     function scheduleCell(sessionIndex, slotIndex) {
       const session = sessions[sessionIndex];
@@ -1083,9 +1072,8 @@
       const speaker = session.speaker || "tbc";
       const label = kindLabels[kind];
       const titleNamesType = session.title.toLowerCase().startsWith(label.toLowerCase());
-      const whenType = titleNamesType ? "" : `<span aria-hidden="true"> · ${label}</span>`;
-      const speakerType = titleNamesType ? "" : `<span class="tile-kind">${label} · </span>`;
-      return `<td><button class="tile kind-${kind}" type="button" data-objective-index="${sessionIndex}"><span class="tile-when">${sessionTimes[slotIndex]}${whenType}</span><span class="tile-title">${session.title}</span><span class="tile-speaker">${speakerType}${speaker}</span></button></td>`;
+      const speakerType = titleNamesType ? "" : `<span class="visually-hidden">${label} · </span>`;
+      return `<td><button class="tile kind-${kind}" type="button" data-objective-index="${sessionIndex}"><span class="tile-when">${sessionTimes[slotIndex]}</span><span class="tile-title">${session.title}</span><span class="tile-speaker">${speakerType}${speaker}</span></button></td>`;
     }
 
     // Each day row gets an id such as "day-19-april", used by the "Today's sessions" link.
